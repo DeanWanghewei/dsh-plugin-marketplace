@@ -94,6 +94,11 @@ export function registerRegistryCommand(program: Command): void {
       if (context.config.registries.length === before) {
         throw new Error(`registry '${name}' not found`)
       }
+      // Record the removal so config migration never re-adds a default source
+      // the user chose to drop.
+      context.config.removedDefaults = [
+        ...new Set([...(context.config.removedDefaults ?? []), name]),
+      ]
       saveConfig(context.runner, context.paths, context.config)
       console.log(pc.green(`removed registry '${name}'`))
     })

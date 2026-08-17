@@ -15,6 +15,10 @@ export {
   type DshmPaths,
 } from './paths.js'
 export {
+  CURATED_REGISTRY_NAME,
+  CURATED_REGISTRY_URL,
+  curatedRegistryRef,
+  curatedRegistryUrl,
   defaultConfig,
   defaultRegistries,
   loadConfig,

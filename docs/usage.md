@@ -160,6 +160,14 @@ dshm registry remove tap
 
 git 来源的行为：首次 clone 到 `~/.dshm/cache/git/<name>/`，之后按 TTL（5 分钟）增量 fetch；**同步失败时自动回退到本地已有克隆**（离线/服务不可达仍可用该源）。私有仓库与插件安装共用同一套凭证（ssh 走本机密钥；https 配 `~/.dshm/config.yaml` 的 `gitTokens.<host>`，token 永不落 registry 配置或输出）。`--ref` 建议固定 commit/tag 防漂移；monorepo 用 `--subpath` 指定文档路径。
 
+**精选默认源（curated）**：dshm 出厂默认挂载维护者的精选仓库（`curated`，即③型 git 来源，指向 [dsh-plugin-registry](https://github.com/DeanWanghewei/dsh-plugin-registry) 的根目录 registry.yaml）。新装用户开箱即有；旧版本升级后首次运行会自动追加进配置。不想要：
+
+```sh
+dshm registry remove curated    # 显式移除后，配置迁移不会再把它加回来
+```
+
+环境变量 `DSHM_CURATED_URL` 可覆盖地址（设为 `none` 完全禁用），用于测试或替换为你信任的镜像。
+
 ## 4. 状态与文件位置
 
 | 位置                                           | 内容                                                                                                                                     |
