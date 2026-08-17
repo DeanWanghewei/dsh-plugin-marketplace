@@ -38,9 +38,11 @@ export {
   dumpConfig,
   dshPlugin,
   parseAllowBuildsKeys,
+  readInstalledPackageManifest,
   readProfileManifest,
   writeAllowBuilds,
   type DshEnvironment,
+  type InstalledPackageManifest,
   type ProfileManifest,
 } from './dsh.js'
 export {

@@ -4,6 +4,7 @@ import {
   detectEnvironment,
   dshPlugin,
   parseAllowBuildsKeys,
+  readInstalledPackageManifest,
   readProfileManifest,
   writeAllowBuilds,
 } from './dsh.js'
@@ -172,11 +173,28 @@ async function commitPnpmInstall(
   warnings: string[],
 ): Promise<InstallOutcome> {
   const { runner, env, paths } = deps
-  const manifest = readProfileManifest(runner, profileDir(resolveDshHome(env), options.profile))
+  const profileDirectory = profileDir(resolveDshHome(env), options.profile)
+  const manifest = readProfileManifest(runner, profileDirectory)
   const packageName =
     Object.keys(manifest.dependencies ?? {}).find(
       (name) => name === packageNameHint || name === basename(packageNameHint),
     ) ?? packageNameHint
+  // A package declaring `dsh.bundle` already joined the layer stack through
+  // `dsh plugin`'s reconcile. Bundle-less packages (older npm releases) stay
+  // inert plain dependencies, so dshm activates them with an explicit
+  // profile-patch row naming the installed package.
+  let managed: StoreRecord['managed']
+  const installed = readInstalledPackageManifest(runner, profileDirectory, packageName)
+  if (installed !== undefined && installed.dsh?.bundle === undefined) {
+    const patchPath = join(profileDirectory, PATCH_FILE)
+    const current = runner.readTextFile(patchPath) ?? '[]\n'
+    runner.writeTextFile(
+      patchPath,
+      ensureBlock(current, resolved.entry.id, managedRowBody(resolved.entry.id, packageName)),
+    )
+    managed = { rowId: resolved.entry.id, entryRelPath: '' }
+    warnings.push(`${packageName} declares no dsh bundle patch; activated via a profile-patch row`)
+  }
   const record: StoreRecord = {
     pluginId: resolved.qualifiedId,
     registry: resolved.registry,
@@ -185,6 +203,7 @@ async function commitPnpmInstall(
     strategy: 'pnpm',
     version: { spec, version: manifest.dependencies?.[packageName] },
     packageName,
+    managed,
   }
   saveStore(runner, paths, addInstalled(loadStore(runner, paths), options.profile, record))
   return { status: 'installed', record, warnings, hints: installHints(options.profile) }
@@ -282,21 +301,25 @@ export async function uninstallPlugin(
   if (!record) return { status: 'not-installed' }
 
   const hints: string[] = []
-  if (record.strategy === 'pnpm' && record.packageName) {
-    const result = await dshPlugin(runner, profile, ['remove', '-w', record.packageName])
-    if (!result.ok) {
-      hints.push(`\`dsh plugin remove ${record.packageName}\` failed; store entry cleared anyway`)
-    }
-  }
-  if (record.strategy === 'managed-row' && record.managed) {
+  // Drop the activation row first: a running dsh hot-reloads the patch file,
+  // and the row would reference a package that is about to disappear.
+  if (record.managed) {
     const directory = profileDir(resolveDshHome(env), profile)
     const patchPath = join(directory, PATCH_FILE)
     const current = runner.readTextFile(patchPath)
     if (current !== undefined) {
       runner.writeTextFile(patchPath, removeBlock(current, record.managed.rowId))
     }
-    // Remove the whole managed plugin directory (dshm/<id>), not just the entry file.
-    runner.rm(join(directory, dirname(record.managed.entryRelPath)))
+    if (record.strategy === 'managed-row') {
+      // Remove the whole managed plugin directory (dshm/<id>), not just the entry file.
+      runner.rm(join(directory, dirname(record.managed.entryRelPath)))
+    }
+  }
+  if (record.strategy === 'pnpm' && record.packageName) {
+    const result = await dshPlugin(runner, profile, ['remove', '-w', record.packageName])
+    if (!result.ok) {
+      hints.push(`\`dsh plugin remove ${record.packageName}\` failed; store entry cleared anyway`)
+    }
   }
   saveStore(runner, paths, removeInstalled(loadStore(runner, paths), profile, record.pluginId))
   return {

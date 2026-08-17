@@ -1,21 +1,29 @@
-# dshm 使用指南（快速接入)
+# dshm 使用指南（快速接入）
 
 面向使用者的任务导向手册：拷贝命令即可跑。架构与设计依据见 [architecture.md](architecture.md)，registry 数据格式见 [registry-schema.md](registry-schema.md)。
 
-## 0. 一次性准备
+## 0. 安装
+
+**方式一：npm 安装（推荐，一条命令）**
 
 ```sh
-cd /path/to/dsh-plugin-marketplace
-pnpm install
-pnpm build          # 产出 packages/*/lib，运行 CLI 前 必须 构建一次
+npm i -g dshm     # 或先零安装试用：npx dshm doctor
+dshm doctor
 ```
 
-三种调用方式任选：
+> npm 包名为 `dshm`（`dsh-plugin-marketplace` 在 npm 已被他人占用）；GitHub 仓库仍叫 [dsh-plugin-marketplace](https://github.com/DeanWanghewei/dsh-plugin-marketplace)。
+
+**方式二：从源码（本仓库开发）**
 
 ```sh
-pnpm dshm <命令>                          # ① 仓库内别名（tsx 直跑源码）
-node packages/cli/lib/bin.js <命令>       # ② 直接跑构建产物
-cd packages/cli && pnpm link --global     # ③ 挂全局，之后任意目录直接敲 dshm（推荐长期使用）
+pnpm install && pnpm build
+pnpm dshm <命令>
+```
+
+源码方式默认 registry 是包内 npm 源（与发包版一致）；若想直接安装本地 harness checkout 里的包，挂上 path 源：
+
+```sh
+dshm registry add local --file registry/default/registry.yaml
 ```
 
 前置依赖：本机 `dsh` 与 `pnpm` 在 PATH 上（只搜索/浏览不需要，安装需要）。第一条命令永远是体检：
@@ -28,7 +36,7 @@ dshm doctor
 
 ```sh
 dshm doctor                                  # 1. 环境体检
-dshm search cordis                           # 2. 搜插件（本仓库自带 225 条种子）
+dshm search cordis                           # 2. 搜插件（内置 registry 收录 219 个官方包）
 dshm info tool-cordis                        # 3. 看详情（来源/分类/是否已装）
 dshm install tool-cordis --profile web       # 4. 装进 web profile
 dsh --profile web --dump-config | grep -A2 cordis   # 5. 不启动干跑验证

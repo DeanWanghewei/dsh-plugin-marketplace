@@ -58,7 +58,7 @@ describe('installer — managed-row strategy (single-file path source)', () => {
     expect(copied).toContain('apply')
     const patch = runner.readTextFile(join(profile, 'cordis.patch.yml'))!
     expect(patch).toContain('# >>> dshm:hello')
-    expect(patch).toContain('name: ./dshm/hello/index.ts')
+    expect(patch).toContain('name: "./dshm/hello/index.ts"')
     const store = loadStore(runner, dshmPaths(env.dshmHome))
     expect(store.profiles['demo']?.plugins[0]?.strategy).toBe('managed-row')
   })
@@ -130,7 +130,52 @@ describe('installer — pnpm strategy (npm source via fake dsh)', () => {
     if (outcome.status === 'installed') {
       expect(outcome.record.packageName).toBe('hello-pkg')
       expect(outcome.record.version.version).toBe('1.0.0')
+      // No dsh.bundle declaration in the installed manifest → no activation row.
+      expect(outcome.record.managed).toBeUndefined()
     }
+  })
+
+  it('activates bundle-less packages with a profile-patch row', async () => {
+    const { env, runner, deps } = setup()
+    runner.on(
+      (command, args) => command === 'dsh' && args[0] === 'plugin' && args[3] === 'add',
+      () => {
+        const profile = profileDir(env.dshHome, 'demo')
+        runner.writeTextFile(
+          join(profile, 'package.json'),
+          JSON.stringify({ dependencies: { 'hello-pkg': '1.0.0' } }),
+        )
+        // Old-style package on npm: no `dsh.bundle` declaration.
+        runner.writeTextFile(
+          join(profile, 'node_modules/hello-pkg/package.json'),
+          JSON.stringify({ name: 'hello-pkg', version: '1.0.0' }),
+        )
+        return { ok: true, stdout: 'Packages: +1\n', stderr: '' }
+      },
+    )
+    const plugin: ResolvedPlugin = {
+      registry: 'default',
+      qualifiedId: 'default:hello',
+      entry: {
+        id: 'hello',
+        name: 'hello',
+        description: '',
+        categories: [],
+        tags: [],
+        verified: true,
+        source: { type: 'npm', package: 'hello-pkg' },
+      },
+    }
+    const outcome = await installPlugin(deps(), plugin, { profile: 'demo' })
+    expect(outcome.status).toBe('installed')
+    const profile = profileDir(env.dshHome, 'demo')
+    const patch = runner.readTextFile(join(profile, 'cordis.patch.yml'))!
+    expect(patch).toContain('# >>> dshm:hello')
+    expect(patch).toContain('name: "hello-pkg"')
+    // Uninstall drops both the row and the dependency record.
+    const removed = await uninstallPlugin(deps(), 'default:hello', 'demo')
+    expect(removed.status).toBe('uninstalled')
+    expect(runner.readTextFile(join(profile, 'cordis.patch.yml'))).not.toContain('dshm:hello')
   })
 
   it('surfaces allowBuilds refusals for an explicit decision', async () => {

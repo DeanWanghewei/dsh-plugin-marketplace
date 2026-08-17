@@ -112,3 +112,24 @@ export function readProfileManifest(runner: Runner, profileDirectory: string): P
     return {}
   }
 }
+
+/** Manifest of a dependency as installed under the profile's node_modules. */
+export interface InstalledPackageManifest {
+  dsh?: { bundle?: unknown }
+}
+
+export function readInstalledPackageManifest(
+  runner: Runner,
+  profileDirectory: string,
+  packageName: string,
+): InstalledPackageManifest | undefined {
+  const raw = runner.readTextFile(
+    join(profileDirectory, 'node_modules', packageName, 'package.json'),
+  )
+  if (raw === undefined) return undefined
+  try {
+    return JSON.parse(raw) as InstalledPackageManifest
+  } catch {
+    return undefined
+  }
+}

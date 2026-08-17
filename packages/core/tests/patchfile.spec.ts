@@ -8,7 +8,7 @@ describe('patchfile managed blocks', () => {
     const next = ensureBlock(userContent, 'hello', managedRowBody('hello', './dshm/hello/index.ts'))
     expect(next.startsWith(userContent.replace(/\n$/, '') + '\n')).toBe(true)
     expect(next).toContain('# >>> dshm:hello')
-    expect(next).toContain('name: ./dshm/hello/index.ts')
+    expect(next).toContain('name: "./dshm/hello/index.ts"')
     expect(next.endsWith('\n')).toBe(true)
   })
 

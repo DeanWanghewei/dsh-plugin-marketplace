@@ -6,15 +6,23 @@ deepseek-harness（DSH）的插件市场：搜索、分类、安装、卸载插�
 
 ## 快速开始
 
+npm 包名为 `dshm`（`dsh-plugin-marketplace` 在 npm 已被占用；首次 `npm publish` 前请先用源码方式）：
+
 ```sh
-pnpm install
-pnpm build
-node packages/cli/lib/bin.js doctor        # 检查 dsh / pnpm / $DSH_HOME / registry
-node packages/cli/lib/bin.js search cordis
-node packages/cli/lib/bin.js categories
-node packages/cli/lib/bin.js info tool-cordis
-node packages/cli/lib/bin.js install tool-cordis --profile web
-node packages/cli/lib/bin.js uninstall tool-cordis --profile web
+npm i -g dshm          # 发包后
+dshm doctor
+dshm search cordis
+dshm install tool-cordis --profile web
+```
+
+源码方式：
+
+```sh
+pnpm install && pnpm build
+pnpm dshm doctor        # 检查 dsh / pnpm / $DSH_HOME / registry
+pnpm dshm search cordis
+pnpm dshm install tool-cordis --profile web
+pnpm dshm uninstall tool-cordis --profile web
 ```
 
 开发期别名：`pnpm dshm <命令>`（tsx 直跑源码）。

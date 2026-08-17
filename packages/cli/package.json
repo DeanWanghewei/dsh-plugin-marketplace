@@ -1,24 +1,39 @@
 {
-  "name": "@dshm/cli",
+  "name": "dshm",
   "version": "0.1.0",
   "type": "module",
-  "description": "dshm — install, uninstall, search, and categorize deepseek-harness plugins",
+  "description": "dshm — plugin marketplace for deepseek-harness: search, install, uninstall, and categorize plugins",
   "bin": {
     "dshm": "./lib/bin.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "registry"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeanWanghewei/dsh-plugin-marketplace.git"
+  },
+  "homepage": "https://github.com/DeanWanghewei/dsh-plugin-marketplace#readme",
+  "bugs": {
+    "url": "https://github.com/DeanWanghewei/dsh-plugin-marketplace/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsup",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm -w verify"
   },
   "dependencies": {
-    "@dshm/core": "workspace:*",
     "commander": "^12.1.0",
-    "picocolors": "^1.1.1"
+    "picocolors": "^1.1.1",
+    "yaml": "^2.6.0"
   },
   "devDependencies": {
+    "@dshm/core": "workspace:*",
     "@types/node": "^22.10.0",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0"

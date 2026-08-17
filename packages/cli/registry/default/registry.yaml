@@ -55,8 +55,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/acp/acp
+      type: npm
+      package: '@deepseek-ai/dsh-acp'
   - id: acp-demo
     name: '@deepseek-ai/dsh-acp-demo'
     description: 'ACP automation server app: agent spine + JSONL persistence + ACP
@@ -69,8 +69,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/examples/acp-demo
+      type: npm
+      package: '@deepseek-ai/dsh-acp-demo'
   - id: acp-snapshot
     name: '@deepseek-ai/dsh-acp-snapshot'
     description: 'ACP test kit: shared subprocess launcher, snapshot scenario
@@ -83,8 +83,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/test-support/acp-snapshot
+      type: npm
+      package: '@deepseek-ai/dsh-acp-snapshot'
   - id: agent
     name: '@deepseek-ai/dsh-agent'
     description: Agent interface, registry, initiator scope, and event vocabulary
@@ -97,8 +97,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/agent
+      type: npm
+      package: '@deepseek-ai/dsh-agent'
   - id: agent-default-model
     name: '@deepseek-ai/dsh-agent-default-model'
     description: Default model selection shared by Agent entry points
@@ -110,8 +110,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/agent-default-model
+      type: npm
+      package: '@deepseek-ai/dsh-agent-default-model'
   - id: agent-instructions
     name: '@deepseek-ai/dsh-agent-instructions'
     description: Workspace context loader for AGENTS.md/CLAUDE.md instruction files
@@ -123,8 +123,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/context/agent-instructions
+      type: npm
+      package: '@deepseek-ai/dsh-agent-instructions'
   - id: agent-loop
     name: '@deepseek-ai/dsh-agent-loop'
     description: The concrete agent loop plugin for the DeepSeek Harness
@@ -136,8 +136,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/agent-loop
+      type: npm
+      package: '@deepseek-ai/dsh-agent-loop'
   - id: agent-loop-testkit
     name: '@deepseek-ai/dsh-agent-loop-testkit'
     description: Shared prerequisite mounting for tests that exercise the concrete
@@ -150,8 +150,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/test-support/agent-loop-testkit
+      type: npm
+      package: '@deepseek-ai/dsh-agent-loop-testkit'
   - id: agent-presets
     name: '@deepseek-ai/dsh-agent-presets'
     description: Per-session agent composition from preset cordis.yml files for the
@@ -164,8 +164,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/preset/agent-presets
+      type: npm
+      package: '@deepseek-ai/dsh-agent-presets'
   - id: agent-spine-demo
     name: '@deepseek-ai/dsh-agent-spine-demo'
     description: The default executor-less/UI-less agent spine with fallback session
@@ -178,8 +178,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/examples/agent-spine-demo
+      type: npm
+      package: '@deepseek-ai/dsh-agent-spine-demo'
   - id: agent-tool-presentation
     name: '@deepseek-ai/dsh-agent-tool-presentation'
     description: "Agent-plane presentation selector: composes one agent's tools as
@@ -192,8 +192,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/agent-tool-presentation
+      type: npm
+      package: '@deepseek-ai/dsh-agent-tool-presentation'
   - id: anonymous-user-id
     name: '@deepseek-ai/dsh-anonymous-user-id'
     description: Shared anonymous user identity for DeepSeek Harness telemetry and
@@ -206,8 +206,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/identity/anonymous-user-id
+      type: npm
+      package: '@deepseek-ai/dsh-anonymous-user-id'
   - id: api-gateway
     name: '@deepseek-ai/dsh-api-gateway'
     description: Typert Remote Host dispatcher and Client API endpoint
@@ -219,8 +219,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/api/gateway
+      type: npm
+      package: '@deepseek-ai/dsh-api-gateway'
   - id: api-remotes
     name: '@deepseek-ai/dsh-api-remotes'
     description: Remote BFF assembly and Host Agent/Session lookup policy
@@ -232,8 +232,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/api/remotes
+      type: npm
+      package: '@deepseek-ai/dsh-api-remotes'
   - id: app-boot
     name: '@deepseek-ai/dsh-app-boot'
     description: 'Shared boot glue for the app bins: .env loading, fail-loud Loader
@@ -246,8 +246,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/boot/app-boot
+      type: npm
+      package: '@deepseek-ai/dsh-app-boot'
   - id: atomic-write
     name: '@deepseek-ai/dsh-atomic-write'
     description: 'Zero-dependency atomic file replacement: exclusive-create
@@ -261,8 +261,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/atomic-write
+      type: npm
+      package: '@deepseek-ai/dsh-atomic-write'
   - id: attachment
     name: '@deepseek-ai/dsh-attachment'
     description: Durable immutable attachment storage seam for the DeepSeek Harness
@@ -274,8 +274,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/attachment/attachment
+      type: npm
+      package: '@deepseek-ai/dsh-attachment'
   - id: attachment-local
     name: '@deepseek-ai/dsh-attachment-local'
     description: Private content-addressed DSH_HOME attachment storage
@@ -287,8 +287,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/attachment/attachment-local
+      type: npm
+      package: '@deepseek-ai/dsh-attachment-local'
   - id: base
     name: '@deepseek-ai/dsh-base'
     description: "The shared dsh core as a profile bundle: every profile's first
@@ -302,8 +302,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/bundle/base
+      type: npm
+      package: '@deepseek-ai/dsh-base'
   - id: bash-local
     name: '@deepseek-ai/dsh-bash-local'
     description: Local-subprocess implementation of the DeepSeek Harness bash executor seam
@@ -315,8 +315,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/bash-local
+      type: npm
+      package: '@deepseek-ai/dsh-bash-local'
   - id: bash-sandbox
     name: '@deepseek-ai/dsh-bash-sandbox'
     description: Sandbox-consuming implementation of the DeepSeek Harness bash
@@ -330,8 +330,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/bash-sandbox
+      type: npm
+      package: '@deepseek-ai/dsh-bash-sandbox'
   - id: brand
     name: '@deepseek-ai/dsh-brand'
     description: Type-only Branded<B> nominal-typing primitive for the DeepSeek Harness
@@ -343,8 +343,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/brand
+      type: npm
+      package: '@deepseek-ai/dsh-brand'
   - id: client-connection
     name: '@deepseek-ai/dsh-client-connection'
     description: 'Wire consumer layer: HTTP-up/WebSocket-down client,
@@ -358,8 +358,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/connection
+      type: npm
+      package: '@deepseek-ai/dsh-client-connection'
   - id: client-hmr
     name: '@deepseek-ai/dsh-client-hmr'
     description: 'Dev-only hot-reload driver for script-loaded client entries: SSE
@@ -373,8 +373,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/hmr
+      type: npm
+      package: '@deepseek-ai/dsh-client-hmr'
   - id: client-locale
     name: '@deepseek-ai/dsh-client-locale'
     description: 'Locale plugin: Host-backed zh/en preference, browser-derived
@@ -387,8 +387,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/locale
+      type: npm
+      package: '@deepseek-ai/dsh-client-locale'
   - id: client-modules
     name: '@deepseek-ai/dsh-client-modules'
     description: 'Client module system, dual-face: node half composes the
@@ -403,8 +403,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/modules
+      type: npm
+      package: '@deepseek-ai/dsh-client-modules'
   - id: client-runtime
     name: '@deepseek-ai/dsh-client-runtime'
     description: 'Client core services: SlotRegistry, SessionRuntime (scope tree +
@@ -418,8 +418,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/runtime
+      type: npm
+      package: '@deepseek-ai/dsh-client-runtime'
   - id: client-schema-form
     name: '@deepseek-ai/dsh-client-schema-form'
     description: 'Schema/draft model layer for settings editors: rehydrates a
@@ -433,8 +433,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/schema-form
+      type: npm
+      package: '@deepseek-ai/dsh-client-schema-form'
   - id: client-test-runtime
     name: '@deepseek-ai/dsh-client-test-runtime'
     description: 'jsdom slot test runtime: real Cordis Context + SlotRegistry +
@@ -448,8 +448,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/test-support/client-runtime
+      type: npm
+      package: '@deepseek-ai/dsh-client-test-runtime'
   - id: client-ui-agent-preset
     name: '@deepseek-ai/dsh-client-ui-agent-preset'
     description: "Agent-preset surfaces: the default for later sessions, this
@@ -462,8 +462,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-agent-preset
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-agent-preset'
   - id: client-ui-attachment
     name: '@deepseek-ai/dsh-client-ui-attachment'
     description: 'Pure React attachment atoms for the dsh web UI: draft-image rail,
@@ -476,8 +476,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-attachment
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-attachment'
   - id: client-ui-commands
     name: '@deepseek-ai/dsh-client-ui-commands'
     description: "Client command surface: global directory cache, '/' source, three
@@ -490,8 +490,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-commands
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-commands'
   - id: client-ui-conversation
     name: '@deepseek-ai/dsh-client-ui-conversation'
     description: 'Conversation domain: skeleton, ordered chat flow, composer with
@@ -504,8 +504,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-conversation
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-conversation'
   - id: client-ui-cordis
     name: '@deepseek-ai/dsh-client-ui-cordis'
     description: 'Cordis dynamic-plugin definition card: the keyed cordis_define
@@ -519,8 +519,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/extensions/ui-cordis
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-cordis'
   - id: client-ui-deliverables
     name: '@deepseek-ai/dsh-client-ui-deliverables'
     description: Produced-files turn tail and clickable final-response file
@@ -533,8 +533,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-deliverables
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-deliverables'
   - id: client-ui-directory-picker-browse
     name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
     description: "In-app directory browsing surface: the workspace directory-flow
@@ -547,8 +547,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-directory-picker-browse
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
   - id: client-ui-directory-picker-native
     name: '@deepseek-ai/dsh-client-ui-directory-picker-native'
     description: "Native directory-picker surface: the renderless workspace
@@ -561,8 +561,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-directory-picker-native
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-directory-picker-native'
   - id: client-ui-goal
     name: '@deepseek-ai/dsh-client-ui-goal'
     description: 'Session goal surface: GoalBar docked above the composer, read from
@@ -575,8 +575,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-goal
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-goal'
   - id: client-ui-input-trigger
     name: '@deepseek-ai/dsh-client-ui-input-trigger'
     description: "Input trigger pipeline: '/' and '@' detection, candidate menu,
@@ -589,8 +589,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-input-trigger
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-input-trigger'
   - id: client-ui-jobs
     name: '@deepseek-ai/dsh-client-ui-jobs'
     description: 'Session-header background-job list: live registry state mirrored
@@ -603,8 +603,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-jobs
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-jobs'
   - id: client-ui-layout
     name: '@deepseek-ai/dsh-client-ui-layout'
     description: 'Shell plugin: three-column AppFrame with drag handles, ctx.layout
@@ -617,8 +617,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-layout
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-layout'
   - id: client-ui-message-feedback
     name: '@deepseek-ai/dsh-client-ui-message-feedback'
     description: Per-message feedback controls contributed to the assistant-message
@@ -631,8 +631,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-message-feedback
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-message-feedback'
   - id: client-ui-model-selection
     name: '@deepseek-ai/dsh-client-ui-model-selection'
     description: 'Model selection: the /model popupSelect over session.models /
@@ -645,8 +645,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-model-selection
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-model-selection'
   - id: client-ui-permission-presets
     name: '@deepseek-ai/dsh-client-ui-permission-presets'
     description: 'Permission surfaces: a new-session default in General settings and
@@ -659,8 +659,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-permission-presets
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-permission-presets'
   - id: client-ui-plan
     name: '@deepseek-ai/dsh-client-ui-plan'
     description: 'Plan-mode composer control: the conversation.input.plan seat over
@@ -673,8 +673,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-plan
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-plan'
   - id: client-ui-primitives
     name: '@deepseek-ai/dsh-client-ui-primitives'
     description: 'Pure React atoms for the dsh web UI: controls, icons, markdown,
@@ -687,8 +687,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-primitives
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-primitives'
   - id: client-ui-settings
     name: '@deepseek-ai/dsh-client-ui-settings'
     description: 'Settings domain base plugin: the settings-namespace scope service
@@ -701,8 +701,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-settings
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-settings'
   - id: client-ui-settings-general
     name: '@deepseek-ai/dsh-client-ui-settings-general'
     description: 'Settings ownerless-copy and product onboarding plugin: the General
@@ -716,8 +716,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-settings-general
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-settings-general'
   - id: client-ui-settings-models
     name: '@deepseek-ai/dsh-client-ui-settings-models'
     description: Models settings and shared product-onboarding dialogs over existing
@@ -730,8 +730,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-settings-models
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-settings-models'
   - id: client-ui-settings-plugin-inventory
     name: '@deepseek-ai/dsh-client-ui-settings-plugin-inventory'
     description: Read-only Cordis Loader inventory tab in Web Plugins settings
@@ -743,8 +743,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-settings-plugin-inventory
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-settings-plugin-inventory'
   - id: client-ui-settings-plugins
     name: '@deepseek-ai/dsh-client-ui-settings-plugins'
     description: Plugins settings section with feature-owned tabs and configurable
@@ -757,8 +757,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-settings-plugins
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-settings-plugins'
   - id: client-ui-sidebar
     name: '@deepseek-ai/dsh-client-ui-sidebar'
     description: 'Sidebar plugin: session multi-level tree, search, grouping, state dots'
@@ -770,8 +770,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-sidebar
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-sidebar'
   - id: client-ui-skill
     name: '@deepseek-ai/dsh-client-ui-skill'
     description: Web skill references and the dedicated skill tool row
@@ -783,8 +783,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-skill
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-skill'
   - id: client-ui-slots
     name: '@deepseek-ai/dsh-client-ui-slots'
     description: 'Slot registry pure core: SlotMap declaration merging, single
@@ -798,8 +798,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-slots
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-slots'
   - id: client-ui-subagent
     name: '@deepseek-ai/dsh-client-ui-subagent'
     description: Subagent conversation catalog, continuation routing UI, and '@'
@@ -812,8 +812,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-subagent
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-subagent'
   - id: client-ui-theme
     name: '@deepseek-ai/dsh-client-ui-theme'
     description: 'Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free
@@ -827,8 +827,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-theme
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-theme'
   - id: client-ui-tool
     name: '@deepseek-ai/dsh-client-ui-tool'
     description: Client Tool call-tree renderer and keyed per-tool presentation slot
@@ -840,8 +840,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-tool
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-tool'
   - id: client-ui-trajectory
     name: '@deepseek-ai/dsh-client-ui-trajectory'
     description: 'Trajectory event ledger with an interactive timing overview:
@@ -855,8 +855,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-trajectory
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-trajectory'
   - id: client-ui-user-questions
     name: '@deepseek-ai/dsh-client-ui-user-questions'
     description: 'Web ask_user_question feature: host tool mount plus
@@ -869,8 +869,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-user-questions
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-user-questions'
   - id: client-ui-workflow-run
     name: '@deepseek-ai/dsh-client-ui-workflow-run'
     description: Durable workflow-run Conversation Node and nested member disclosure
@@ -883,8 +883,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-workflow-run
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-workflow-run'
   - id: client-ui-workspace
     name: '@deepseek-ai/dsh-client-ui-workspace'
     description: 'Workspace picker plugin: one WorkspacePicker registered into the
@@ -897,8 +897,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/ui-workspace
+      type: npm
+      package: '@deepseek-ai/dsh-client-ui-workspace'
   - id: client-web
     name: '@deepseek-ai/dsh-client-web'
     description: 'Web shell kernel: bootWebShell (module system holding + seed table
@@ -912,8 +912,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/web
+      type: npm
+      package: '@deepseek-ai/dsh-client-web'
   - id: client-web-react
     name: '@deepseek-ai/dsh-client-web-react'
     description: 'Shell-side React glue: createSlotRenderer, SessionProvider,
@@ -926,8 +926,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/client/web-react
+      type: npm
+      package: '@deepseek-ai/dsh-client-web-react'
   - id: cmdline
     name: '@deepseek-ai/dsh-cmdline'
     description: Immutable command-line handoff from a dsh launcher to any app
@@ -940,8 +940,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/boot/cmdline
+      type: npm
+      package: '@deepseek-ai/dsh-cmdline'
   - id: code-runtime
     name: '@deepseek-ai/dsh-code-runtime'
     description: Abstract code-execution seam (ctx.codeRuntime) for the DeepSeek Harness
@@ -953,8 +953,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/code-runtime/code-runtime
+      type: npm
+      package: '@deepseek-ai/dsh-code-runtime'
   - id: code-runtime-worker-thread
     name: '@deepseek-ai/dsh-code-runtime-worker-thread'
     description: Worker-thread implementation of the DeepSeek Harness code-execution seam
@@ -966,8 +966,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/code-runtime/code-runtime-worker-thread
+      type: npm
+      package: '@deepseek-ai/dsh-code-runtime-worker-thread'
   - id: command-compact
     name: '@deepseek-ai/dsh-command-compact'
     description: Human-facing slash command for explicit session compaction
@@ -979,8 +979,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/compaction/command-compact
+      type: npm
+      package: '@deepseek-ai/dsh-command-compact'
   - id: command-feedback
     name: '@deepseek-ai/dsh-command-feedback'
     description: Log-only session feedback producer and human-facing slash command
@@ -992,8 +992,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/feedback/command-feedback
+      type: npm
+      package: '@deepseek-ai/dsh-command-feedback'
   - id: command-goal
     name: '@deepseek-ai/dsh-command-goal'
     description: Human-facing slash command for persisted same-session goals
@@ -1005,8 +1005,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/goal/command-goal
+      type: npm
+      package: '@deepseek-ai/dsh-command-goal'
   - id: commands
     name: '@deepseek-ai/dsh-commands'
     description: Plugin-owned human command registry for DeepSeek Harness UIs
@@ -1018,8 +1018,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/interaction/commands
+      type: npm
+      package: '@deepseek-ai/dsh-commands'
   - id: compaction
     name: '@deepseek-ai/dsh-compaction'
     description: Abstract compaction service seam (ctx.compaction) for the DeepSeek Harness
@@ -1031,8 +1031,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/compaction/compaction
+      type: npm
+      package: '@deepseek-ai/dsh-compaction'
   - id: compaction-basic
     name: '@deepseek-ai/dsh-compaction-basic'
     description: Token-meter-driven compaction policy and LLM summarization backend
@@ -1045,8 +1045,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/compaction/compaction-basic
+      type: npm
+      package: '@deepseek-ai/dsh-compaction-basic'
   - id: compaction-tool-result-pruner
     name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
     description: Replay-safe model-free head/middle/tail pruning for tool-result
@@ -1059,8 +1059,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/compaction/compaction-tool-result-pruner
+      type: npm
+      package: '@deepseek-ai/dsh-compaction-tool-result-pruner'
   - id: cordis-client-runner
     name: '@deepseek-ai/dsh-cordis-client-runner'
     description: 'Browser half of dynamic dual-half plugin packages: event
@@ -1073,8 +1073,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/extensions/cordis-client-runner
+      type: npm
+      package: '@deepseek-ai/dsh-cordis-client-runner'
   - id: cordis-host-runner
     name: '@deepseek-ai/dsh-cordis-host-runner'
     description: Dynamic package definition registry, host-half sandbox lifecycle,
@@ -1088,8 +1088,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/extensions/cordis-host-runner
+      type: npm
+      package: '@deepseek-ai/dsh-cordis-host-runner'
   - id: credentials
     name: '@deepseek-ai/dsh-credentials'
     description: 'Abstract credential seam (ctx.credentials): settings carry
@@ -1102,8 +1102,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/credentials/credentials
+      type: npm
+      package: '@deepseek-ai/dsh-credentials'
   - id: credentials-local
     name: '@deepseek-ai/dsh-credentials-local'
     description: File-backed credentials provider ($DSH_HOME/.env under the live
@@ -1116,8 +1116,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/credentials/credentials-local
+      type: npm
+      package: '@deepseek-ai/dsh-credentials-local'
   - id: e2b
     name: '@deepseek-ai/dsh-e2b'
     description: Shared E2B sandbox lifecycle for DeepSeek Harness provider adapters
@@ -1129,8 +1129,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/e2b/e2b
+      type: npm
+      package: '@deepseek-ai/dsh-e2b'
   - id: fs
     name: '@deepseek-ai/dsh-fs'
     description: Abstract filesystem capability seam (ctx.fs) for the DeepSeek
@@ -1144,8 +1144,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/fs
+      type: npm
+      package: '@deepseek-ai/dsh-fs'
   - id: fs-e2b
     name: '@deepseek-ai/dsh-fs-e2b'
     description: E2B filesystem implementation for DeepSeek Harness
@@ -1157,8 +1157,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/e2b/fs-e2b
+      type: npm
+      package: '@deepseek-ai/dsh-fs-e2b'
   - id: fs-local
     name: '@deepseek-ai/dsh-fs-local'
     description: Local-filesystem implementation of the DeepSeek Harness filesystem
@@ -1171,8 +1171,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/fs-local
+      type: npm
+      package: '@deepseek-ai/dsh-fs-local'
   - id: fs-observation-policy
     name: '@deepseek-ai/dsh-fs-observation-policy'
     description: File-context policy plugin for the DeepSeek Harness —
@@ -1186,8 +1186,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/fs-observation-policy
+      type: npm
+      package: '@deepseek-ai/dsh-fs-observation-policy'
   - id: fs-sandbox
     name: '@deepseek-ai/dsh-fs-sandbox'
     description: 'Sandbox-enforcing implementation of the DeepSeek Harness
@@ -1202,8 +1202,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/fs-sandbox
+      type: npm
+      package: '@deepseek-ai/dsh-fs-sandbox'
   - id: goal
     name: '@deepseek-ai/dsh-goal'
     description: Event-sourced same-session goal state and lifecycle service for the
@@ -1216,8 +1216,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/goal/goal
+      type: npm
+      package: '@deepseek-ai/dsh-goal'
   - id: goal-round-driver
     name: '@deepseek-ai/dsh-goal-round-driver'
     description: Race-fenced same-session goal-round driver
@@ -1229,8 +1229,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/goal/goal-round-driver
+      type: npm
+      package: '@deepseek-ai/dsh-goal-round-driver'
   - id: headless
     name: '@deepseek-ai/dsh-headless'
     description: 'The dsh one-shot bundle: a direct core Agent/Session runner over
@@ -1243,8 +1243,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/bundle/headless
+      type: npm
+      package: '@deepseek-ai/dsh-headless'
   - id: home-paths
     name: '@deepseek-ai/dsh-home-paths'
     description: Shared filesystem path helpers for the DeepSeek Harness
@@ -1256,8 +1256,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/home-paths
+      type: npm
+      package: '@deepseek-ai/dsh-home-paths'
   - id: hook-protocol
     name: '@deepseek-ai/dsh-hook-protocol'
     description: 'Shared Claude Code / Codex hook wire protocol: matcher engine,
@@ -1270,8 +1270,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/hooks/hook-protocol
+      type: npm
+      package: '@deepseek-ai/dsh-hook-protocol'
   - id: hooks-claude-code
     name: '@deepseek-ai/dsh-hooks-claude-code'
     description: 'Bridge plugin: run a Claude Code hooks.json / settings hook config
@@ -1284,8 +1284,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/hooks/hooks-claude-code
+      type: npm
+      package: '@deepseek-ai/dsh-hooks-claude-code'
   - id: hooks-codex
     name: '@deepseek-ai/dsh-hooks-codex'
     description: 'Bridge plugin: run a Codex hooks.json hook config on the DeepSeek
@@ -1298,8 +1298,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/hooks/hooks-codex
+      type: npm
+      package: '@deepseek-ai/dsh-hooks-codex'
   - id: host-apiproxy
     name: '@deepseek-ai/dsh-host-apiproxy'
     description: 'API gateway: the ApiProxy contract (api/), the fetch carrier pair
@@ -1312,8 +1312,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/apiproxy
+      type: npm
+      package: '@deepseek-ai/dsh-host-apiproxy'
   - id: host-directory-picker
     name: '@deepseek-ai/dsh-host-directory-picker'
     description: Abstract workspace-directory picking seam (ctx.directoryPicker) for
@@ -1326,8 +1326,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/directory-picker
+      type: npm
+      package: '@deepseek-ai/dsh-host-directory-picker'
   - id: host-directory-picker-auto
     name: '@deepseek-ai/dsh-host-directory-picker-auto'
     description: 'Adaptive chooser of the directory-picker seam: resolves the host
@@ -1341,8 +1341,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/directory-picker-auto
+      type: npm
+      package: '@deepseek-ai/dsh-host-directory-picker-auto'
   - id: host-directory-picker-browse
     name: '@deepseek-ai/dsh-host-directory-picker-browse'
     description: In-app browsing backend of the directory-picker seam
@@ -1355,8 +1355,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/directory-picker-browse
+      type: npm
+      package: '@deepseek-ai/dsh-host-directory-picker-browse'
   - id: host-directory-picker-native
     name: '@deepseek-ai/dsh-host-directory-picker-native'
     description: Native-OS-chooser backend of the directory-picker seam for the
@@ -1369,8 +1369,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/directory-picker-native
+      type: npm
+      package: '@deepseek-ai/dsh-host-directory-picker-native'
   - id: host-frontend-static
     name: '@deepseek-ai/dsh-host-frontend-static'
     description: 'SPA dist server for the Web shell: owns the webserver fallback
@@ -1384,8 +1384,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/frontend-static
+      type: npm
+      package: '@deepseek-ai/dsh-host-frontend-static'
   - id: host-plugin-inventory
     name: '@deepseek-ai/dsh-host-plugin-inventory'
     description: Read-only Remote projection of current Cordis Loader plugin state
@@ -1397,8 +1397,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/plugin-inventory
+      type: npm
+      package: '@deepseek-ai/dsh-host-plugin-inventory'
   - id: host-webserver
     name: '@deepseek-ai/dsh-host-webserver'
     description: 'Web route-registration plugin: HTTP and upgrade routes, index
@@ -1411,8 +1411,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/host/webserver
+      type: npm
+      package: '@deepseek-ai/dsh-host-webserver'
   - id: invariants
     name: '@deepseek-ai/dsh-invariants'
     description: Registry service for package-owned DeepSeek Harness runtime invariants
@@ -1424,8 +1424,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/runtime-diagnostics/invariants
+      type: npm
+      package: '@deepseek-ai/dsh-invariants'
   - id: jobs
     name: '@deepseek-ai/dsh-jobs'
     description: Background job registry (ctx.jobs) for the DeepSeek Harness —
@@ -1439,8 +1439,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/jobs/jobs
+      type: npm
+      package: '@deepseek-ai/dsh-jobs'
   - id: jobs-local
     name: '@deepseek-ai/dsh-jobs-local'
     description: Process-local implementation of the DeepSeek Harness background job
@@ -1453,8 +1453,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/jobs/jobs-local
+      type: npm
+      package: '@deepseek-ai/dsh-jobs-local'
   - id: launch-environment
     name: '@deepseek-ai/dsh-launch-environment'
     description: Immutable DeepSeek Harness launch environment that records which
@@ -1467,8 +1467,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/launch-environment
+      type: npm
+      package: '@deepseek-ai/dsh-launch-environment'
   - id: llm
     name: '@deepseek-ai/dsh-llm'
     description: Provider-neutral LLM service interface for the DeepSeek Harness
@@ -1480,8 +1480,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/llm/llm
+      type: npm
+      package: '@deepseek-ai/dsh-llm'
   - id: llm-deepseek
     name: '@deepseek-ai/dsh-llm-deepseek'
     description: DeepSeek chat-completions adapter for the DeepSeek Harness LLM seam
@@ -1493,8 +1493,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/llm/llm-deepseek
+      type: npm
+      package: '@deepseek-ai/dsh-llm-deepseek'
   - id: llm-mock-server
     name: '@deepseek-ai/dsh-llm-mock-server'
     description: Scriptable OpenAI-compatible HTTP/SSE fault server for LLM recovery tests
@@ -1506,8 +1506,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/test-support/llm-mock-server
+      type: npm
+      package: '@deepseek-ai/dsh-llm-mock-server'
   - id: llm-pi-ai
     name: '@deepseek-ai/dsh-llm-pi-ai'
     description: pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam
@@ -1520,8 +1520,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/llm/llm-pi-ai
+      type: npm
+      package: '@deepseek-ai/dsh-llm-pi-ai'
   - id: llm-replay
     name: '@deepseek-ai/dsh-llm-replay'
     description: 'Replay LLM plugin: short-circuits llm/stream with model chunks
@@ -1534,8 +1534,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/test-support/llm-replay
+      type: npm
+      package: '@deepseek-ai/dsh-llm-replay'
   - id: llm-retry
     name: '@deepseek-ai/dsh-llm-retry'
     description: Provider-routed LLM request retry policy for the DeepSeek Harness
@@ -1547,8 +1547,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/llm/llm-retry
+      type: npm
+      package: '@deepseek-ai/dsh-llm-retry'
   - id: loader-smoke
     name: '@deepseek-ai/dsh-loader-smoke'
     description: Shared subprocess and direct-agent harness for keyless real-Loader
@@ -1561,8 +1561,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/test-support/loader-smoke
+      type: npm
+      package: '@deepseek-ai/dsh-loader-smoke'
   - id: lsp
     name: '@deepseek-ai/dsh-lsp'
     description: Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness —
@@ -1578,8 +1578,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/lsp/lsp
+      type: npm
+      package: '@deepseek-ai/dsh-lsp'
   - id: lsp-stdio
     name: '@deepseek-ai/dsh-lsp-stdio'
     description: Generic stdio language-server provider for the DeepSeek Harness LSP
@@ -1595,8 +1595,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/lsp/lsp-stdio
+      type: npm
+      package: '@deepseek-ai/dsh-lsp-stdio'
   - id: mcp-client
     name: '@deepseek-ai/dsh-mcp-client'
     description: 'MCP client bridge: connects to MCP servers and registers their
@@ -1609,8 +1609,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/mcp/mcp-client
+      type: npm
+      package: '@deepseek-ai/dsh-mcp-client'
   - id: message-feedback
     name: '@deepseek-ai/dsh-message-feedback'
     description: Lifecycle-bound per-message rating and note sidecar for the
@@ -1623,8 +1623,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/feedback/message-feedback
+      type: npm
+      package: '@deepseek-ai/dsh-message-feedback'
   - id: native-command
     name: '@deepseek-ai/dsh-native-command'
     description: 'Zero-dependency no-shell execFile runner for host-native OS
@@ -1637,8 +1637,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/native-command
+      type: npm
+      package: '@deepseek-ai/dsh-native-command'
   - id: output-retention
     name: '@deepseek-ai/dsh-output-retention'
     description: 'Zero-dependency bounded-retention primitive:
@@ -1652,8 +1652,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/output-retention
+      type: npm
+      package: '@deepseek-ai/dsh-output-retention'
   - id: permission-presets
     name: '@deepseek-ai/dsh-permission-presets'
     description: 'User-facing permission presets (ctx.permissionPresets) for the
@@ -1668,8 +1668,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/interaction/permission-presets
+      type: npm
+      package: '@deepseek-ai/dsh-permission-presets'
   - id: persona
     name: '@deepseek-ai/dsh-persona'
     description: Composition-authored deployment persona section for the DeepSeek Harness
@@ -1681,8 +1681,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/preset/persona
+      type: npm
+      package: '@deepseek-ai/dsh-persona'
   - id: plan-mode
     name: '@deepseek-ai/dsh-plan-mode'
     description: Logged per-agent plan mode with deployment guidance, a direct slash
@@ -1695,8 +1695,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/plan/plan-mode
+      type: npm
+      package: '@deepseek-ai/dsh-plan-mode'
   - id: pwsh-local
     name: '@deepseek-ai/dsh-pwsh-local'
     description: Local PowerShell implementation of the DeepSeek Harness bash executor seam
@@ -1708,8 +1708,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/pwsh-local
+      type: npm
+      package: '@deepseek-ai/dsh-pwsh-local'
   - id: pwsh-sandbox
     name: '@deepseek-ai/dsh-pwsh-sandbox'
     description: Sandbox-consuming implementation of the DeepSeek Harness PowerShell
@@ -1723,8 +1723,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/pwsh-sandbox
+      type: npm
+      package: '@deepseek-ai/dsh-pwsh-sandbox'
   - id: repeat-tool-reminder
     name: '@deepseek-ai/dsh-repeat-tool-reminder'
     description: 'Repeat-tool-call guard plugin: advisory reminders when an agent
@@ -1737,8 +1737,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/guard/repeat-tool-reminder
+      type: npm
+      package: '@deepseek-ai/dsh-repeat-tool-reminder'
   - id: sandbox
     name: '@deepseek-ai/dsh-sandbox'
     description: 'Abstract process-sandbox seam (ctx.sandbox) for the DeepSeek
@@ -1752,8 +1752,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sandbox/sandbox
+      type: npm
+      package: '@deepseek-ai/dsh-sandbox'
   - id: sandbox-local
     name: '@deepseek-ai/dsh-sandbox-local'
     description: 'Local process-sandbox backends for the DeepSeek Harness sandbox
@@ -1768,8 +1768,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sandbox/sandbox-local
+      type: npm
+      package: '@deepseek-ai/dsh-sandbox-local'
   - id: sandbox-policy
     name: '@deepseek-ai/dsh-sandbox-policy'
     description: "Per-call sandbox policy resolver and current model context:
@@ -1783,8 +1783,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sandbox/sandbox-policy
+      type: npm
+      package: '@deepseek-ai/dsh-sandbox-policy'
   - id: sandbox-windows-acl
     name: '@deepseek-ai/dsh-sandbox-windows-acl'
     description: Windows ACL write-restriction sandbox backend (restricted-token
@@ -1798,8 +1798,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sandbox/sandbox-windows-acl
+      type: npm
+      package: '@deepseek-ai/dsh-sandbox-windows-acl'
   - id: schedule
     name: '@deepseek-ai/dsh-schedule'
     description: Agent-scoped durable after, at, and fixed-rate reminders over the
@@ -1812,8 +1812,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/schedule/schedule
+      type: npm
+      package: '@deepseek-ai/dsh-schedule'
   - id: scope
     name: '@deepseek-ai/dsh-scope'
     description: Scoped-context registration primitive (scope tags, scope-filtered
@@ -1826,8 +1826,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/scope
+      type: npm
+      package: '@deepseek-ai/dsh-scope'
   - id: sdk-client
     name: '@deepseek-ai/dsh-sdk-client'
     description: 'TypeScript client SDK for driving a DeepSeek Harness runtime
@@ -1841,8 +1841,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sdk/client
+      type: npm
+      package: '@deepseek-ai/dsh-sdk-client'
   - id: sdk-jsonrpc-demo
     name: '@deepseek-ai/dsh-sdk-jsonrpc-demo'
     description: Bin that boots an external Cordis config for the stdio JSON-RPC SDK runtime
@@ -1854,8 +1854,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/examples/jsonrpc-demo
+      type: npm
+      package: '@deepseek-ai/dsh-sdk-jsonrpc-demo'
   - id: sdk-jsonrpc-server
     name: '@deepseek-ai/dsh-sdk-jsonrpc-server'
     description: Stdio JSON-RPC server plugin for out-of-process DeepSeek Harness
@@ -1868,8 +1868,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sdk/server
+      type: npm
+      package: '@deepseek-ai/dsh-sdk-jsonrpc-server'
   - id: sdk-protocol
     name: '@deepseek-ai/dsh-sdk-protocol'
     description: 'Shared wire protocol for the DeepSeek Harness SDK runtime: the
@@ -1883,8 +1883,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/sdk/protocol
+      type: npm
+      package: '@deepseek-ai/dsh-sdk-protocol'
   - id: session
     name: '@deepseek-ai/dsh-session'
     description: Event-sourced session store for the DeepSeek Harness
@@ -1896,8 +1896,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/session
+      type: npm
+      package: '@deepseek-ai/dsh-session'
   - id: session-checkpoint-policy
     name: '@deepseek-ai/dsh-session-checkpoint-policy'
     description: Semantic session durability checkpoints before model requests and
@@ -1910,8 +1910,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-checkpoint-policy
+      type: npm
+      package: '@deepseek-ai/dsh-session-checkpoint-policy'
   - id: session-log-export
     name: '@deepseek-ai/dsh-session-log-export'
     description: Web Session-log export command and shared download dialog
@@ -1923,8 +1923,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session-query/session-log-export
+      type: npm
+      package: '@deepseek-ai/dsh-session-log-export'
   - id: session-persistence
     name: '@deepseek-ai/dsh-session-persistence'
     description: Abstract durable session persistence seam (ctx.sessionPersistence)
@@ -1937,8 +1937,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-persistence
+      type: npm
+      package: '@deepseek-ai/dsh-session-persistence'
   - id: session-persistence-jsonl
     name: '@deepseek-ai/dsh-session-persistence-jsonl'
     description: JSONL durable session persistence backend for the DeepSeek Harness
@@ -1950,8 +1950,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-persistence-jsonl
+      type: npm
+      package: '@deepseek-ai/dsh-session-persistence-jsonl'
   - id: session-persistence-sqlite
     name: '@deepseek-ai/dsh-session-persistence-sqlite'
     description: SQLite durable session persistence backend for the DeepSeek Harness
@@ -1963,8 +1963,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-persistence-sqlite
+      type: npm
+      package: '@deepseek-ai/dsh-session-persistence-sqlite'
   - id: session-projection
     name: '@deepseek-ai/dsh-session-projection'
     description: 'Session-projection seam: the merge-extensible projection type
@@ -1978,8 +1978,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-projection
+      type: npm
+      package: '@deepseek-ai/dsh-session-projection'
   - id: session-projection-cache
     name: '@deepseek-ai/dsh-session-projection-cache'
     description: 'Persisted projection cache (ctx.sessionProjectionCache): durable
@@ -1994,8 +1994,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-projection-cache
+      type: npm
+      package: '@deepseek-ai/dsh-session-projection-cache'
   - id: session-query
     name: '@deepseek-ai/dsh-session-query'
     description: Combined session query service contract with concrete reads,
@@ -2008,8 +2008,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session-query/session-query
+      type: npm
+      package: '@deepseek-ai/dsh-session-query'
   - id: session-query-sqlite
     name: '@deepseek-ai/dsh-session-query-sqlite'
     description: Concrete ctx.sessionQuery backend with SQLite FTS5 search
@@ -2021,8 +2021,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session-query/session-query-sqlite
+      type: npm
+      package: '@deepseek-ai/dsh-session-query-sqlite'
   - id: session-reference
     name: '@deepseek-ai/dsh-session-reference'
     description: Cross-session snapshot references and durable untrusted model
@@ -2035,8 +2035,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/context/session-reference
+      type: npm
+      package: '@deepseek-ai/dsh-session-reference'
   - id: session-stats
     name: '@deepseek-ai/dsh-session-stats'
     description: Whole-log conversation counts and wall times projection
@@ -2049,8 +2049,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-stats
+      type: npm
+      package: '@deepseek-ai/dsh-session-stats'
   - id: session-telemetry
     name: '@deepseek-ai/dsh-session-telemetry'
     description: 'SessionTelemetryBackend seam for the DeepSeek Harness:
@@ -2064,8 +2064,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-telemetry
+      type: npm
+      package: '@deepseek-ai/dsh-session-telemetry'
   - id: session-telemetry-otel
     name: '@deepseek-ai/dsh-session-telemetry-otel'
     description: "OpenTelemetry backend for the DeepSeek Harness telemetry seam:
@@ -2078,8 +2078,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-telemetry-otel
+      type: npm
+      package: '@deepseek-ai/dsh-session-telemetry-otel'
   - id: session-title
     name: '@deepseek-ai/dsh-session-title'
     description: Log-backed session title service and provider registry for the
@@ -2092,8 +2092,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-title
+      type: npm
+      package: '@deepseek-ai/dsh-session-title'
   - id: session-title-all-prompts-llm
     name: '@deepseek-ai/dsh-session-title-all-prompts-llm'
     description: All-user-messages LLM provider plugin for DeepSeek Harness session titles
@@ -2105,8 +2105,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-title-all-prompts-llm
+      type: npm
+      package: '@deepseek-ai/dsh-session-title-all-prompts-llm'
   - id: session-title-first-prompt-llm
     name: '@deepseek-ai/dsh-session-title-first-prompt-llm'
     description: First-message LLM provider plugin for DeepSeek Harness session titles
@@ -2118,8 +2118,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-title-first-prompt-llm
+      type: npm
+      package: '@deepseek-ai/dsh-session-title-first-prompt-llm'
   - id: session-title-llm
     name: '@deepseek-ai/dsh-session-title-llm'
     description: Shared LLM generation policy for DeepSeek Harness session-title providers
@@ -2131,8 +2131,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session/session-title-llm
+      type: npm
+      package: '@deepseek-ai/dsh-session-title-llm'
   - id: settings
     name: '@deepseek-ai/dsh-settings'
     description: Abstract user-settings seam (ctx.settings) for the DeepSeek Harness
@@ -2144,8 +2144,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/settings/settings
+      type: npm
+      package: '@deepseek-ai/dsh-settings'
   - id: settings-file
     name: '@deepseek-ai/dsh-settings-file'
     description: File-backed settings provider (settings.yaml) for the DeepSeek Harness
@@ -2157,8 +2157,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/settings/settings-file
+      type: npm
+      package: '@deepseek-ai/dsh-settings-file'
   - id: shell
     name: '@deepseek-ai/dsh-shell'
     description: Abstract bash executor seam (ctx.shell) for the DeepSeek Harness
@@ -2170,8 +2170,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/shell
+      type: npm
+      package: '@deepseek-ai/dsh-shell'
   - id: shell-env
     name: '@deepseek-ai/dsh-shell-env'
     description: Tool-independent managed DSH_* shell environment registry
@@ -2183,8 +2183,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/shell-env
+      type: npm
+      package: '@deepseek-ai/dsh-shell-env'
   - id: skill
     name: '@deepseek-ai/dsh-skill'
     description: Agent skill provider registry for the DeepSeek Harness
@@ -2196,8 +2196,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/skill/skill
+      type: npm
+      package: '@deepseek-ai/dsh-skill'
   - id: skill-badge
     name: '@deepseek-ai/dsh-skill-badge'
     description: Bundled dsh badge skill provider for DeepSeek Harness
@@ -2209,8 +2209,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/skill/skill-badge
+      type: npm
+      package: '@deepseek-ai/dsh-skill-badge'
   - id: skill-filesystem
     name: '@deepseek-ai/dsh-skill-filesystem'
     description: Local filesystem skill provider for the DeepSeek Harness
@@ -2222,8 +2222,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/skill/skill-filesystem
+      type: npm
+      package: '@deepseek-ai/dsh-skill-filesystem'
   - id: spill
     name: '@deepseek-ai/dsh-spill'
     description: Abstract spill storage seam (ctx.spillStore) for the DeepSeek
@@ -2236,8 +2236,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/spill/spill
+      type: npm
+      package: '@deepseek-ai/dsh-spill'
   - id: spill-local
     name: '@deepseek-ai/dsh-spill-local'
     description: Local-filesystem implementation of the DeepSeek Harness spill
@@ -2250,8 +2250,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/spill/spill-local
+      type: npm
+      package: '@deepseek-ai/dsh-spill-local'
   - id: spill-policy
     name: '@deepseek-ai/dsh-spill-policy'
     description: Tool-result spill policy for the DeepSeek Harness — replaces
@@ -2265,8 +2265,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/spill/spill-policy
+      type: npm
+      package: '@deepseek-ai/dsh-spill-policy'
   - id: storage
     name: '@deepseek-ai/dsh-storage'
     description: 'Storage hub (ctx.storage): named backend registry plus mounted
@@ -2279,8 +2279,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/storage/storage
+      type: npm
+      package: '@deepseek-ai/dsh-storage'
   - id: storage-domain
     name: '@deepseek-ai/dsh-storage-domain'
     description: 'Domain data form (ctx.storage.domain): schema-validated,
@@ -2293,8 +2293,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/storage/storage-domain
+      type: npm
+      package: '@deepseek-ai/dsh-storage-domain'
   - id: storage-json
     name: '@deepseek-ai/dsh-storage-json'
     description: JSON file KV storage backend for the DeepSeek Harness storage hub
@@ -2306,8 +2306,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/storage/storage-json
+      type: npm
+      package: '@deepseek-ai/dsh-storage-json'
   - id: storage-sqlite
     name: '@deepseek-ai/dsh-storage-sqlite'
     description: SQLite storage backend (kv facet) for the DeepSeek Harness storage hub
@@ -2319,8 +2319,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/storage/storage-sqlite
+      type: npm
+      package: '@deepseek-ai/dsh-storage-sqlite'
   - id: subagent
     name: '@deepseek-ai/dsh-subagent'
     description: 'Abstract subagent seam (ctx.subagents): named-provider registry
@@ -2333,8 +2333,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent
+      type: npm
+      package: '@deepseek-ai/dsh-subagent'
   - id: subagent-acp
     name: '@deepseek-ai/dsh-subagent-acp'
     description: 'Out-of-process ACP subagent backend: drives a child agent in a
@@ -2347,8 +2347,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-acp
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-acp'
   - id: subagent-claude-code
     name: '@deepseek-ai/dsh-subagent-claude-code'
     description: One-shot Claude Code subagent provider over the official Agent SDK
@@ -2360,8 +2360,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-claude-code
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-claude-code'
   - id: subagent-codex
     name: '@deepseek-ai/dsh-subagent-codex'
     description: One-shot Codex subagent provider over the official app-server protocol
@@ -2373,8 +2373,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-codex
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-codex'
   - id: subagent-dsh-sdk
     name: '@deepseek-ai/dsh-subagent-dsh-sdk'
     description: 'Out-of-process SDK subagent backend: drives a child DeepSeek
@@ -2388,8 +2388,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-dsh-sdk
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-dsh-sdk'
   - id: subagent-fork-in-process
     name: '@deepseek-ai/dsh-subagent-fork-in-process'
     description: "In-process fork subagent backend: runs a child agent seeded with a
@@ -2402,8 +2402,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-fork-in-process
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-fork-in-process'
   - id: subagent-in-process-driver
     name: '@deepseek-ai/dsh-subagent-in-process-driver'
     description: 'Shared in-process subagent run driver: drives a child agent on
@@ -2416,8 +2416,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-in-process-driver
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-in-process-driver'
   - id: subagent-spawn-in-process
     name: '@deepseek-ai/dsh-subagent-spawn-in-process'
     description: 'In-process spawn subagent backend: runs a fresh child agent on ctx.agents'
@@ -2429,8 +2429,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/subagent-spawn-in-process
+      type: npm
+      package: '@deepseek-ai/dsh-subagent-spawn-in-process'
   - id: subprocess
     name: '@deepseek-ai/dsh-subprocess'
     description: Subprocess seam (ctx.subprocess) for the DeepSeek Harness — managed
@@ -2444,8 +2444,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subprocess/subprocess
+      type: npm
+      package: '@deepseek-ai/dsh-subprocess'
   - id: subprocess-e2b
     name: '@deepseek-ai/dsh-subprocess-e2b'
     description: E2B subprocess implementation for DeepSeek Harness
@@ -2457,8 +2457,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/e2b/subprocess-e2b
+      type: npm
+      package: '@deepseek-ai/dsh-subprocess-e2b'
   - id: subprocess-local
     name: '@deepseek-ai/dsh-subprocess-local'
     description: Local-subprocess implementation of the DeepSeek Harness subprocess seam
@@ -2470,8 +2470,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subprocess/subprocess-local
+      type: npm
+      package: '@deepseek-ai/dsh-subprocess-local'
   - id: system-prompt
     name: '@deepseek-ai/dsh-system-prompt'
     description: System prompt assembly registry for the DeepSeek Harness
@@ -2483,8 +2483,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/system-prompt
+      type: npm
+      package: '@deepseek-ai/dsh-system-prompt'
   - id: terminal
     name: '@deepseek-ai/dsh-terminal'
     description: Persistent PTY session seam for the DeepSeek Harness — owner-scoped
@@ -2498,8 +2498,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/terminal/terminal
+      type: npm
+      package: '@deepseek-ai/dsh-terminal'
   - id: terminal-bash
     name: '@deepseek-ai/dsh-terminal-bash'
     description: Persistent shell PTY backend over the DeepSeek Harness subprocess
@@ -2512,8 +2512,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/terminal/terminal-bash
+      type: npm
+      package: '@deepseek-ai/dsh-terminal-bash'
   - id: time-context
     name: '@deepseek-ai/dsh-time-context'
     description: Opt-in durable per-step context with the current time and elapsed time
@@ -2525,8 +2525,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/context/time-context
+      type: npm
+      package: '@deepseek-ai/dsh-time-context'
   - id: timeout
     name: '@deepseek-ai/dsh-timeout'
     description: 'Zero-dependency timeout/deadline primitive: clampTimeout,
@@ -2540,8 +2540,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/util/timeout
+      type: npm
+      package: '@deepseek-ai/dsh-timeout'
   - id: tmux-context
     name: '@deepseek-ai/dsh-tmux-context'
     description: Opt-in durable per-step context with this agent's tmux pane and
@@ -2554,8 +2554,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/context/tmux-context
+      type: npm
+      package: '@deepseek-ai/dsh-tmux-context'
   - id: token-meter
     name: '@deepseek-ai/dsh-token-meter'
     description: Replay-aware token measurement service (ctx.tokenMeter) for the
@@ -2568,8 +2568,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/llm/token-meter
+      type: npm
+      package: '@deepseek-ai/dsh-token-meter'
   - id: tool-ask-user
     name: '@deepseek-ai/dsh-tool-ask-user'
     description: Model-facing ask_user_question tool over the ctx.userQuestions seam
@@ -2581,8 +2581,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/interaction/tool-ask-user
+      type: npm
+      package: '@deepseek-ai/dsh-tool-ask-user'
   - id: tool-bash
     name: '@deepseek-ai/dsh-tool-bash'
     description: Model-facing bash tool with optional generic background-job and
@@ -2595,8 +2595,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/tool-bash
+      type: npm
+      package: '@deepseek-ai/dsh-tool-bash'
   - id: tool-bash-persistent
     name: '@deepseek-ai/dsh-tool-bash-persistent'
     description: Model-facing owner-scoped persistent Bash tool backed by the
@@ -2609,8 +2609,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/tool-bash-persistent
+      type: npm
+      package: '@deepseek-ai/dsh-tool-bash-persistent'
   - id: tool-call-timeout-policy
     name: '@deepseek-ai/dsh-tool-call-timeout-policy'
     description: 'Tool-call timeout policy: a tools/execute wrapper that arms a
@@ -2623,8 +2623,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/guard/timeout-policy
+      type: npm
+      package: '@deepseek-ai/dsh-tool-call-timeout-policy'
   - id: tool-cordis
     name: '@deepseek-ai/dsh-tool-cordis'
     description: 'Self-referential cordis toolset: inspect the live runtime, mount
@@ -2638,8 +2638,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/extensions/tool-cordis
+      type: npm
+      package: '@deepseek-ai/dsh-tool-cordis'
   - id: tool-fs
     name: '@deepseek-ai/dsh-tool-fs'
     description: Model-facing filesystem tools (read, write, edit) over the DeepSeek
@@ -2652,8 +2652,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/tool-fs
+      type: npm
+      package: '@deepseek-ai/dsh-tool-fs'
   - id: tool-fs-search
     name: '@deepseek-ai/dsh-tool-fs-search'
     description: Model-facing filesystem discovery tools (glob, grep) backed by the
@@ -2666,8 +2666,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/tool-fs-search
+      type: npm
+      package: '@deepseek-ai/dsh-tool-fs-search'
   - id: tool-goal
     name: '@deepseek-ai/dsh-tool-goal'
     description: Model-facing same-session goal tools with execution-time authority checks
@@ -2679,8 +2679,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/goal/tool-goal
+      type: npm
+      package: '@deepseek-ai/dsh-tool-goal'
   - id: tool-jobs
     name: '@deepseek-ai/dsh-tool-jobs'
     description: Model-facing background job control tools (job_output, job_list,
@@ -2693,8 +2693,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/jobs/tool-jobs
+      type: npm
+      package: '@deepseek-ai/dsh-tool-jobs'
   - id: tool-lsp
     name: '@deepseek-ai/dsh-tool-lsp'
     description: Model-facing lsp tool over the DeepSeek Harness LSP capability seam
@@ -2710,8 +2710,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/lsp/tool-lsp
+      type: npm
+      package: '@deepseek-ai/dsh-tool-lsp'
   - id: tool-pwsh
     name: '@deepseek-ai/dsh-tool-pwsh'
     description: Model-facing pwsh tool over the bash executor seam
@@ -2723,8 +2723,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/shell/tool-pwsh
+      type: npm
+      package: '@deepseek-ai/dsh-tool-pwsh'
   - id: tool-ralph
     name: '@deepseek-ai/dsh-tool-ralph'
     description: Model-facing fresh-agent Ralph loop over the workflow and subagent seams
@@ -2736,8 +2736,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/workflow/tool-ralph
+      type: npm
+      package: '@deepseek-ai/dsh-tool-ralph'
   - id: tool-session-query
     name: '@deepseek-ai/dsh-tool-session-query'
     description: Workspace-authorized model-facing session history search, trace,
@@ -2750,8 +2750,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/session-query/tool-session-query
+      type: npm
+      package: '@deepseek-ai/dsh-tool-session-query'
   - id: tool-skill
     name: '@deepseek-ai/dsh-tool-skill'
     description: Model-facing skill loading tool for the DeepSeek Harness
@@ -2763,8 +2763,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/skill/tool-skill
+      type: npm
+      package: '@deepseek-ai/dsh-tool-skill'
   - id: tool-str-replace-editor
     name: '@deepseek-ai/dsh-tool-str-replace-editor'
     description: Model-facing view, create, literal replace, and line insert tool
@@ -2777,8 +2777,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/fs/tool-str-replace-editor
+      type: npm
+      package: '@deepseek-ai/dsh-tool-str-replace-editor'
   - id: tool-subagent
     name: '@deepseek-ai/dsh-tool-subagent'
     description: Model-facing subagent delegation tool over the ctx.subagents seam
@@ -2790,8 +2790,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/tool-subagent
+      type: npm
+      package: '@deepseek-ai/dsh-tool-subagent'
   - id: tool-subagent-control
     name: '@deepseek-ai/dsh-tool-subagent-control'
     description: Globally named send_message, interrupt_agent, and list_agents tools
@@ -2804,8 +2804,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/tool-subagent-control
+      type: npm
+      package: '@deepseek-ai/dsh-tool-subagent-control'
   - id: tool-subagent-report
     name: '@deepseek-ai/dsh-tool-subagent-report'
     description: Child-scoped report tool over ctx.subagents continuations
@@ -2817,8 +2817,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/subagent/tool-subagent-report
+      type: npm
+      package: '@deepseek-ai/dsh-tool-subagent-report'
   - id: tool-terminal
     name: '@deepseek-ai/dsh-tool-terminal'
     description: Six model-facing persistent PTY tools with owner isolation and
@@ -2831,8 +2831,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/terminal/tool-terminal
+      type: npm
+      package: '@deepseek-ai/dsh-tool-terminal'
   - id: tool-todo
     name: '@deepseek-ai/dsh-tool-todo'
     description: Model-facing todo_write tool over the DeepSeek Harness
@@ -2845,8 +2845,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/todo/tool-todo
+      type: npm
+      package: '@deepseek-ai/dsh-tool-todo'
   - id: tool-web
     name: '@deepseek-ai/dsh-tool-web'
     description: Model-facing web tools (web_search, web_fetch) over the DeepSeek
@@ -2860,8 +2860,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/web/tool-web
+      type: npm
+      package: '@deepseek-ai/dsh-tool-web'
   - id: tool-workflow
     name: '@deepseek-ai/dsh-tool-workflow'
     description: 'Model-facing workflow tool: run a JavaScript orchestration script
@@ -2874,8 +2874,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/workflow/tool-workflow
+      type: npm
+      package: '@deepseek-ai/dsh-tool-workflow'
   - id: tools
     name: '@deepseek-ai/dsh-tools'
     description: Tool registry and execution pipeline for the DeepSeek Harness
@@ -2887,8 +2887,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/core/tools
+      type: npm
+      package: '@deepseek-ai/dsh-tools'
   - id: typert-generator
     name: '@deepseek-ai/dsh-typert-generator'
     description: TypeScript project analyzer and model-driven Typert artifact generator
@@ -2900,8 +2900,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/typert/generator
+      type: npm
+      package: '@deepseek-ai/dsh-typert-generator'
   - id: typert-loader
     name: '@deepseek-ai/dsh-typert-loader'
     description: Loader integration for generated Typert package contributions
@@ -2913,8 +2913,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/typert/loader
+      type: npm
+      package: '@deepseek-ai/dsh-typert-loader'
   - id: typert-protocol
     name: '@deepseek-ai/dsh-typert-protocol'
     description: Compiler-independent Remote metadata and Typert provider protocols
@@ -2926,8 +2926,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/typert/protocol
+      type: npm
+      package: '@deepseek-ai/dsh-typert-protocol'
   - id: typert-registry
     name: '@deepseek-ai/dsh-typert-registry'
     description: Runtime registry for generated package reflection and Zod schemas
@@ -2939,8 +2939,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/typert/registry
+      type: npm
+      package: '@deepseek-ai/dsh-typert-registry'
   - id: user-approval
     name: '@deepseek-ai/dsh-user-approval'
     description: 'User-approval seam (ctx.approval) for the DeepSeek Harness:
@@ -2954,8 +2954,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/interaction/user-approval
+      type: npm
+      package: '@deepseek-ai/dsh-user-approval'
   - id: user-questions
     name: '@deepseek-ai/dsh-user-questions'
     description: Abstract user-questions seam (ctx.userQuestions) for asking the
@@ -2968,8 +2968,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/interaction/user-questions
+      type: npm
+      package: '@deepseek-ai/dsh-user-questions'
   - id: web
     name: '@deepseek-ai/dsh-web'
     description: Abstract web access capability seam (ctx.web) for the DeepSeek
@@ -2983,8 +2983,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/web/web
+      type: npm
+      package: '@deepseek-ai/dsh-web'
   - id: web-app
     name: '@deepseek-ai/dsh-web-app'
     description: 'The dsh browser-surface bundle: the web patch layer over dsh-base
@@ -2998,8 +2998,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/bundle/web-app
+      type: npm
+      package: '@deepseek-ai/dsh-web-app'
   - id: web-fetch-http
     name: '@deepseek-ai/dsh-web-fetch-http'
     description: Anonymous public HTTP(S) fetch provider for the DeepSeek Harness
@@ -3012,8 +3012,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/web/web-fetch-http
+      type: npm
+      package: '@deepseek-ai/dsh-web-fetch-http'
   - id: web-search-deepseek
     name: '@deepseek-ai/dsh-web-search-deepseek'
     description: DeepSeek-backed search provider (native web_search via the
@@ -3027,8 +3027,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/web/web-search-deepseek
+      type: npm
+      package: '@deepseek-ai/dsh-web-search-deepseek'
   - id: web-search-exa
     name: '@deepseek-ai/dsh-web-search-exa'
     description: Exa-backed search provider for the DeepSeek Harness web capability
@@ -3041,8 +3041,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/web/web-search-exa
+      type: npm
+      package: '@deepseek-ai/dsh-web-search-exa'
   - id: web-search-perplexity
     name: '@deepseek-ai/dsh-web-search-perplexity'
     description: Perplexity-backed search provider for the DeepSeek Harness web
@@ -3055,8 +3055,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/web/web-search-perplexity
+      type: npm
+      package: '@deepseek-ai/dsh-web-search-perplexity'
   - id: workflow
     name: '@deepseek-ai/dsh-workflow'
     description: 'Workflow capability seam: ctx.workflowEngine service, run
@@ -3069,8 +3069,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/workflow/workflow
+      type: npm
+      package: '@deepseek-ai/dsh-workflow'
   - id: workflow-worker-thread
     name: '@deepseek-ai/dsh-workflow-worker-thread'
     description: 'worker-thread workflow engine: executes model-written
@@ -3084,8 +3084,8 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/workflow/workflow-worker-thread
+      type: npm
+      package: '@deepseek-ai/dsh-workflow-worker-thread'
   - id: workspace
     name: '@deepseek-ai/dsh-workspace'
     description: 'Workspace entity registry (ctx.workspaceRegistry): durable
@@ -3099,103 +3099,5 @@ plugins:
     license: MIT
     verified: true
     source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/workspace/workspace
-  - id: example-acp-agent
-    name: acp-agent-example
-    description: Automation-oriented [Agent Client
-      Protocol](https://agentclientprotocol.com) server over JSON-RPC stdio. It
-      is intended for parent agents, subagent providers, and other programmatic
-      clients, not as the product UI.
-    categories:
-      - example
-    tags:
-      - example
-    author: deepseek-ai
-    license: MIT
-    verified: true
-    source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/examples/acp-agent
-  - id: example-headless-agent
-    name: headless-agent-example
-    description: 'This directory owns the replay and real-model test composition for
-      a headless coding agent: DeepSeek V4 + local bash and filesystem tools +
-      subagent delegation + workflows and fresh-agent Ralph iteration +
-      `todo_write` + JSONL persistence. It explicitly mounts the shared agent
-      spine, one root agent, persistence, and checkpoint policy; it is not a
-      second product entry point.'
-    categories:
-      - example
-    tags:
-      - example
-    author: deepseek-ai
-    license: MIT
-    verified: true
-    source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/examples/headless-agent
-  - id: example-jsonrpc-agent
-    name: jsonrpc-agent-example
-    description: The unattended coding-agent composition for the Python SDK's
-      bundled JSON-RPC runtime. It intentionally loads no terminal UI, console
-      logger, approval UI, or user-questions tool because stdout belongs to the
-      SDK protocol and turns are driven by the SDK.
-    categories:
-      - example
-    tags:
-      - example
-    author: deepseek-ai
-    license: MIT
-    verified: true
-    source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/examples/jsonrpc-agent
-  - id: example-mcp-memory
-    name: 'example: mcp-memory'
-    description: These three **default-off reference configurations** connect one
-      memory system to DSH through
-      [`@deepseek-ai/dsh-mcp-client`](../../packages/mcp/mcp-client/README.md).
-      Pick one, or copy the same generic MCP row for another server.
-    categories:
-      - example
-    tags:
-      - example
-    author: deepseek-ai
-    license: MIT
-    verified: true
-    source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/examples/mcp-memory
-  - id: example-web-cordis
-    name: 'example: web-cordis'
-    description: Self-referential demonstration of
-      [`@deepseek-ai/dsh-tool-cordis`](../../packages/extensions/tool-cordis/README.md).
-      The agent can inspect its current Cordis process and mount or unmount
-      model-authored plugins in memory. Temporary plugins disappear when they
-      are unmounted or the process exits and may affect other sessions in the
-      same process.
-    categories:
-      - example
-    tags:
-      - example
-    author: deepseek-ai
-    license: MIT
-    verified: true
-    source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/examples/web-cordis
-  - id: example-web-schedule
-    name: 'example: web-schedule'
-    description: 'This overlay opts one `dsh web` process into Schedule reminders
-      without changing the shipped default Web composition:'
-    categories:
-      - example
-    tags:
-      - example
-    author: deepseek-ai
-    license: MIT
-    verified: true
-    source:
-      type: path
-      path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/examples/web-schedule
+      type: npm
+      package: '@deepseek-ai/dsh-workspace'

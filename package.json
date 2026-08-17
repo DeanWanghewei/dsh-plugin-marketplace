@@ -7,6 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
+    "verify": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "build": "pnpm -r --if-present run build",
     "typecheck": "pnpm -r --if-present run typecheck",
     "test": "vitest run",

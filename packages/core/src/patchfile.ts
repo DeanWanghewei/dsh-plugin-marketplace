@@ -101,7 +101,9 @@ export function removeBlock(content: string, id: string): string {
   return joined
 }
 
-/** Build the patch rows for one managed-row install. */
-export function managedRowBody(rowId: string, entryRelPath: string): string {
-  return ['- insert:', `  - id: ${rowId}`, `    name: ${entryRelPath}`].join('\n')
+/** Build the patch rows for one managed-row activation. */
+export function managedRowBody(rowId: string, name: string): string {
+  // Always double-quote the module specifier: scoped package names start
+  // with `@`, a YAML reserved indicator that breaks unquoted scalars.
+  return ['- insert:', `  - id: ${rowId}`, `    name: ${JSON.stringify(name)}`].join('\n')
 }
