@@ -1,0 +1,27 @@
+{
+  "name": "@dshm/server",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "dshm registry server: SQLite-backed plugin index with JSON APIs, admin CRUD, and registry.yaml export",
+  "bin": {
+    "dshm-server": "./lib/main.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@dshm/core": "workspace:*",
+    "@hono/node-server": "^1.13.0",
+    "commander": "^12.1.0",
+    "hono": "^4.6.0",
+    "mysql2": "^3.11.0",
+    "yaml": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  }
+}

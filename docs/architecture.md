@@ -48,8 +48,8 @@ harness 的 `dsh plugin --profile P <pnpm args>` 已解决：profile 自动初�
 
 插件是任意代码；git 源安装触发构建脚本执行。CLI 在安装前展示来源/verified/license 摘要，git 源要求确认；`allowBuilds` 授权单独确认。凭证（git token）只存在本地 config，永不进 registry 数据。
 
-## 二期：server + admin（接口已预留）
+## 二期：server + admin
 
-- `@dshm/server`：Hono + SQLite(Drizzle)。公开 API `GET /api/v1/plugins|categories|search`；管理 API（Bearer token）做插件/分类 CRUD 与 registry.yaml 导入导出。表：plugins、categories、plugin_categories（多对多）、api_tokens、audit_log。
-- `@dshm/admin`：React + Vite + Ant Design 后台，集中管理私有插件源、分类治理、token 与审计。
-- CLI 对接方式已就绪：`dshm registry add team --url https://<server> --token <t>`（`type: http` 的 registry 一期即支持，直接拉取 YAML 文档并缓存）。
+**server 已交付**（[packages/server](../packages/server/README.md)）：Hono + **SQLite/MySQL 双后端**。统一 `SqlDriver` 抽象，两方言仅 DDL/upsert 不同，其余 SQL 可移植；`--db mysql://…` 或文件路径切换。公开 API（索引化插件查询/分类计数/registry.yaml 导出）+ 管理 API（Bearer 令牌 + sha256 哈希存储：插件/分类 CRUD、导入、令牌管理、审计日志）。CLI 无需改动即消费：`dshm registry add team --url <server>/api/v1/export --token <t>`。
+
+- `@dshm/admin`（下一步）：React + Vite + Ant Design 后台，基于上述管理 API，集中管理私有插件源、分类治理、token 与审计。

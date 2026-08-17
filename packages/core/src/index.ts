@@ -1,5 +1,11 @@
 export * from './types.js'
-export { parseRegistry, type RawRegistryInput } from './schema.js'
+export {
+  categoryDefSchema,
+  parseRegistry,
+  pluginEntrySchema,
+  registryDataSchema,
+  type RawRegistryInput,
+} from './schema.js'
 export {
   builtinRegistryPath,
   dshmPaths,
