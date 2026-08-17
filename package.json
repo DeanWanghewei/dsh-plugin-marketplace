@@ -1,0 +1,29 @@
+{
+  "name": "dsh-plugin-marketplace",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@9.4.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm -r --if-present run build",
+    "typecheck": "pnpm -r --if-present run typecheck",
+    "test": "vitest run",
+    "lint": "oxlint packages scripts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "dshm": "tsx packages/cli/src/bin.ts",
+    "seed": "tsx scripts/seed-from-harness.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "oxlint": "^1.2.0",
+    "prettier": "^3.4.0",
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "yaml": "^2.6.0"
+  }
+}

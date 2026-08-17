@@ -1,0 +1,28 @@
+{
+  "name": "@dshm/core",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Domain core for the dsh plugin marketplace: registry model, search, install orchestration",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "yaml": "^2.6.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  }
+}

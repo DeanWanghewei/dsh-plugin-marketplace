@@ -1,0 +1,26 @@
+{
+  "name": "@dshm/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "dshm — install, uninstall, search, and categorize deepseek-harness plugins",
+  "bin": {
+    "dshm": "./lib/bin.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@dshm/core": "workspace:*",
+    "commander": "^12.1.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  }
+}

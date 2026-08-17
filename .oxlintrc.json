@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicolo-ribaudo/oxlint/main/configuration-schema.json",
+  "env": { "node": true },
+  "rules": {
+    "no-console": "off",
+    "typescript/no-explicit-any": "warn"
+  }
+}

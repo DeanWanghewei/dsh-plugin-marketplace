@@ -1,0 +1,69 @@
+export * from './types.js'
+export { parseRegistry, type RawRegistryInput } from './schema.js'
+export {
+  builtinRegistryPath,
+  dshmPaths,
+  profileDir,
+  resolveDshmHome,
+  resolveDshHome,
+  type DshmPaths,
+} from './paths.js'
+export {
+  defaultConfig,
+  defaultRegistries,
+  loadConfig,
+  saveConfig,
+  type DshmConfig,
+  type LoadedConfig,
+  type RegistryRef,
+} from './config.js'
+export {
+  loadRegistries,
+  type LoadRegistriesOptions,
+  type LoadedRegistry,
+  type MergeResult,
+  type RegistryWarning,
+} from './registry.js'
+export { searchPlugins, categoryCounts, type SearchQuery, type ScoredPlugin } from './search.js'
+export {
+  NodeRunner,
+  commandExists,
+  type ExecOptions,
+  type ExecResult,
+  type Runner,
+} from './runner.js'
+export { ensureBlock, hasBlock, listBlocks, managedRowBody, removeBlock } from './patchfile.js'
+export {
+  detectEnvironment,
+  dumpConfig,
+  dshPlugin,
+  parseAllowBuildsKeys,
+  readProfileManifest,
+  writeAllowBuilds,
+  type DshEnvironment,
+  type ProfileManifest,
+} from './dsh.js'
+export {
+  buildPnpmSpecFromGit,
+  buildPnpmSpecFromNpm,
+  injectHttpsToken,
+  packageNameFromGitUrl,
+} from './spec.js'
+export {
+  installPlugin,
+  uninstallPlugin,
+  type InstallOptions,
+  type InstallOutcome,
+  type InstallerDeps,
+  type UninstallOutcome,
+} from './installer.js'
+export {
+  addInstalled,
+  clearPending,
+  findInstalled,
+  listInstalled,
+  loadStore,
+  removeInstalled,
+  saveStore,
+  setPending,
+} from './store.js'
