@@ -3,8 +3,8 @@ name: Publish dshm-cli
 # Publishes packages/cli to npm via Trusted Publishing (OIDC): the GitHub
 # Actions identity itself authenticates — no stored token, no OTP. Requires
 # the trusted publisher registered once on npmjs.com (package dshm-cli →
-# Settings → Trusted Publishers: this repository + this workflow file).
-# Triggers: push of a version tag (v*), or a manual run from the Actions tab.
+# Settings → Trusted Publisher: this repository + workflow filename
+# publish.yml). Shape follows the official npm docs example.
 on:
   push:
     tags: ['v*']
@@ -12,7 +12,7 @@ on:
 
 permissions:
   contents: read
-  id-token: write
+  id-token: write # required for OIDC
 
 jobs:
   publish:
@@ -24,14 +24,14 @@ jobs:
       # action fails if both that and a `version` input are present.
       - uses: pnpm/action-setup@v6
 
-      # Node 24 ships npm 11, which speaks OIDC trusted publishing natively.
-      # No registry-url: setup-node would write an authToken=${NODE_AUTH_TOKEN}
-      # line into .npmrc, and with no token configured npm would PUT with an
-      # empty credential — the registry answers that with a masked 404.
+      # Node 24 ships npm 11 (trusted publishing needs npm >= 11.5.1).
+      # registry-url must be set — without it npm never starts the OIDC
+      # exchange (ENEEDAUTH). No NODE_AUTH_TOKEN: the OIDC token replaces it.
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
 
       - run: pnpm install --frozen-lockfile
 
@@ -40,4 +40,4 @@ jobs:
 
       - name: Publish
         working-directory: packages/cli
-        run: npm publish --access public
+        run: npm publish
