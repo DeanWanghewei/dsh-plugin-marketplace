@@ -18,6 +18,12 @@ export type PluginSource =
   | { type: 'git'; url: string; ref?: string; subdir?: string; private?: boolean }
   | { type: 'path'; path: string; link?: boolean }
 
+/** Demo gallery image: a plain https URL (GitHub attachment, S3 proxy, any host). */
+export interface PluginImage {
+  url: string
+  caption?: string
+}
+
 export interface PluginEntry {
   id: string
   name: string
@@ -29,6 +35,7 @@ export interface PluginEntry {
   license?: string
   verified: boolean
   source: PluginSource
+  images: PluginImage[]
 }
 
 export interface RegistryData {

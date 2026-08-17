@@ -51,6 +51,7 @@ const registryDoc = {
       categories: ['tool'],
       tags: ['core'],
       verified: true,
+      images: [],
       source: { type: 'npm', package: 'alpha-pkg' },
     },
     {

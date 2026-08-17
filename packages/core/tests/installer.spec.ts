@@ -38,6 +38,7 @@ function pathPlugin(id: string, path: string): ResolvedPlugin {
       categories: [],
       tags: [],
       verified: true,
+      images: [],
       source: { type: 'path', path },
     },
   }
@@ -121,6 +122,7 @@ describe('installer — pnpm strategy (npm source via fake dsh)', () => {
         categories: [],
         tags: [],
         verified: true,
+      images: [],
         source: { type: 'npm', package: 'hello-pkg' },
       },
     }
@@ -163,6 +165,7 @@ describe('installer — pnpm strategy (npm source via fake dsh)', () => {
         categories: [],
         tags: [],
         verified: true,
+      images: [],
         source: { type: 'npm', package: 'hello-pkg' },
       },
     }
@@ -198,6 +201,7 @@ describe('installer — pnpm strategy (npm source via fake dsh)', () => {
         categories: [],
         tags: [],
         verified: true,
+      images: [],
         source: { type: 'npm', package: 'hello-pkg' },
       },
     }

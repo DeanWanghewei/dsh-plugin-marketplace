@@ -11,6 +11,7 @@ RUN corepack enable
 COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm --filter @dshm/server... build
+RUN pnpm --filter @dshm/web... build
 # Runtime manifest without workspace dependencies: npm refuses the
 # workspace:* protocol, and @dshm/core is already bundled into lib/main.js.
 RUN node -e "\
@@ -28,6 +29,7 @@ WORKDIR /app
 COPY --from=build /deploy/package.json ./
 RUN npm install --omit=dev --registry=https://registry.npmmirror.com
 COPY --from=build /repo/packages/server/lib ./lib
+COPY --from=build /repo/packages/web/dist ./web
 COPY packages/cli/registry/default/registry.yaml /seed/registry.yaml
 
 ENV DSHM_DB_URL=/data/registry.db

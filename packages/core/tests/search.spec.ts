@@ -12,6 +12,7 @@ function plugin(id: string, over: Partial<ResolvedPlugin['entry']> = {}): Resolv
       categories: [],
       tags: [],
       verified: false,
+      images: [],
       source: { type: 'npm', package: `pkg-${id}` },
       ...over,
     },

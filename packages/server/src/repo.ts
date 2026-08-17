@@ -1,4 +1,4 @@
-import type { CategoryDef, PluginEntry, RegistryData } from '@dshm/core'
+import type { CategoryDef, PluginEntry, PluginImage, RegistryData } from '@dshm/core'
 import type { CategoryRow, PluginRow, QueryApi, SqlDriver } from './driver-types.js'
 
 /** Typed query layer over either database backend. */
@@ -11,7 +11,14 @@ export interface ListFilters {
   offset: number
 }
 
-function rowToEntry(row: PluginRow, categories: string[]): PluginEntry {
+/** Plugin entry plus serving-time aggregates (download count). */
+export interface PluginView extends PluginEntry {
+  downloads: number
+}
+
+type PluginViewRow = PluginRow & { downloads: number | bigint }
+
+function rowToEntry(row: PluginViewRow, categories: string[]): PluginView {
   return {
     id: row.id,
     name: row.name,
@@ -23,6 +30,8 @@ function rowToEntry(row: PluginRow, categories: string[]): PluginEntry {
     license: row.license ?? undefined,
     verified: row.verified === 1,
     source: JSON.parse(row.source_json) as PluginEntry['source'],
+    images: row.images_json ? (JSON.parse(row.images_json) as PluginImage[]) : [],
+    downloads: Number(row.downloads ?? 0),
   }
 }
 
@@ -38,7 +47,7 @@ function rowToCategory(row: CategoryRow): CategoryDef {
 export class RegistryRepo {
   constructor(private readonly driver: SqlDriver) {}
 
-  async listPlugins(filters: ListFilters): Promise<{ total: number; items: PluginEntry[] }> {
+  async listPlugins(filters: ListFilters): Promise<{ total: number; items: PluginView[] }> {
     const where: string[] = []
     const params: unknown[] = []
     if (filters.q) {
@@ -60,8 +69,9 @@ export class RegistryRepo {
     const total = (
       await this.driver.get<{ n: number }>(`SELECT COUNT(*) AS n FROM plugins p${clause}`, params)
     )?.n
-    const rows = await this.driver.all<PluginRow>(
-      `SELECT * FROM plugins p${clause} ORDER BY p.id LIMIT ? OFFSET ?`,
+    const rows = await this.driver.all<PluginViewRow>(
+      `SELECT p.*, (SELECT COUNT(*) FROM download_events de WHERE de.plugin_id = p.id) AS downloads
+       FROM plugins p${clause} ORDER BY p.id LIMIT ? OFFSET ?`,
       [...params, filters.limit, filters.offset],
     )
     const categories = await this.categoriesByPlugin(rows.map((row) => row.id))
@@ -71,8 +81,12 @@ export class RegistryRepo {
     }
   }
 
-  async getPlugin(id: string): Promise<PluginEntry | undefined> {
-    const row = await this.driver.get<PluginRow>('SELECT * FROM plugins WHERE id = ?', [id])
+  async getPlugin(id: string): Promise<PluginView | undefined> {
+    const row = await this.driver.get<PluginViewRow>(
+      `SELECT p.*, (SELECT COUNT(*) FROM download_events de WHERE de.plugin_id = p.id) AS downloads
+       FROM plugins p WHERE p.id = ?`,
+      [id],
+    )
     if (!row) return undefined
     const categories = await this.categoriesByPlugin([row.id])
     return rowToEntry(row, categories.get(row.id) ?? [])
@@ -99,6 +113,7 @@ export class RegistryRepo {
       entry.source.type,
       JSON.stringify(entry.source),
       JSON.stringify(entry.tags),
+      JSON.stringify(entry.images ?? []),
       new Date().toISOString(),
     ])
     await q.run('DELETE FROM plugin_categories WHERE plugin_id = ?', [entry.id])
@@ -165,11 +180,59 @@ export class RegistryRepo {
     const categories = (await this.listCategories()).map(
       ({ count: _count, ...category }) => category,
     )
-    return { schemaVersion: 1, name, categories, plugins: items }
+    // Serving-time aggregates (downloads) are not part of the registry format.
+    const plugins = items.map(({ downloads: _downloads, ...entry }) => entry)
+    return { schemaVersion: 1, name, categories, plugins }
   }
 
   async countPlugins(): Promise<number> {
     return (await this.driver.get<{ n: number }>('SELECT COUNT(*) AS n FROM plugins'))?.n ?? 0
+  }
+
+  /** Record one install event; the plugin row supplies the source dimension. */
+  async reportDownload(
+    pluginId: string,
+    client: string,
+    version?: string,
+  ): Promise<{ sourceType: string } | undefined> {
+    const plugin = await this.driver.get<{ source_type: string }>(
+      'SELECT source_type FROM plugins WHERE id = ?',
+      [pluginId],
+    )
+    if (!plugin) return undefined
+    await this.driver.run(
+      'INSERT INTO download_events(at, plugin_id, client, source_type, version) VALUES(?, ?, ?, ?, ?)',
+      [new Date().toISOString(), pluginId, client, plugin.source_type, version ?? null],
+    )
+    return { sourceType: plugin.source_type }
+  }
+
+  async statsDownloads(top: number): Promise<{
+    total: number
+    top: Array<{ id: string; name: string; downloads: number }>
+    byClient: Array<{ client: string; downloads: number }>
+    bySource: Array<{ source_type: string; downloads: number }>
+  }> {
+    const total =
+      (await this.driver.get<{ n: number }>('SELECT COUNT(*) AS n FROM download_events'))?.n ?? 0
+    const topRows = await this.driver.all<{ id: string; name: string; downloads: number }>(
+      `SELECT p.id, p.name, COUNT(*) AS downloads
+       FROM download_events de JOIN plugins p ON p.id = de.plugin_id
+       GROUP BY p.id, p.name ORDER BY downloads DESC, p.id LIMIT ?`,
+      [top],
+    )
+    const byClient = await this.driver.all<{ client: string; downloads: number }>(
+      'SELECT client, COUNT(*) AS downloads FROM download_events GROUP BY client ORDER BY downloads DESC',
+    )
+    const bySource = await this.driver.all<{ source_type: string; downloads: number }>(
+      'SELECT source_type, COUNT(*) AS downloads FROM download_events GROUP BY source_type ORDER BY downloads DESC',
+    )
+    return {
+      total,
+      top: topRows.map((row) => ({ ...row, downloads: Number(row.downloads) })),
+      byClient: byClient.map((row) => ({ ...row, downloads: Number(row.downloads) })),
+      bySource: bySource.map((row) => ({ ...row, downloads: Number(row.downloads) })),
+    }
   }
 
   private async categoriesByPlugin(ids: string[]): Promise<Map<string, string[]>> {

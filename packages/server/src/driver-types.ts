@@ -19,6 +19,7 @@ export interface Dialect {
 }
 
 export interface SqlDriver extends QueryApi {
+  readonly kind: 'sqlite' | 'mysql'
   readonly dialect: Dialect
   exec(sql: string): Promise<void>
   transaction<T>(fn: (tx: QueryApi) => Promise<T>): Promise<T>
@@ -39,6 +40,8 @@ export interface PluginRow {
   source_type: string
   source_json: string
   tags_json: string
+  /** Nullable for rows written before the images migration. */
+  images_json: string | null
   updated_at: string
 }
 

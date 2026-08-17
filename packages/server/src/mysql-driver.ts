@@ -13,6 +13,7 @@ const DDL = [
     source_type VARCHAR(32) NOT NULL,
     source_json TEXT NOT NULL,
     tags_json TEXT NOT NULL,
+    images_json TEXT,
     updated_at VARCHAR(40) NOT NULL,
     INDEX idx_plugins_name (name),
     INDEX idx_plugins_source_type (source_type),
@@ -46,6 +47,15 @@ const DDL = [
     target VARCHAR(255) NOT NULL,
     detail TEXT
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
+  `CREATE TABLE IF NOT EXISTS download_events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    at VARCHAR(40) NOT NULL,
+    plugin_id VARCHAR(255) NOT NULL,
+    client VARCHAR(16) NOT NULL,
+    source_type VARCHAR(16) NOT NULL,
+    version VARCHAR(64),
+    INDEX idx_de_plugin (plugin_id, at)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
   `CREATE TABLE IF NOT EXISTS meta (
     \`key\` VARCHAR(255) PRIMARY KEY,
     value TEXT NOT NULL
@@ -54,13 +64,14 @@ const DDL = [
 
 const dialect: Dialect = {
   ddl: DDL,
-  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, updated_at)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, images_json, updated_at)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       name = VALUES(name), description = VALUES(description), author = VALUES(author),
       homepage = VALUES(homepage), license = VALUES(license), verified = VALUES(verified),
       source_type = VALUES(source_type), source_json = VALUES(source_json),
-      tags_json = VALUES(tags_json), updated_at = VALUES(updated_at)`,
+      tags_json = VALUES(tags_json), images_json = VALUES(images_json),
+      updated_at = VALUES(updated_at)`,
   upsertCategorySql: `INSERT INTO categories(id, name_zh, name_en, parent, description) VALUES(?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       name_zh = VALUES(name_zh), name_en = VALUES(name_en),
@@ -71,6 +82,7 @@ const dialect: Dialect = {
 
 /** MySQL/MariaDB backend over a mysql2 pool. */
 export class MysqlDriver implements SqlDriver {
+  readonly kind = 'mysql' as const
   readonly dialect = dialect
   private readonly pool: Pool
 

@@ -20,6 +20,7 @@ const DDL = [
     source_type TEXT NOT NULL,
     source_json TEXT NOT NULL,
     tags_json TEXT NOT NULL DEFAULT '[]',
+    images_json TEXT,
     updated_at TEXT NOT NULL
   )`,
   'CREATE INDEX IF NOT EXISTS idx_plugins_name ON plugins(name)',
@@ -53,6 +54,15 @@ const DDL = [
     target TEXT NOT NULL,
     detail TEXT
   )`,
+  `CREATE TABLE IF NOT EXISTS download_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    at TEXT NOT NULL,
+    plugin_id TEXT NOT NULL,
+    client TEXT NOT NULL,
+    source_type TEXT NOT NULL,
+    version TEXT
+  )`,
+  'CREATE INDEX IF NOT EXISTS idx_de_plugin ON download_events(plugin_id, at)',
   `CREATE TABLE IF NOT EXISTS meta (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL
@@ -61,13 +71,14 @@ const DDL = [
 
 const dialect: Dialect = {
   ddl: DDL,
-  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, updated_at)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, images_json, updated_at)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
       name = excluded.name, description = excluded.description, author = excluded.author,
       homepage = excluded.homepage, license = excluded.license, verified = excluded.verified,
       source_type = excluded.source_type, source_json = excluded.source_json,
-      tags_json = excluded.tags_json, updated_at = excluded.updated_at`,
+      tags_json = excluded.tags_json, images_json = excluded.images_json,
+      updated_at = excluded.updated_at`,
   upsertCategorySql: `INSERT INTO categories(id, name_zh, name_en, parent, description) VALUES(?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
       name_zh = excluded.name_zh, name_en = excluded.name_en,
@@ -78,6 +89,7 @@ const dialect: Dialect = {
 
 /** SQLite backend over the Node built-in driver; sync calls wrapped async. */
 export class SqliteDriver implements SqlDriver {
+  readonly kind = 'sqlite' as const
   readonly dialect = dialect
   private readonly db: DatabaseSyncInstance
 

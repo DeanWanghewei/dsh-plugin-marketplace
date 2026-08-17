@@ -73,9 +73,40 @@ export async function installPlugin(
   }
 
   if (resolved.entry.source.type === 'path' && runner.isFile(resolved.entry.source.path)) {
-    return installManagedRow(deps, resolved, options, environment.profileDir)
+    const outcome = await installManagedRow(deps, resolved, options, environment.profileDir)
+    await reportInstallIfHttp(deps, resolved, outcome)
+    return outcome
   }
-  return installViaPnpm(deps, resolved, options)
+  const outcome = await installViaPnpm(deps, resolved, options)
+  await reportInstallIfHttp(deps, resolved, outcome)
+  return outcome
+}
+
+/**
+ * Best-effort download-counter report for http-sourced marketplaces: one
+ * fire-and-forget POST per successful install, 2s budget, all failures
+ * silent. Local file/git registries have no endpoint to tell.
+ */
+async function reportInstallIfHttp(
+  deps: InstallerDeps,
+  resolved: ResolvedPlugin,
+  outcome: InstallOutcome,
+): Promise<void> {
+  if (outcome.status !== 'installed') return
+  const ref = deps.config.registries.find((entry) => entry.name === resolved.registry)
+  if (!ref || ref.type !== 'http' || !ref.url) return
+  const base = ref.url.replace(/\/api\/v1\/export\/?$/, '').replace(/\/$/, '')
+  const endpoint = `${base}/api/v1/plugins/${resolved.entry.id}/report-install`
+  try {
+    await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ client: 'cli', version: outcome.record.version.version }),
+      signal: AbortSignal.timeout(2000),
+    })
+  } catch {
+    // Statistics are optional; never fail an install over them.
+  }
 }
 
 interface PnpmTarget {

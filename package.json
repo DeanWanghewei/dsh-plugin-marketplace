@@ -11,7 +11,7 @@
     "build": "pnpm -r --if-present run build",
     "typecheck": "pnpm -r --if-present run typecheck",
     "test": "vitest run",
-    "lint": "oxlint packages scripts",
+    "lint": "oxlint packages/core packages/server packages/cli scripts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dshm": "tsx packages/cli/src/bin.ts",

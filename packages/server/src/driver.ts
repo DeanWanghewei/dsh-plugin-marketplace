@@ -20,6 +20,13 @@ export function isMysqlUrl(location: string): boolean {
 }
 
 export async function openDatabase(location: string): Promise<SqlDriver> {
+  const driver = await construct(location)
+  const { applyMigrations } = await import('./migrate.js')
+  await applyMigrations(driver)
+  return driver
+}
+
+async function construct(location: string): Promise<SqlDriver> {
   if (isMysqlUrl(location)) {
     const { MysqlDriver } = await import('./mysql-driver.js')
     const driver = new MysqlDriver(location)

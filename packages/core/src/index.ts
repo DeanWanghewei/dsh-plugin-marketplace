@@ -3,6 +3,7 @@ export {
   categoryDefSchema,
   parseRegistry,
   pluginEntrySchema,
+  pluginImageSchema,
   registryDataSchema,
   type RawRegistryInput,
 } from './schema.js'

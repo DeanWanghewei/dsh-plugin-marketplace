@@ -1,4 +1,5 @@
 import { Hono, type Context, type Next } from 'hono'
+import { serveStatic } from '@hono/node-server/serve-static'
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml'
 import { categoryDefSchema, parseRegistry, pluginEntrySchema, type PluginEntry } from '@dshm/core'
 import type { RegistryRepo } from './repo.js'
@@ -61,6 +62,27 @@ export function createApp(services: AppServices): Hono<{ Variables: { actor: str
 
   app.get('/api/v1/categories', async (context) => {
     return context.json(await services.repo.listCategories())
+  })
+
+  // Download-counter reporting: best-effort, public, one row per install.
+  app.post('/api/v1/plugins/:id/report-install', async (context) => {
+    const body = (await context.req.json().catch(() => ({}))) as {
+      client?: string
+      version?: string
+    }
+    const client = body.client === 'web' ? 'web' : 'cli'
+    const recorded = await services.repo.reportDownload(
+      context.req.param('id'),
+      client,
+      body.version,
+    )
+    if (!recorded) return context.json({ error: 'not found' }, 404)
+    return context.json({ ok: true, ...recorded })
+  })
+
+  app.get('/api/v1/stats/downloads', async (context) => {
+    const top = Math.min(Number(context.req.query('top')) || 20, 100)
+    return context.json(await services.repo.statsDownloads(top))
   })
 
   // The document the CLI consumes directly: `dshm registry add team --url <here>`
@@ -166,5 +188,12 @@ export function createApp(services: AppServices): Hono<{ Variables: { actor: str
   })
 
   app.route('/api/v1/admin', admin)
+
+  // Static web UI (marketplace + admin SPA), shipped inside the image at
+  // ./web. Registered last so /api and /health always win; unknown paths fall
+  // back to index.html for client-side routing.
+  app.use('*', serveStatic({ root: './web' }))
+  app.get('*', serveStatic({ root: './web', path: '/index.html' }))
+
   return app
 }

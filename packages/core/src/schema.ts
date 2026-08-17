@@ -24,6 +24,12 @@ export const pluginSourceSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('path'), path: z.string().min(1), link: z.boolean().optional() }),
 ])
 
+/** Demo gallery image: a plain https URL — GitHub attachment, S3-proxy link, any host. */
+export const pluginImageSchema = z.object({
+  url: z.string().url().regex(/^https?:\/\//, 'image url must be http(s)'),
+  caption: z.string().optional(),
+})
+
 export const pluginEntrySchema = z.object({
   id: z.string().regex(/^[a-z0-9][a-z0-9-]*$/, 'plugin id must be a lowercase slug'),
   name: z.string().min(1),
@@ -35,6 +41,7 @@ export const pluginEntrySchema = z.object({
   license: z.string().optional(),
   verified: z.boolean().default(false),
   source: pluginSourceSchema,
+  images: z.array(pluginImageSchema).default([]),
 })
 
 export const registryDataSchema = z.object({
