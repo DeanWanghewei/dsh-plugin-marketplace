@@ -1,5 +1,5 @@
 {
-  "name": "dshm",
+  "name": "dshm-cli",
   "version": "0.1.0",
   "type": "module",
   "description": "dshm — plugin marketplace for deepseek-harness: search, install, uninstall, and categorize plugins",

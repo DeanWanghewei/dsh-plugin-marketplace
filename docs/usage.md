@@ -7,11 +7,11 @@
 **方式一：npm 安装（推荐，一条命令）**
 
 ```sh
-npm i -g dshm     # 或先零安装试用：npx dshm doctor
+npm i -g dshm-cli  # 装完即得 dshm 命令；零安装试用：npx dshm-cli doctor
 dshm doctor
 ```
 
-> npm 包名为 `dshm`（`dsh-plugin-marketplace` 在 npm 已被他人占用）；GitHub 仓库仍叫 [dsh-plugin-marketplace](https://github.com/DeanWanghewei/dsh-plugin-marketplace)。
+> npm 包名为 `dshm-cli`（短名 `dshm` 被 npm 相似名策略拒绝，命令名仍为 `dshm`）；GitHub 仓库仍叫 [dsh-plugin-marketplace](https://github.com/DeanWanghewei/dsh-plugin-marketplace)。
 
 **方式二：从源码（本仓库开发）**
 

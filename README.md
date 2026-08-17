@@ -6,10 +6,10 @@ deepseek-harness（DSH）的插件市场：搜索、分类、安装、卸载插�
 
 ## 快速开始
 
-npm 包名为 `dshm`（`dsh-plugin-marketplace` 在 npm 已被占用；首次 `npm publish` 前请先用源码方式）：
+npm 包名为 `dshm-cli`（`dshm`/`dsh-plugin-marketplace` 均被占用或被 npm 相似名策略拒绝；命令名仍为 `dshm`）：
 
 ```sh
-npm i -g dshm          # 发包后
+npm i -g dshm-cli      # 装完即得 dshm 命令
 dshm doctor
 dshm search cordis
 dshm install tool-cordis --profile web
