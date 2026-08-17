@@ -1,0 +1,43 @@
+# 示例 registry：把 marketplace 版本化在一个普通 git 仓库里。
+#
+# 用法（fork 本仓库或自建仓库后）：
+#   dshm registry add my-team \
+#     --git https://github.com/<you>/<repo>.git \
+#     --subpath registry-examples/team-demo.yaml --ref main
+#
+# 条目与内置 registry 同名也不会冲突：挂载后以 <registry名>:<插件id> 命名空间隔离。
+schemaVersion: 1
+name: team-demo
+categories:
+  - id: team-pick
+    name: { zh: 团队甄选, en: Team Picks }
+    parent: null
+  - id: community
+    name: { zh: 社区, en: Community }
+    parent: null
+plugins:
+  - id: tool-cordis
+    name: Cordis 工具集（团队推荐）
+    description: 模型侧运行时检查与动态包工具，团队标准配置
+    categories: [team-pick]
+    tags: [recommended]
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source: { type: npm, package: '@deepseek-ai/dsh-tool-cordis' }
+  - id: skill
+    name: Skill 服务（团队推荐）
+    description: 技能提供方注册服务
+    categories: [team-pick]
+    tags: [recommended]
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source: { type: npm, package: '@deepseek-ai/dsh-skill' }
+  - id: turtle-ui
+    name: Turtle UI
+    description: harness 官方教程引用的第三方示例插件（git 直装，非官方维护）
+    categories: [community]
+    tags: [example]
+    verified: false
+    source: { type: git, url: 'github:deepseek-harness/turtle-ui', ref: main }
