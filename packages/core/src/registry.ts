@@ -3,6 +3,7 @@ import { parse } from 'yaml'
 import type { DshmConfig, RegistryRef } from './config.js'
 import { parseRegistry } from './schema.js'
 import type { Runner } from './runner.js'
+import { injectHttpsToken } from './spec.js'
 import { qualifiedId, type CategoryDef, type RegistryData, type ResolvedPlugin } from './types.js'
 
 export interface LoadedRegistry {
@@ -49,7 +50,7 @@ export async function loadRegistries(
   for (const ref of config.registries) {
     if (ref.disabled) continue
     try {
-      const data = await loadOne(runner, ref, cacheDir, options)
+      const data = await loadOne(runner, ref, cacheDir, options, config.gitTokens)
       loaded.push({ ref, data })
     } catch (error) {
       errors.push({
@@ -99,9 +100,13 @@ async function loadOne(
   ref: RegistryRef,
   cacheDir: string,
   options: LoadRegistriesOptions,
+  gitTokens: Record<string, string>,
 ): Promise<RegistryData> {
   if (ref.type === 'file') {
     return loadDocument(ref.name, runner.readTextFile(ref.path ?? ''))
+  }
+  if (ref.type === 'git') {
+    return loadGitRegistry(runner, ref, cacheDir, options, gitTokens)
   }
   const url = ref.url ?? ''
   if (!url) throw new Error('http registry is missing url')
@@ -129,6 +134,65 @@ async function loadOne(
   const data = loadDocument(ref.name, raw)
   runner.writeTextFile(cacheFile, JSON.stringify({ fetchedAt: now, raw } satisfies CacheEnvelope))
   return data
+}
+
+/**
+ * A registry versioned in a git repository: cloned under the cache directory,
+ * re-synced at most once per TTL, and — unlike http — a failed sync with an
+ * existing clone degrades to the stale local copy instead of failing the
+ * source, because the clone already holds the document.
+ */
+async function loadGitRegistry(
+  runner: Runner,
+  ref: RegistryRef,
+  cacheDir: string,
+  options: LoadRegistriesOptions,
+  gitTokens: Record<string, string>,
+): Promise<RegistryData> {
+  if (!ref.url) throw new Error('git registry is missing url')
+  // Token-injected URL only ever reaches the git command; error messages and
+  // config keep the raw form so credentials never leak into output.
+  const cloneUrl = injectHttpsToken(ref.url, gitTokens)
+  const dir = join(cacheDir, 'git', sanitize(ref.name))
+  const marker = join(dir, '.dshm-sync.json')
+  const document = join(dir, ref.subpath ?? 'registry.yaml')
+  const ttl = options.cacheTtlMs ?? DEFAULT_CACHE_TTL_MS
+  const now = options.nowMs?.() ?? Date.now()
+  const sync = async (): Promise<void> => {
+    if (runner.exists(dir)) {
+      const fetchOk =
+        (await runner.run('git', ['fetch', 'origin'], { cwd: dir })).ok &&
+        (ref.ref ? (await runner.run('git', ['checkout', ref.ref], { cwd: dir })).ok : true)
+      if (!fetchOk) {
+        if (runner.isFile(document)) return // stale local copy is still usable
+        throw new Error(`git sync failed for ${ref.url}`)
+      }
+    } else {
+      const clone = await runner.run('git', ['clone', cloneUrl, dir])
+      if (!clone.ok) throw new Error(`git clone failed for ${ref.url}: ${clone.stderr.trim()}`)
+      if (ref.ref) {
+        const checkout = await runner.run('git', ['checkout', ref.ref], { cwd: dir })
+        if (!checkout.ok) {
+          throw new Error(`git checkout ${ref.ref} failed: ${checkout.stderr.trim()}`)
+        }
+      }
+    }
+    runner.writeTextFile(marker, JSON.stringify({ fetchedAt: now }))
+  }
+  const markerRaw = runner.readTextFile(marker)
+  let fresh = false
+  if (markerRaw) {
+    try {
+      fresh = now - (JSON.parse(markerRaw) as CacheEnvelope).fetchedAt < ttl
+    } catch {
+      fresh = false
+    }
+  }
+  if (!options.forceRefresh && fresh) {
+    return loadDocument(ref.name, runner.readTextFile(document))
+  }
+  await sync()
+  return loadDocument(ref.name, runner.readTextFile(document))
 }
 
 function loadDocument(registryName: string, raw: string | undefined): RegistryData {

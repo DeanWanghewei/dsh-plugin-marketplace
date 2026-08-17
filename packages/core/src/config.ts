@@ -4,10 +4,17 @@ import type { Runner } from './runner.js'
 
 export interface RegistryRef {
   name: string
-  type: 'file' | 'http'
+  type: 'file' | 'http' | 'git'
+  /** file: absolute path to the registry document. */
   path?: string
+  /** http: URL serving the document; git: repository URL. */
   url?: string
+  /** http: bearer token. */
   token?: string
+  /** git: branch, tag, or commit to pin. */
+  ref?: string
+  /** git: path of the registry document inside the repository. */
+  subpath?: string
   disabled?: boolean
 }
 

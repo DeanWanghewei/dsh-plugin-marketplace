@@ -146,15 +146,19 @@ dshm registry add team --file /abs/my-registry.yaml   # 或 --url https://… �
 dshm install my-plugin
 ```
 
-### 3.6 多 registry 共存
+### 3.6 marketplace 来源模型与多源共存
+
+客户端是多源聚合器：**服务端只是可挂载的 marketplace 之一**，不是必需的。三种来源任意组合，条目以 `registry:id` 命名空间隔离（同名时搜索都可见，安装用完整 id 消歧）：
 
 ```sh
-dshm registry list                     # 名称/类型/健康度/插件数
-dshm registry add team --url https://dshm.example.com/registry.yaml --token <t>
-dshm registry remove team
+dshm registry add local  --file /abs/my-registry.yaml                        # ① 本地文件
+dshm registry add team   --url  https://dshm.example.com/api/v1/export --token <t>   # ② registry 服务端（dshm-server）
+dshm registry add tap    --git  https://github.com/you/dsh-registry --ref v1 --subpath registry.yaml  # ③ 任意 git 仓库
+dshm registry list       # 名称/类型/位置(含 pin 的 ref)/健康度/插件数
+dshm registry remove tap
 ```
 
-条目以 `registry:id` 命名空间隔离；同名时搜索都可见，安装需用完整 id 消歧。
+git 来源的行为：首次 clone 到 `~/.dshm/cache/git/<name>/`，之后按 TTL（5 分钟）增量 fetch；**同步失败时自动回退到本地已有克隆**（离线/服务不可达仍可用该源）。私有仓库与插件安装共用同一套凭证（ssh 走本机密钥；https 配 `~/.dshm/config.yaml` 的 `gitTokens.<host>`，token 永不落 registry 配置或输出）。`--ref` 建议固定 commit/tag 防漂移；monorepo 用 `--subpath` 指定文档路径。
 
 ## 4. 状态与文件位置
 

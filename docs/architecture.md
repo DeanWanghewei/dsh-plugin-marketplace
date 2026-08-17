@@ -22,6 +22,10 @@ English title: Architecture. 本文描述 dsh-plugin-marketplace 一期（core +
 
 ## 关键决策与依据
 
+### 来源模型：客户端是多源聚合器，服务端只是 marketplace 之一
+
+registry 来源是判别式配置（`~/.dshm/config.yaml`）：`file`（本地文档）、`http`（dshm-server 或任何能返回 registry.yaml 的端点）、`git`（版本化在任意 git 仓库的文档，clone 进缓存按 TTL 增量同步，同步失败回退本地克隆）。任意数量共存，条目以 `registry:id` 命名空间隔离，逐源容错——某个源挂了只是少一个命名空间，其余照常。因此：服务端不是运行依赖，只是"集中管理 + 数据库索引"的增强选项；没有任何中心节点时客户端依然完整可用（内置 registry 随包分发）。
+
 ### 安装委托 `dsh plugin`，不自造安装器
 
 harness 的 `dsh plugin --profile P <pnpm args>` 已解决：profile 自动初始化、依赖安装、`dsh.profile.bundles` 协调（声明了 `dsh.bundle.patch` 的包自动进层栈）。marketplace 只负责三件事：把 `source` 构造成 pnpm spec、处理 pnpm 的 `allowBuilds` 门槛（显式确认后代写 profile 的 `pnpm-workspace.yaml`）、把结果记进自己的 store。
