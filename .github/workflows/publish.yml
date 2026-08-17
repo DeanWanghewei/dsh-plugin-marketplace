@@ -1,0 +1,37 @@
+name: Publish dshm-cli
+
+# Publishes packages/cli to npm with the NPM_TOKEN secret — no local npm
+# login needed. Triggers: push of a version tag (v*), or a manual run from
+# the Actions tab ("Run workflow"); the run publishes the version currently
+# in packages/cli/package.json.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify (lint + typecheck + test + build)
+        run: pnpm verify
+
+      - name: Publish
+        working-directory: packages/cli
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

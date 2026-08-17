@@ -38,8 +38,26 @@ node packages/cli/lib/bin.js uninstall <id> --profile dshm-demo
 ## 提交与版本
 
 - conventional commits（`feat:` / `fix:` / `docs:` / `chore:` …）。
-- 版本管理用 changesets（引入发布流程时启用 `@changesets/cli`）。
 - CI 在 `.github/workflows/ci.yml`：lint → typecheck → test → build，Node 22/24 矩阵。
+
+## 发布 dshm-cli（GitHub Actions 自动发布，无需本地 npm 登录）
+
+一次性配置——在仓库里存一个 npm 发布令牌：
+
+1. npmjs.com → 头像 → **Access Tokens** → Generate New Token（Granular，Packages 读写权限；或 Classic 的 Automation 类型）；
+2. 复制令牌 → GitHub 仓库 → **Settings → Secrets and variables → Actions** → New repository secret，名称 **`NPM_TOKEN`**，值为令牌。
+
+之后每次发版只需：
+
+```sh
+# 1. 改 packages/cli/package.json 的 version
+# 2. 提交并打标签推送：
+git tag v<版本号> && git push origin v<版本号>
+```
+
+流水线（`.github/workflows/publish.yml`）自动：install → verify（lint+typecheck+57 测试+build）→ `npm publish`。也可以不打标签，直接在 GitHub **Actions → Publish dshm-cli → Run workflow** 手动触发（发布 package.json 里的当前版本）。
+
+`NPM_TOKEN` 失效或未配置时该 workflow 会失败（401/403），在 Actions 页重新配置密钥后可对同一标签 **Re-run jobs**。
 
 ## 已知边界（一期）
 
