@@ -6,5 +6,5 @@
       "@dshm/core": ["../core/src/index.ts"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "tests"]
 }

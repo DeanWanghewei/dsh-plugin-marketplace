@@ -8,7 +8,8 @@
   },
   "files": [
     "lib",
-    "registry"
+    "registry",
+    "web"
   ],
   "repository": {
     "type": "git",
@@ -30,12 +31,15 @@
   "dependencies": {
     "commander": "^12.1.0",
     "picocolors": "^1.1.1",
-    "yaml": "^2.6.0"
+    "yaml": "^2.6.0",
+    "hono": "^4.6.0",
+    "@hono/node-server": "^1.13.0"
   },
   "devDependencies": {
     "@dshm/core": "workspace:*",
     "@types/node": "^22.10.0",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0"
-  }
+  },
+  "tsconfig": null
 }

@@ -12,5 +12,11 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      input: {
+        index: new URL('./index.html', import.meta.url).pathname,
+        local: new URL('./local.html', import.meta.url).pathname,
+      },
+    },
   },
 })

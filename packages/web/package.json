@@ -6,7 +6,7 @@
   "description": "dshm marketplace web UI: guest browsing + admin console",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-to-cli.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

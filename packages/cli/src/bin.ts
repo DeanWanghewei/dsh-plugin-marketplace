@@ -7,6 +7,7 @@ import { registerListCommand } from './commands/list.js'
 import { registerRegistryCommand } from './commands/registry.js'
 import { registerSearchCommand } from './commands/search.js'
 import { registerUninstallCommand } from './commands/uninstall.js'
+import { registerWebCommand } from './commands/web.js'
 
 const program = new Command()
 
@@ -23,6 +24,7 @@ registerListCommand(program)
 registerCategoriesCommand(program)
 registerRegistryCommand(program)
 registerDoctorCommand(program)
+registerWebCommand(program)
 
 program.parseAsync(process.argv).catch((error: unknown) => {
   const message = error instanceof Error ? error.message : String(error)
