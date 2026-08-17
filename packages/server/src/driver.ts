@@ -22,7 +22,12 @@ export function isMysqlUrl(location: string): boolean {
 export async function openDatabase(location: string): Promise<SqlDriver> {
   if (isMysqlUrl(location)) {
     const { MysqlDriver } = await import('./mysql-driver.js')
-    return new MysqlDriver(location)
+    const driver = new MysqlDriver(location)
+    // The MySQL driver only creates the pool; apply the schema here so both
+    // backends are guaranteed initialized by the time openDatabase returns
+    // (the SQLite driver does this in its own constructor).
+    for (const statement of driver.dialect.ddl) await driver.exec(statement)
+    return driver
   }
   const { SqliteDriver } = await import('./sqlite-driver.js')
   return new SqliteDriver(location)
