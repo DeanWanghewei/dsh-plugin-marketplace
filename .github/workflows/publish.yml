@@ -25,11 +25,13 @@ jobs:
       - uses: pnpm/action-setup@v6
 
       # Node 24 ships npm 11, which speaks OIDC trusted publishing natively.
+      # No registry-url: setup-node would write an authToken=${NODE_AUTH_TOKEN}
+      # line into .npmrc, and with no token configured npm would PUT with an
+      # empty credential — the registry answers that with a masked 404.
       - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
-          registry-url: https://registry.npmjs.org
 
       - run: pnpm install --frozen-lockfile
 
