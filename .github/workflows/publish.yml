@@ -1,13 +1,18 @@
 name: Publish dshm-cli
 
-# Publishes packages/cli to npm with the NPM_TOKEN secret — no local npm
-# login needed. Triggers: push of a version tag (v*), or a manual run from
-# the Actions tab ("Run workflow"); the run publishes the version currently
-# in packages/cli/package.json.
+# Publishes packages/cli to npm via Trusted Publishing (OIDC): the GitHub
+# Actions identity itself authenticates — no stored token, no OTP. Requires
+# the trusted publisher registered once on npmjs.com (package dshm-cli →
+# Settings → Trusted Publishers: this repository + this workflow file).
+# Triggers: push of a version tag (v*), or a manual run from the Actions tab.
 on:
   push:
     tags: ['v*']
   workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -19,9 +24,10 @@ jobs:
       # action fails if both that and a `version` input are present.
       - uses: pnpm/action-setup@v6
 
+      # Node 24 ships npm 11, which speaks OIDC trusted publishing natively.
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: 24
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
@@ -33,5 +39,3 @@ jobs:
       - name: Publish
         working-directory: packages/cli
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
