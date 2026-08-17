@@ -2,6 +2,8 @@
 
 deepseek-harness（DSH）的插件市场：搜索、分类、安装、卸载插件。`dshm` CLI 是一期交付物；registry 服务与后台管理是二期规划（见 [docs/architecture.md](docs/architecture.md)）。
 
+> **快速接入请直接读 [docs/usage.md](docs/usage.md)**（使用指南：五分钟跑通 + 命令速查 + 场景手册 + 故障排查）。
+
 ## 快速开始
 
 ```sh
