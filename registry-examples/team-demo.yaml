@@ -41,3 +41,12 @@ plugins:
     tags: [example]
     verified: false
     source: { type: git, url: 'github:deepseek-harness/turtle-ui', ref: main }
+  - id: web-search
+    name: Web Search（团队推荐）
+    description: 内置的稳定 web_search 能力
+    categories: [team-pick]
+    tags: [recommended]
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source: { type: npm, package: '@deepseek-ai/dsh-web-search' }
