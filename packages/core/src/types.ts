@@ -36,6 +36,12 @@ export interface PluginEntry {
   verified: boolean
   source: PluginSource
   images: PluginImage[]
+  /** Marketplace-level dependencies: plugin ids that should be installed too. */
+  requires?: string[]
+  /** Harness ctx service keys the plugin injects (informational). */
+  requiresServices?: string[]
+  /** Harness ctx service keys this plugin provides (informational). */
+  providesServices?: string[]
 }
 
 export interface RegistryData {

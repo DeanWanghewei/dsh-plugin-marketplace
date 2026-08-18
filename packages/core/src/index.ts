@@ -37,6 +37,12 @@ export {
 } from './registry.js'
 export { searchPlugins, categoryCounts, type SearchQuery, type ScoredPlugin } from './search.js'
 export {
+  dependencyIds,
+  missingDependencies,
+  type DependencyGap,
+  type ServiceProviders,
+} from './requires.js'
+export {
   installedView,
   matchProfilePlugins,
   profilePackages,

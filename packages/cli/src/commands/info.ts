@@ -33,6 +33,12 @@ export function registerInfoCommand(program: Command): void {
         `categories:${entry.categories.length > 0 ? ` ${entry.categories.join(', ')}` : ' —'}`,
       ]
       if (entry.tags.length > 0) lines.push(`tags:      ${entry.tags.join(', ')}`)
+      if ((entry.requires?.length ?? 0) > 0) {
+        lines.push(`requires: ${entry.requires!.join(', ')}  ${pc.dim('(依赖插件，建议一并安装)')}`)
+      }
+      if ((entry.requiresServices?.length ?? 0) > 0) {
+        lines.push(`injects:  ${entry.requiresServices!.join(', ')}  ${pc.dim('(所需 ctx 服务)')}`)
+      }
       const meta = [
         entry.author && `author: ${entry.author}`,
         entry.license && `license: ${entry.license}`,

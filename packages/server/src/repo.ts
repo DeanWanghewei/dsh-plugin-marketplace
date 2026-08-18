@@ -31,6 +31,9 @@ function rowToEntry(row: PluginViewRow, categories: string[]): PluginView {
     verified: row.verified === 1,
     source: JSON.parse(row.source_json) as PluginEntry['source'],
     images: row.images_json ? (JSON.parse(row.images_json) as PluginImage[]) : [],
+    ...(row.deps_json
+      ? (JSON.parse(row.deps_json) as Pick<PluginEntry, 'requires' | 'requiresServices' | 'providesServices'>)
+      : {}),
     downloads: Number(row.downloads ?? 0),
   }
 }
@@ -114,6 +117,11 @@ export class RegistryRepo {
       JSON.stringify(entry.source),
       JSON.stringify(entry.tags),
       JSON.stringify(entry.images ?? []),
+      JSON.stringify({
+        requires: entry.requires ?? [],
+        requiresServices: entry.requiresServices ?? [],
+        providesServices: entry.providesServices ?? [],
+      }),
       new Date().toISOString(),
     ])
     await q.run('DELETE FROM plugin_categories WHERE plugin_id = ?', [entry.id])

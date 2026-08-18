@@ -45,6 +45,8 @@ categories:
 plugins:
   - id: acp
     name: "@deepseek-ai/dsh-acp"
+    requiresServices:
+      - agents
     description: Automation-only Agent Client Protocol server for driving DeepSeek
       Harness agents over JSON-RPC stdio
     categories:
@@ -54,6 +56,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
     source:
       type: npm
       package: "@deepseek-ai/dsh-acp"
@@ -87,6 +91,8 @@ plugins:
       package: "@deepseek-ai/dsh-acp-snapshot"
   - id: agent
     name: "@deepseek-ai/dsh-agent"
+    providesServices:
+      - agents
     description: Agent interface, registry, initiator scope, and event vocabulary
       for the DeepSeek Harness
     categories:
@@ -101,6 +107,8 @@ plugins:
       package: "@deepseek-ai/dsh-agent"
   - id: agent-default-model
     name: "@deepseek-ai/dsh-agent-default-model"
+    providesServices:
+      - agentDefaultModel
     description: Default model selection shared by Agent entry points
     categories:
       - infrastructure
@@ -127,6 +135,8 @@ plugins:
       package: "@deepseek-ai/dsh-agent-instructions"
   - id: agent-loop
     name: "@deepseek-ai/dsh-agent-loop"
+    providesServices:
+      - agentLoop
     description: The concrete agent loop plugin for the DeepSeek Harness
     categories:
       - infrastructure
@@ -154,6 +164,8 @@ plugins:
       package: "@deepseek-ai/dsh-agent-loop-testkit"
   - id: agent-presets
     name: "@deepseek-ai/dsh-agent-presets"
+    providesServices:
+      - agentPresets
     description: Per-session agent composition from preset cordis.yml files for the
       DeepSeek Harness
     categories:
@@ -182,6 +194,8 @@ plugins:
       package: "@deepseek-ai/dsh-agent-spine-demo"
   - id: agent-tool-presentation
     name: "@deepseek-ai/dsh-agent-tool-presentation"
+    requiresServices:
+      - tools
     description: "Agent-plane presentation selector: composes one agent's tools as
       Code Mode, native, or both"
     categories:
@@ -191,6 +205,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-agent-tool-presentation"
@@ -210,6 +226,8 @@ plugins:
       package: "@deepseek-ai/dsh-anonymous-user-id"
   - id: api-gateway
     name: "@deepseek-ai/dsh-api-gateway"
+    providesServices:
+      - typertGateway
     description: Typert Remote Host dispatcher and Client API endpoint
     categories:
       - infrastructure
@@ -265,6 +283,8 @@ plugins:
       package: "@deepseek-ai/dsh-atomic-write"
   - id: attachment
     name: "@deepseek-ai/dsh-attachment"
+    providesServices:
+      - attachments
     description: Durable immutable attachment storage seam for the DeepSeek Harness
     categories:
       - infrastructure
@@ -347,6 +367,10 @@ plugins:
       package: "@deepseek-ai/dsh-brand"
   - id: client-connection
     name: "@deepseek-ai/dsh-client-connection"
+    requiresServices:
+      - webServer
+    providesServices:
+      - connection
     description: "Wire consumer layer: HTTP-up/WebSocket-down client,
       ConnectionController dual streams with reconnect, and fixture api"
     categories:
@@ -357,11 +381,16 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - host-webserver
     source:
       type: npm
       package: "@deepseek-ai/dsh-client-connection"
   - id: client-hmr
     name: "@deepseek-ai/dsh-client-hmr"
+    requiresServices:
+      - clientModules
+      - webServer
     description: "Dev-only hot-reload driver for script-loaded client entries: SSE
       rebuilt frames → invalidate/prefetch → fiber swap through the vendored
       Loader entry"
@@ -372,6 +401,9 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - client-modules
+      - host-webserver
     source:
       type: npm
       package: "@deepseek-ai/dsh-client-hmr"
@@ -391,6 +423,8 @@ plugins:
       package: "@deepseek-ai/dsh-client-locale"
   - id: client-modules
     name: "@deepseek-ai/dsh-client-modules"
+    providesServices:
+      - clientModules
     description: "Client module system, dual-face: node half composes the
       __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index
       tap, webPlugins service); browser half is the lazy-CJS module table the
@@ -523,6 +557,8 @@ plugins:
       package: "@deepseek-ai/dsh-client-ui-cordis"
   - id: client-ui-deliverables
     name: "@deepseek-ai/dsh-client-ui-deliverables"
+    requiresServices:
+      - systemPrompt
     description: Produced-files turn tail and clickable final-response file
       references for Web
     categories:
@@ -532,6 +568,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - system-prompt
     source:
       type: npm
       package: "@deepseek-ai/dsh-client-ui-deliverables"
@@ -944,6 +982,8 @@ plugins:
       package: "@deepseek-ai/dsh-cmdline"
   - id: code-runtime
     name: "@deepseek-ai/dsh-code-runtime"
+    providesServices:
+      - codeRuntime
     description: Abstract code-execution seam (ctx.codeRuntime) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -970,6 +1010,9 @@ plugins:
       package: "@deepseek-ai/dsh-code-runtime-worker-thread"
   - id: command-compact
     name: "@deepseek-ai/dsh-command-compact"
+    requiresServices:
+      - commands
+      - compaction
     description: Human-facing slash command for explicit session compaction
     categories:
       - infrastructure
@@ -978,11 +1021,16 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - commands
+      - compaction
     source:
       type: npm
       package: "@deepseek-ai/dsh-command-compact"
   - id: command-feedback
     name: "@deepseek-ai/dsh-command-feedback"
+    requiresServices:
+      - commands
     description: Log-only session feedback producer and human-facing slash command
     categories:
       - infrastructure
@@ -991,11 +1039,16 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - commands
     source:
       type: npm
       package: "@deepseek-ai/dsh-command-feedback"
   - id: command-goal
     name: "@deepseek-ai/dsh-command-goal"
+    requiresServices:
+      - commands
+      - goals
     description: Human-facing slash command for persisted same-session goals
     categories:
       - infrastructure
@@ -1004,11 +1057,16 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - commands
+      - goal
     source:
       type: npm
       package: "@deepseek-ai/dsh-command-goal"
   - id: commands
     name: "@deepseek-ai/dsh-commands"
+    providesServices:
+      - commands
     description: Plugin-owned human command registry for DeepSeek Harness UIs
     categories:
       - infrastructure
@@ -1022,6 +1080,8 @@ plugins:
       package: "@deepseek-ai/dsh-commands"
   - id: compaction
     name: "@deepseek-ai/dsh-compaction"
+    providesServices:
+      - compaction
     description: Abstract compaction service seam (ctx.compaction) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1049,6 +1109,8 @@ plugins:
       package: "@deepseek-ai/dsh-compaction-basic"
   - id: compaction-tool-result-pruner
     name: "@deepseek-ai/dsh-compaction-tool-result-pruner"
+    providesServices:
+      - toolResultPruner
     description: Replay-safe model-free head/middle/tail pruning for tool-result
       surface nodes
     categories:
@@ -1077,6 +1139,9 @@ plugins:
       package: "@deepseek-ai/dsh-cordis-client-runner"
   - id: cordis-host-runner
     name: "@deepseek-ai/dsh-cordis-host-runner"
+    providesServices:
+      - dynamicCordisRunner
+      - cordisInspect
     description: Dynamic package definition registry, host-half sandbox lifecycle,
       and invoke handler table for model-mounted dual-half packages
     categories:
@@ -1092,6 +1157,8 @@ plugins:
       package: "@deepseek-ai/dsh-cordis-host-runner"
   - id: credentials
     name: "@deepseek-ai/dsh-credentials"
+    providesServices:
+      - credentials
     description: "Abstract credential seam (ctx.credentials): settings carry
       references to secrets, providers own the values"
     categories:
@@ -1120,6 +1187,8 @@ plugins:
       package: "@deepseek-ai/dsh-credentials-local"
   - id: e2b
     name: "@deepseek-ai/dsh-e2b"
+    providesServices:
+      - e2b
     description: Shared E2B sandbox lifecycle for DeepSeek Harness provider adapters
     categories:
       - infrastructure
@@ -1133,6 +1202,8 @@ plugins:
       package: "@deepseek-ai/dsh-e2b"
   - id: fs
     name: "@deepseek-ai/dsh-fs"
+    providesServices:
+      - fs
     description: Abstract filesystem capability seam (ctx.fs) for the DeepSeek
       Harness — vocabulary types, the FileSystem service (text IO + optional
       version-guarded atomic mutations), and the fs/* policy event vocabulary
@@ -1206,6 +1277,8 @@ plugins:
       package: "@deepseek-ai/dsh-fs-sandbox"
   - id: goal
     name: "@deepseek-ai/dsh-goal"
+    providesServices:
+      - goals
     description: Event-sourced same-session goal state and lifecycle service for the
       DeepSeek Harness
     categories:
@@ -1220,6 +1293,10 @@ plugins:
       package: "@deepseek-ai/dsh-goal"
   - id: goal-round-driver
     name: "@deepseek-ai/dsh-goal-round-driver"
+    requiresServices:
+      - agents
+      - goals
+      - sessions
     description: Race-fenced same-session goal-round driver
     categories:
       - infrastructure
@@ -1228,11 +1305,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
+      - goal
+      - session
     source:
       type: npm
       package: "@deepseek-ai/dsh-goal-round-driver"
   - id: headless
     name: "@deepseek-ai/dsh-headless"
+    requiresServices:
+      - agentDefaultModel
+      - agents
+      - sessions
     description: "The dsh one-shot bundle: a direct core Agent/Session runner over
       dsh-base with no Host, HTTP, or browser layer"
     categories:
@@ -1242,6 +1327,10 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
+      - agent-default-model
+      - session
     source:
       type: npm
       package: "@deepseek-ai/dsh-headless"
@@ -1274,6 +1363,8 @@ plugins:
       package: "@deepseek-ai/dsh-hook-protocol"
   - id: hooks-claude-code
     name: "@deepseek-ai/dsh-hooks-claude-code"
+    requiresServices:
+      - shell
     description: "Bridge plugin: run a Claude Code hooks.json / settings hook config
       on the DeepSeek Harness interception seams"
     categories:
@@ -1283,11 +1374,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - shell
     source:
       type: npm
       package: "@deepseek-ai/dsh-hooks-claude-code"
   - id: hooks-codex
     name: "@deepseek-ai/dsh-hooks-codex"
+    requiresServices:
+      - shell
     description: "Bridge plugin: run a Codex hooks.json hook config on the DeepSeek
       Harness interception seams"
     categories:
@@ -1297,11 +1392,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - shell
     source:
       type: npm
       package: "@deepseek-ai/dsh-hooks-codex"
   - id: host-apiproxy
     name: "@deepseek-ai/dsh-host-apiproxy"
+    providesServices:
+      - apiProxy
     description: "API gateway: the ApiProxy contract (api/), the fetch carrier pair
       (fetch/), and the host-side gateway plugin providing ctx.apiProxy"
     categories:
@@ -1316,6 +1415,8 @@ plugins:
       package: "@deepseek-ai/dsh-host-apiproxy"
   - id: host-directory-picker
     name: "@deepseek-ai/dsh-host-directory-picker"
+    providesServices:
+      - directoryPicker
     description: Abstract workspace-directory picking seam (ctx.directoryPicker) for
       the DeepSeek Harness web GUI host
     categories:
@@ -1330,6 +1431,9 @@ plugins:
       package: "@deepseek-ai/dsh-host-directory-picker"
   - id: host-directory-picker-auto
     name: "@deepseek-ai/dsh-host-directory-picker-auto"
+    requiresServices:
+      - webServer
+      - loader
     description: "Adaptive chooser of the directory-picker seam: resolves the host
       situation at boot and mounts the native or browse backend for the DeepSeek
       Harness web GUI host"
@@ -1340,6 +1444,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - host-webserver
     source:
       type: npm
       package: "@deepseek-ai/dsh-host-directory-picker-auto"
@@ -1373,6 +1479,8 @@ plugins:
       package: "@deepseek-ai/dsh-host-directory-picker-native"
   - id: host-frontend-static
     name: "@deepseek-ai/dsh-host-frontend-static"
+    requiresServices:
+      - webServer
     description: "SPA dist server for the Web shell: owns the webserver fallback
       seat, serving the built frontend with index-tap injection, traversal
       rejection, and SPA index fallback"
@@ -1383,11 +1491,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - host-webserver
     source:
       type: npm
       package: "@deepseek-ai/dsh-host-frontend-static"
   - id: host-plugin-inventory
     name: "@deepseek-ai/dsh-host-plugin-inventory"
+    providesServices:
+      - pluginInventory
     description: Read-only Remote projection of current Cordis Loader plugin state
     categories:
       - infrastructure
@@ -1401,6 +1513,8 @@ plugins:
       package: "@deepseek-ai/dsh-host-plugin-inventory"
   - id: host-webserver
     name: "@deepseek-ai/dsh-host-webserver"
+    providesServices:
+      - webServer
     description: "Web route-registration plugin: HTTP and upgrade routes, index
       transform taps, and static dist fallback; knows no harness concepts"
     categories:
@@ -1415,6 +1529,8 @@ plugins:
       package: "@deepseek-ai/dsh-host-webserver"
   - id: invariants
     name: "@deepseek-ai/dsh-invariants"
+    providesServices:
+      - invariants
     description: Registry service for package-owned DeepSeek Harness runtime invariants
     categories:
       - infrastructure
@@ -1428,6 +1544,8 @@ plugins:
       package: "@deepseek-ai/dsh-invariants"
   - id: jobs
     name: "@deepseek-ai/dsh-jobs"
+    providesServices:
+      - jobs
     description: Background job registry (ctx.jobs) for the DeepSeek Harness —
       shared ids, owner isolation, polling, cancellation, and completion
       listeners for long-running tool work
@@ -1471,6 +1589,8 @@ plugins:
       package: "@deepseek-ai/dsh-launch-environment"
   - id: llm
     name: "@deepseek-ai/dsh-llm"
+    providesServices:
+      - llm
     description: Provider-neutral LLM service interface for the DeepSeek Harness
     categories:
       - adapter
@@ -1484,6 +1604,8 @@ plugins:
       package: "@deepseek-ai/dsh-llm"
   - id: llm-deepseek
     name: "@deepseek-ai/dsh-llm-deepseek"
+    requiresServices:
+      - llm
     description: DeepSeek chat-completions adapter for the DeepSeek Harness LLM seam
     categories:
       - adapter
@@ -1492,6 +1614,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - llm
     source:
       type: npm
       package: "@deepseek-ai/dsh-llm-deepseek"
@@ -1510,6 +1634,8 @@ plugins:
       package: "@deepseek-ai/dsh-llm-mock-server"
   - id: llm-pi-ai
     name: "@deepseek-ai/dsh-llm-pi-ai"
+    requiresServices:
+      - llm
     description: pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam
       (design-verification twin of dsh-llm-deepseek)
     categories:
@@ -1519,11 +1645,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - llm
     source:
       type: npm
       package: "@deepseek-ai/dsh-llm-pi-ai"
   - id: llm-replay
     name: "@deepseek-ai/dsh-llm-replay"
+    requiresServices:
+      - llm
     description: "Replay LLM plugin: short-circuits llm/stream with model chunks
       reconstructed from a recorded session JSONL (keyless snapshot tests)"
     categories:
@@ -1533,11 +1663,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - llm
     source:
       type: npm
       package: "@deepseek-ai/dsh-llm-replay"
   - id: llm-retry
     name: "@deepseek-ai/dsh-llm-retry"
+    requiresServices:
+      - agents
     description: Provider-routed LLM request retry policy for the DeepSeek Harness
     categories:
       - adapter
@@ -1546,6 +1680,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
     source:
       type: npm
       package: "@deepseek-ai/dsh-llm-retry"
@@ -1565,6 +1701,8 @@ plugins:
       package: "@deepseek-ai/dsh-loader-smoke"
   - id: lsp
     name: "@deepseek-ai/dsh-lsp"
+    providesServices:
+      - lsp
     description: Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness —
       language-server provider registry keyed by branded id and extension
       mapping, order-independent per-query selection, normalized
@@ -1582,6 +1720,10 @@ plugins:
       package: "@deepseek-ai/dsh-lsp"
   - id: lsp-stdio
     name: "@deepseek-ai/dsh-lsp-stdio"
+    requiresServices:
+      - fs
+      - lsp
+      - subprocess
     description: Generic stdio language-server provider for the DeepSeek Harness LSP
       capability seam (ctx.lsp) — spawns configured servers, translates
       JSON-RPC, and serves transient-open
@@ -1594,11 +1736,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - fs
+      - lsp
+      - subprocess
     source:
       type: npm
       package: "@deepseek-ai/dsh-lsp-stdio"
   - id: mcp-client
     name: "@deepseek-ai/dsh-mcp-client"
+    requiresServices:
+      - tools
     description: "MCP client bridge: connects to MCP servers and registers their
       tools on ctx.tools"
     categories:
@@ -1608,11 +1756,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-mcp-client"
   - id: message-feedback
     name: "@deepseek-ai/dsh-message-feedback"
+    providesServices:
+      - messageFeedback
     description: Lifecycle-bound per-message rating and note sidecar for the
       DeepSeek Harness
     categories:
@@ -1656,6 +1808,8 @@ plugins:
       package: "@deepseek-ai/dsh-output-retention"
   - id: permission-presets
     name: "@deepseek-ai/dsh-permission-presets"
+    providesServices:
+      - permissionPresets
     description: "User-facing permission presets (ctx.permissionPresets) for the
       DeepSeek Harness: one product-level Permissions select bundling the
       sandbox-mode and approval-policy knobs, written through to their own
@@ -1672,6 +1826,8 @@ plugins:
       package: "@deepseek-ai/dsh-permission-presets"
   - id: persona
     name: "@deepseek-ai/dsh-persona"
+    requiresServices:
+      - systemPrompt
     description: Composition-authored deployment persona section for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1680,11 +1836,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - system-prompt
     source:
       type: npm
       package: "@deepseek-ai/dsh-persona"
   - id: plan-mode
     name: "@deepseek-ai/dsh-plan-mode"
+    providesServices:
+      - planMode
     description: Logged per-agent plan mode with deployment guidance, a direct slash
       command, and a user-reviewed exit
     categories:
@@ -1741,6 +1901,8 @@ plugins:
       package: "@deepseek-ai/dsh-repeat-tool-reminder"
   - id: sandbox
     name: "@deepseek-ai/dsh-sandbox"
+    providesServices:
+      - sandbox
     description: "Abstract process-sandbox seam (ctx.sandbox) for the DeepSeek
       Harness: same-world confinement vocabulary and the SandboxProvider
       contract"
@@ -1772,6 +1934,8 @@ plugins:
       package: "@deepseek-ai/dsh-sandbox-local"
   - id: sandbox-policy
     name: "@deepseek-ai/dsh-sandbox-policy"
+    providesServices:
+      - sandboxPolicy
     description: "Per-call sandbox policy resolver and current model context:
       deployment fallbacks plus each session's mode and workspace root, shared
       by every enforcing capability family"
@@ -1802,6 +1966,11 @@ plugins:
       package: "@deepseek-ai/dsh-sandbox-windows-acl"
   - id: schedule
     name: "@deepseek-ai/dsh-schedule"
+    requiresServices:
+      - agents
+      - sessions
+      - tools
+      - sessionPersistence
     description: Agent-scoped durable after, at, and fixed-rate reminders over the
       session event log
     categories:
@@ -1811,6 +1980,11 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
+      - session
+      - session-persistence
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-schedule"
@@ -1858,6 +2032,8 @@ plugins:
       package: "@deepseek-ai/dsh-sdk-jsonrpc-demo"
   - id: sdk-jsonrpc-server
     name: "@deepseek-ai/dsh-sdk-jsonrpc-server"
+    requiresServices:
+      - agents
     description: Stdio JSON-RPC server plugin for out-of-process DeepSeek Harness
       SDK clients
     categories:
@@ -1867,6 +2043,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
     source:
       type: npm
       package: "@deepseek-ai/dsh-sdk-jsonrpc-server"
@@ -1887,6 +2065,8 @@ plugins:
       package: "@deepseek-ai/dsh-sdk-protocol"
   - id: session
     name: "@deepseek-ai/dsh-session"
+    providesServices:
+      - sessions
     description: Event-sourced session store for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1900,6 +2080,11 @@ plugins:
       package: "@deepseek-ai/dsh-session"
   - id: session-checkpoint-policy
     name: "@deepseek-ai/dsh-session-checkpoint-policy"
+    requiresServices:
+      - llm
+      - sessionPersistence
+      - sessions
+      - tools
     description: Semantic session durability checkpoints before model requests and
       tool side effects
     categories:
@@ -1909,11 +2094,18 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - llm
+      - session
+      - session-persistence
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-session-checkpoint-policy"
   - id: session-log-export
     name: "@deepseek-ai/dsh-session-log-export"
+    requiresServices:
+      - commands
     description: Web Session-log export command and shared download dialog
     categories:
       - infrastructure
@@ -1922,11 +2114,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - commands
     source:
       type: npm
       package: "@deepseek-ai/dsh-session-log-export"
   - id: session-persistence
     name: "@deepseek-ai/dsh-session-persistence"
+    providesServices:
+      - sessionPersistence
     description: Abstract durable session persistence seam (ctx.sessionPersistence)
       for the DeepSeek Harness
     categories:
@@ -1967,6 +2163,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-persistence-sqlite"
   - id: session-projection
     name: "@deepseek-ai/dsh-session-projection"
+    providesServices:
+      - sessionProjections
     description: "Session-projection seam: the merge-extensible projection type
       table, the provider contract, and the ctx.sessionProjections registry
       serving whole current values of log-derived per-session state"
@@ -1982,6 +2180,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-projection"
   - id: session-projection-cache
     name: "@deepseek-ai/dsh-session-projection-cache"
+    providesServices:
+      - sessionProjectionCache
     description: "Persisted projection cache (ctx.sessionProjectionCache): durable
       per-session projection checkpoints over the domain data form, throttled
       write-behind, and the cold-read ladder (cache row + persistence tail
@@ -1998,6 +2198,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-projection-cache"
   - id: session-query
     name: "@deepseek-ai/dsh-session-query"
+    providesServices:
+      - sessionQuery
     description: Combined session query service contract with concrete reads,
       traces, and filters
     categories:
@@ -2025,6 +2227,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-query-sqlite"
   - id: session-reference
     name: "@deepseek-ai/dsh-session-reference"
+    providesServices:
+      - sessionReferenceResolver
     description: Cross-session snapshot references and durable untrusted model
       context (ctx.sessionReferenceResolver)
     categories:
@@ -2039,6 +2243,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-reference"
   - id: session-stats
     name: "@deepseek-ai/dsh-session-stats"
+    requiresServices:
+      - sessionProjections
     description: Whole-log conversation counts and wall times projection
       (sessionStats) for the DeepSeek Harness
     categories:
@@ -2048,11 +2254,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - session-projection
     source:
       type: npm
       package: "@deepseek-ai/dsh-session-stats"
   - id: session-telemetry
     name: "@deepseek-ai/dsh-session-telemetry"
+    providesServices:
+      - sessionTelemetry
     description: "SessionTelemetryBackend seam for the DeepSeek Harness:
       session-event capture, projection, redaction, and handoff to a reporting
       backend"
@@ -2082,6 +2292,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-telemetry-otel"
   - id: session-title
     name: "@deepseek-ai/dsh-session-title"
+    providesServices:
+      - sessionTitle
     description: Log-backed session title service and provider registry for the
       DeepSeek Harness
     categories:
@@ -2096,6 +2308,10 @@ plugins:
       package: "@deepseek-ai/dsh-session-title"
   - id: session-title-all-prompts-llm
     name: "@deepseek-ai/dsh-session-title-all-prompts-llm"
+    requiresServices:
+      - sessionTitle
+      - llm
+      - sessions
     description: All-user-messages LLM provider plugin for DeepSeek Harness session titles
     categories:
       - infrastructure
@@ -2104,11 +2320,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - llm
+      - session
+      - session-title
     source:
       type: npm
       package: "@deepseek-ai/dsh-session-title-all-prompts-llm"
   - id: session-title-first-prompt-llm
     name: "@deepseek-ai/dsh-session-title-first-prompt-llm"
+    requiresServices:
+      - sessionTitle
+      - llm
+      - sessions
     description: First-message LLM provider plugin for DeepSeek Harness session titles
     categories:
       - infrastructure
@@ -2117,6 +2341,10 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - llm
+      - session
+      - session-title
     source:
       type: npm
       package: "@deepseek-ai/dsh-session-title-first-prompt-llm"
@@ -2135,6 +2363,8 @@ plugins:
       package: "@deepseek-ai/dsh-session-title-llm"
   - id: settings
     name: "@deepseek-ai/dsh-settings"
+    providesServices:
+      - settings
     description: Abstract user-settings seam (ctx.settings) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2161,6 +2391,8 @@ plugins:
       package: "@deepseek-ai/dsh-settings-file"
   - id: shell
     name: "@deepseek-ai/dsh-shell"
+    providesServices:
+      - shell
     description: Abstract bash executor seam (ctx.shell) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2174,6 +2406,8 @@ plugins:
       package: "@deepseek-ai/dsh-shell"
   - id: shell-env
     name: "@deepseek-ai/dsh-shell-env"
+    providesServices:
+      - shellEnv
     description: Tool-independent managed DSH_* shell environment registry
     categories:
       - infrastructure
@@ -2187,6 +2421,8 @@ plugins:
       package: "@deepseek-ai/dsh-shell-env"
   - id: skill
     name: "@deepseek-ai/dsh-skill"
+    providesServices:
+      - skills
     description: Agent skill provider registry for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2200,6 +2436,8 @@ plugins:
       package: "@deepseek-ai/dsh-skill"
   - id: skill-badge
     name: "@deepseek-ai/dsh-skill-badge"
+    requiresServices:
+      - skills
     description: Bundled dsh badge skill provider for DeepSeek Harness
     categories:
       - infrastructure
@@ -2208,11 +2446,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - skill
     source:
       type: npm
       package: "@deepseek-ai/dsh-skill-badge"
   - id: skill-filesystem
     name: "@deepseek-ai/dsh-skill-filesystem"
+    requiresServices:
+      - skills
     description: Local filesystem skill provider for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2221,11 +2463,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - skill
     source:
       type: npm
       package: "@deepseek-ai/dsh-skill-filesystem"
   - id: spill
     name: "@deepseek-ai/dsh-spill"
+    providesServices:
+      - spillStore
     description: Abstract spill storage seam (ctx.spillStore) for the DeepSeek
       Harness — save oversized tool text and return a retrieval locator
     categories:
@@ -2254,6 +2500,8 @@ plugins:
       package: "@deepseek-ai/dsh-spill-local"
   - id: spill-policy
     name: "@deepseek-ai/dsh-spill-policy"
+    requiresServices:
+      - tools
     description: Tool-result spill policy for the DeepSeek Harness — replaces
       oversized plain-text tool results with a retained preview plus a
       spill-file path (no service API)
@@ -2264,11 +2512,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-spill-policy"
   - id: storage
     name: "@deepseek-ai/dsh-storage"
+    providesServices:
+      - storage
     description: "Storage hub (ctx.storage): named backend registry plus mounted
       data-form facilities for the DeepSeek Harness"
     categories:
@@ -2283,6 +2535,8 @@ plugins:
       package: "@deepseek-ai/dsh-storage"
   - id: storage-domain
     name: "@deepseek-ai/dsh-storage-domain"
+    requiresServices:
+      - storage
     description: "Domain data form (ctx.storage.domain): schema-validated,
       event-emitting KV domains over storage backends for the DeepSeek Harness"
     categories:
@@ -2292,11 +2546,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - storage
     source:
       type: npm
       package: "@deepseek-ai/dsh-storage-domain"
   - id: storage-json
     name: "@deepseek-ai/dsh-storage-json"
+    requiresServices:
+      - storage
     description: JSON file KV storage backend for the DeepSeek Harness storage hub
     categories:
       - infrastructure
@@ -2305,11 +2563,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - storage
     source:
       type: npm
       package: "@deepseek-ai/dsh-storage-json"
   - id: storage-sqlite
     name: "@deepseek-ai/dsh-storage-sqlite"
+    requiresServices:
+      - storage
     description: SQLite storage backend (kv facet) for the DeepSeek Harness storage hub
     categories:
       - infrastructure
@@ -2318,11 +2580,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - storage
     source:
       type: npm
       package: "@deepseek-ai/dsh-storage-sqlite"
   - id: subagent
     name: "@deepseek-ai/dsh-subagent"
+    providesServices:
+      - subagents
     description: "Abstract subagent seam (ctx.subagents): named-provider registry
       for delegating to child agents"
     categories:
@@ -2337,6 +2603,9 @@ plugins:
       package: "@deepseek-ai/dsh-subagent"
   - id: subagent-acp
     name: "@deepseek-ai/dsh-subagent-acp"
+    requiresServices:
+      - subagents
+      - subprocess
     description: "Out-of-process ACP subagent backend: drives a child agent in a
       spawned subprocess over the Agent Client Protocol"
     categories:
@@ -2346,11 +2615,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - subprocess
     source:
       type: npm
       package: "@deepseek-ai/dsh-subagent-acp"
   - id: subagent-claude-code
     name: "@deepseek-ai/dsh-subagent-claude-code"
+    requiresServices:
+      - subagents
+      - subprocess
     description: One-shot Claude Code subagent provider over the official Agent SDK
     categories:
       - infrastructure
@@ -2359,11 +2634,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - subprocess
     source:
       type: npm
       package: "@deepseek-ai/dsh-subagent-claude-code"
   - id: subagent-codex
     name: "@deepseek-ai/dsh-subagent-codex"
+    requiresServices:
+      - subagents
+      - subprocess
     description: One-shot Codex subagent provider over the official app-server protocol
     categories:
       - infrastructure
@@ -2372,11 +2653,16 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - subprocess
     source:
       type: npm
       package: "@deepseek-ai/dsh-subagent-codex"
   - id: subagent-dsh-sdk
     name: "@deepseek-ai/dsh-subagent-dsh-sdk"
+    requiresServices:
+      - subagents
     description: "Out-of-process SDK subagent backend: drives a child DeepSeek
       Harness runtime subprocess over stdio JSON-RPC through the TypeScript SDK
       client"
@@ -2387,11 +2673,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
     source:
       type: npm
       package: "@deepseek-ai/dsh-subagent-dsh-sdk"
   - id: subagent-fork-in-process
     name: "@deepseek-ai/dsh-subagent-fork-in-process"
+    requiresServices:
+      - subagents
     description: "In-process fork subagent backend: runs a child agent seeded with a
       prefix of the parent's log"
     categories:
@@ -2401,6 +2691,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
     source:
       type: npm
       package: "@deepseek-ai/dsh-subagent-fork-in-process"
@@ -2420,6 +2712,8 @@ plugins:
       package: "@deepseek-ai/dsh-subagent-in-process-driver"
   - id: subagent-spawn-in-process
     name: "@deepseek-ai/dsh-subagent-spawn-in-process"
+    requiresServices:
+      - subagents
     description: "In-process spawn subagent backend: runs a fresh child agent on ctx.agents"
     categories:
       - infrastructure
@@ -2428,11 +2722,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
     source:
       type: npm
       package: "@deepseek-ai/dsh-subagent-spawn-in-process"
   - id: subprocess
     name: "@deepseek-ai/dsh-subprocess"
+    providesServices:
+      - subprocess
     description: Subprocess seam (ctx.subprocess) for the DeepSeek Harness — managed
       process groups, bounded spill-backed output, and escalated kills behind
       one abstract service
@@ -2474,6 +2772,8 @@ plugins:
       package: "@deepseek-ai/dsh-subprocess-local"
   - id: system-prompt
     name: "@deepseek-ai/dsh-system-prompt"
+    providesServices:
+      - systemPrompt
     description: System prompt assembly registry for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2487,6 +2787,8 @@ plugins:
       package: "@deepseek-ai/dsh-system-prompt"
   - id: terminal
     name: "@deepseek-ai/dsh-terminal"
+    providesServices:
+      - terminals
     description: Persistent PTY session seam for the DeepSeek Harness — owner-scoped
       ids, backend registry, interactive sends, reads, signals, and awaited
       cleanup
@@ -2502,6 +2804,10 @@ plugins:
       package: "@deepseek-ai/dsh-terminal"
   - id: terminal-bash
     name: "@deepseek-ai/dsh-terminal-bash"
+    requiresServices:
+      - terminals
+      - sandboxPolicy
+      - subprocess
     description: Persistent shell PTY backend over the DeepSeek Harness subprocess
       terminal primitive
     categories:
@@ -2511,11 +2817,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - sandbox-policy
+      - subprocess
+      - terminal
     source:
       type: npm
       package: "@deepseek-ai/dsh-terminal-bash"
   - id: time-context
     name: "@deepseek-ai/dsh-time-context"
+    requiresServices:
+      - agents
     description: Opt-in durable per-step context with the current time and elapsed time
     categories:
       - infrastructure
@@ -2524,6 +2836,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
     source:
       type: npm
       package: "@deepseek-ai/dsh-time-context"
@@ -2544,6 +2858,8 @@ plugins:
       package: "@deepseek-ai/dsh-timeout"
   - id: tmux-context
     name: "@deepseek-ai/dsh-tmux-context"
+    requiresServices:
+      - agents
     description: Opt-in durable per-step context with this agent's tmux pane and
       window location
     categories:
@@ -2553,11 +2869,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
     source:
       type: npm
       package: "@deepseek-ai/dsh-tmux-context"
   - id: token-meter
     name: "@deepseek-ai/dsh-token-meter"
+    providesServices:
+      - tokenMeter
     description: Replay-aware token measurement service (ctx.tokenMeter) for the
       DeepSeek Harness
     categories:
@@ -2572,6 +2892,9 @@ plugins:
       package: "@deepseek-ai/dsh-token-meter"
   - id: tool-ask-user
     name: "@deepseek-ai/dsh-tool-ask-user"
+    requiresServices:
+      - tools
+      - userQuestions
     description: Model-facing ask_user_question tool over the ctx.userQuestions seam
     categories:
       - agent-tool
@@ -2580,11 +2903,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - tools
+      - user-questions
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-ask-user"
   - id: tool-bash
     name: "@deepseek-ai/dsh-tool-bash"
+    requiresServices:
+      - tools
+      - shell
+      - systemPrompt
+      - shellEnv
     description: Model-facing bash tool with optional generic background-job and
       sandbox-escalation support
     categories:
@@ -2594,11 +2925,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - shell
+      - shell-env
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-bash"
   - id: tool-bash-persistent
     name: "@deepseek-ai/dsh-tool-bash-persistent"
+    requiresServices:
+      - tools
+      - terminals
     description: Model-facing owner-scoped persistent Bash tool backed by the
       Harness PTY service
     categories:
@@ -2608,11 +2947,16 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - terminal
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-bash-persistent"
   - id: tool-call-timeout-policy
     name: "@deepseek-ai/dsh-tool-call-timeout-policy"
+    requiresServices:
+      - tools
     description: "Tool-call timeout policy: a tools/execute wrapper that arms a
       per-tool deadline on exec.signal and returns TOOL_TIMEOUT when it wins"
     categories:
@@ -2622,11 +2966,18 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-call-timeout-policy"
   - id: tool-cordis
     name: "@deepseek-ai/dsh-tool-cordis"
+    requiresServices:
+      - tools
+      - systemPrompt
+      - dynamicCordisRunner
+      - cordisInspect
     description: "Self-referential cordis toolset: inspect the live runtime, mount
       and dispose model-written plugins"
     categories:
@@ -2637,11 +2988,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - cordis-host-runner
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-cordis"
   - id: tool-fs
     name: "@deepseek-ai/dsh-tool-fs"
+    requiresServices:
+      - tools
+      - fs
+      - systemPrompt
     description: Model-facing filesystem tools (read, write, edit) over the DeepSeek
       Harness filesystem seam (ctx.fs)
     categories:
@@ -2651,11 +3010,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - fs
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-fs"
   - id: tool-fs-search
     name: "@deepseek-ai/dsh-tool-fs-search"
+    requiresServices:
+      - tools
+      - systemPrompt
+      - subprocess
     description: Model-facing filesystem discovery tools (glob, grep) backed by the
       packaged ripgrep binary (@vscode/ripgrep)
     categories:
@@ -2665,11 +3032,20 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subprocess
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-fs-search"
   - id: tool-goal
     name: "@deepseek-ai/dsh-tool-goal"
+    requiresServices:
+      - agents
+      - goals
+      - tools
+      - systemPrompt
     description: Model-facing same-session goal tools with execution-time authority checks
     categories:
       - agent-tool
@@ -2678,11 +3054,20 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
+      - goal
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-goal"
   - id: tool-jobs
     name: "@deepseek-ai/dsh-tool-jobs"
+    requiresServices:
+      - tools
+      - jobs
+      - systemPrompt
     description: Model-facing background job control tools (job_output, job_list,
       job_kill) over the ctx.jobs registry
     categories:
@@ -2692,11 +3077,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - jobs
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-jobs"
   - id: tool-lsp
     name: "@deepseek-ai/dsh-tool-lsp"
+    requiresServices:
+      - tools
+      - lsp
+      - systemPrompt
     description: Model-facing lsp tool over the DeepSeek Harness LSP capability seam
       (ctx.lsp) — one read-only tool with
       goToDefinition/findReferences/goToImplementation/hover operations,
@@ -2709,11 +3102,20 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - lsp
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-lsp"
   - id: tool-pwsh
     name: "@deepseek-ai/dsh-tool-pwsh"
+    requiresServices:
+      - tools
+      - shell
+      - systemPrompt
+      - shellEnv
     description: Model-facing pwsh tool over the bash executor seam
     categories:
       - agent-tool
@@ -2722,11 +3124,21 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - shell
+      - shell-env
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-pwsh"
   - id: tool-ralph
     name: "@deepseek-ai/dsh-tool-ralph"
+    requiresServices:
+      - tools
+      - workflowEngine
+      - subagents
+      - systemPrompt
     description: Model-facing fresh-agent Ralph loop over the workflow and subagent seams
     categories:
       - agent-tool
@@ -2735,11 +3147,20 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - system-prompt
+      - tools
+      - workflow
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-ralph"
   - id: tool-session-query
     name: "@deepseek-ai/dsh-tool-session-query"
+    requiresServices:
+      - tools
+      - systemPrompt
+      - sessionQuery
     description: Workspace-authorized model-facing session history search, trace,
       and event read tools
     categories:
@@ -2749,11 +3170,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - session-query
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-session-query"
   - id: tool-skill
     name: "@deepseek-ai/dsh-tool-skill"
+    requiresServices:
+      - agents
+      - tools
+      - skills
     description: Model-facing skill loading tool for the DeepSeek Harness
     categories:
       - agent-tool
@@ -2762,11 +3191,18 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - agent
+      - skill
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-skill"
   - id: tool-str-replace-editor
     name: "@deepseek-ai/dsh-tool-str-replace-editor"
+    requiresServices:
+      - tools
+      - fs
     description: Model-facing view, create, literal replace, and line insert tool
       over the Harness filesystem service
     categories:
@@ -2776,11 +3212,18 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - fs
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-str-replace-editor"
   - id: tool-subagent
     name: "@deepseek-ai/dsh-tool-subagent"
+    requiresServices:
+      - tools
+      - subagents
+      - systemPrompt
     description: Model-facing subagent delegation tool over the ctx.subagents seam
     categories:
       - agent-tool
@@ -2789,11 +3232,18 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-subagent"
   - id: tool-subagent-control
     name: "@deepseek-ai/dsh-tool-subagent-control"
+    requiresServices:
+      - tools
+      - subagents
     description: Globally named send_message, interrupt_agent, and list_agents tools
       over ctx.subagents continuations
     categories:
@@ -2803,11 +3253,18 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-subagent-control"
   - id: tool-subagent-report
     name: "@deepseek-ai/dsh-tool-subagent-report"
+    requiresServices:
+      - subagents
+      - tools
+      - systemPrompt
     description: Child-scoped report tool over ctx.subagents continuations
     categories:
       - agent-tool
@@ -2816,11 +3273,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - subagent
+      - system-prompt
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-subagent-report"
   - id: tool-terminal
     name: "@deepseek-ai/dsh-tool-terminal"
+    requiresServices:
+      - terminals
+      - tools
+      - systemPrompt
     description: Six model-facing persistent PTY tools with owner isolation and
       generic background-job integration
     categories:
@@ -2830,11 +3295,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - system-prompt
+      - terminal
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-terminal"
   - id: tool-todo
     name: "@deepseek-ai/dsh-tool-todo"
+    requiresServices:
+      - tools
     description: Model-facing todo_write tool over the DeepSeek Harness
       event-sourced session log
     categories:
@@ -2844,11 +3315,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - tools
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-todo"
   - id: tool-web
     name: "@deepseek-ai/dsh-tool-web"
+    requiresServices:
+      - tools
+      - web
+      - systemPrompt
     description: Model-facing web tools (web_search, web_fetch) over the DeepSeek
       Harness web capability seam (ctx.web)
     categories:
@@ -2859,11 +3336,19 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - system-prompt
+      - tools
+      - web
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-web"
   - id: tool-workflow
     name: "@deepseek-ai/dsh-tool-workflow"
+    requiresServices:
+      - tools
+      - workflowEngine
+      - systemPrompt
     description: "Model-facing workflow tool: run a JavaScript orchestration script
       over ctx.workflowEngine"
     categories:
@@ -2873,11 +3358,17 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - system-prompt
+      - tools
+      - workflow
     source:
       type: npm
       package: "@deepseek-ai/dsh-tool-workflow"
   - id: tools
     name: "@deepseek-ai/dsh-tools"
+    providesServices:
+      - tools
     description: Tool registry and execution pipeline for the DeepSeek Harness
     categories:
       - agent-tool
@@ -2904,6 +3395,9 @@ plugins:
       package: "@deepseek-ai/dsh-typert-generator"
   - id: typert-loader
     name: "@deepseek-ai/dsh-typert-loader"
+    requiresServices:
+      - typert
+      - loader
     description: Loader integration for generated Typert package contributions
     categories:
       - infrastructure
@@ -2912,6 +3406,8 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - typert-registry
     source:
       type: npm
       package: "@deepseek-ai/dsh-typert-loader"
@@ -2930,6 +3426,8 @@ plugins:
       package: "@deepseek-ai/dsh-typert-protocol"
   - id: typert-registry
     name: "@deepseek-ai/dsh-typert-registry"
+    providesServices:
+      - typert
     description: Runtime registry for generated package reflection and Zod schemas
     categories:
       - infrastructure
@@ -2943,6 +3441,8 @@ plugins:
       package: "@deepseek-ai/dsh-typert-registry"
   - id: user-approval
     name: "@deepseek-ai/dsh-user-approval"
+    providesServices:
+      - approval
     description: "User-approval seam (ctx.approval) for the DeepSeek Harness:
       one-shot permission decisions dispatched to composed answerers over the
       approval/request waterfall, fail-closed by default"
@@ -2958,6 +3458,8 @@ plugins:
       package: "@deepseek-ai/dsh-user-approval"
   - id: user-questions
     name: "@deepseek-ai/dsh-user-questions"
+    providesServices:
+      - userQuestions
     description: Abstract user-questions seam (ctx.userQuestions) for asking the
       human during agent runs
     categories:
@@ -2972,6 +3474,8 @@ plugins:
       package: "@deepseek-ai/dsh-user-questions"
   - id: web
     name: "@deepseek-ai/dsh-web"
+    providesServices:
+      - web
     description: Abstract web access capability seam (ctx.web) for the DeepSeek
       Harness — search/fetch provider registry, registration-order-independent
       selection, request/result vocabulary, and the WebError taxonomy
@@ -2987,6 +3491,8 @@ plugins:
       package: "@deepseek-ai/dsh-web"
   - id: web-app
     name: "@deepseek-ai/dsh-web-app"
+    requiresServices:
+      - webServer
     description: "The dsh browser-surface bundle: the web patch layer over dsh-base
       plus the runtime glue plugin (frontend dist serving, web-surface prompt,
       bash runtime variables, URL line)"
@@ -2997,11 +3503,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - host-webserver
     source:
       type: npm
       package: "@deepseek-ai/dsh-web-app"
   - id: web-fetch-http
     name: "@deepseek-ai/dsh-web-fetch-http"
+    requiresServices:
+      - web
     description: Anonymous public HTTP(S) fetch provider for the DeepSeek Harness
       web capability seam (ctx.web)
     categories:
@@ -3011,11 +3521,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - web
     source:
       type: npm
       package: "@deepseek-ai/dsh-web-fetch-http"
   - id: web-search-deepseek
     name: "@deepseek-ai/dsh-web-search-deepseek"
+    requiresServices:
+      - web
     description: DeepSeek-backed search provider (native web_search via the
       Anthropic-compatible API) for the DeepSeek Harness web capability seam
       (ctx.web)
@@ -3026,11 +3540,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - web
     source:
       type: npm
       package: "@deepseek-ai/dsh-web-search-deepseek"
   - id: web-search-exa
     name: "@deepseek-ai/dsh-web-search-exa"
+    requiresServices:
+      - web
     description: Exa-backed search provider for the DeepSeek Harness web capability
       seam (ctx.web)
     categories:
@@ -3040,11 +3558,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - web
     source:
       type: npm
       package: "@deepseek-ai/dsh-web-search-exa"
   - id: web-search-perplexity
     name: "@deepseek-ai/dsh-web-search-perplexity"
+    requiresServices:
+      - web
     description: Perplexity-backed search provider for the DeepSeek Harness web
       capability seam (ctx.web)
     categories:
@@ -3054,11 +3576,15 @@ plugins:
     author: deepseek-ai
     license: MIT
     verified: true
+    requires:
+      - web
     source:
       type: npm
       package: "@deepseek-ai/dsh-web-search-perplexity"
   - id: workflow
     name: "@deepseek-ai/dsh-workflow"
+    providesServices:
+      - workflowEngine
     description: "Workflow capability seam: ctx.workflowEngine service, run
       vocabulary, and workflow/* events"
     categories:
@@ -3088,6 +3614,8 @@ plugins:
       package: "@deepseek-ai/dsh-workflow-worker-thread"
   - id: workspace
     name: "@deepseek-ai/dsh-workspace"
+    providesServices:
+      - workspaceRegistry
     description: "Workspace entity registry (ctx.workspaceRegistry): durable
       workspace records with validated session attachment over the domain data
       form for the DeepSeek Harness"

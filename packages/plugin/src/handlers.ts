@@ -79,6 +79,12 @@ export async function handleInfo(id: string, profile?: string): Promise<string> 
     `${plugin.entry.name} (${plugin.qualifiedId})`,
     plugin.entry.description || '(no description)',
     `source: ${describeSource(plugin.entry.source)}`,
+    ...(plugin.entry.requires?.length
+      ? [`requires: ${plugin.entry.requires.join(', ')}`]
+      : []),
+    ...(plugin.entry.requiresServices?.length
+      ? [`injects services: ${plugin.entry.requiresServices.join(', ')}`]
+      : []),
     `categories: ${plugin.entry.categories.join(', ') || '—'}`,
     plugin.entry.verified ? 'verified' : 'unverified',
     `installed in '${targetProfile}': ${

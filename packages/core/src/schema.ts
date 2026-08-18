@@ -42,6 +42,9 @@ export const pluginEntrySchema = z.object({
   verified: z.boolean().default(false),
   source: pluginSourceSchema,
   images: z.array(pluginImageSchema).default([]),
+  requires: z.array(z.string()).optional(),
+  requiresServices: z.array(z.string()).optional(),
+  providesServices: z.array(z.string()).optional(),
 })
 
 export const registryDataSchema = z.object({

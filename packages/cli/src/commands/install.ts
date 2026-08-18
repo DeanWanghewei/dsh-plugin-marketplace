@@ -1,5 +1,12 @@
 import type { Command } from 'commander'
-import { installPlugin, type InstallOptions } from '@dshm/core'
+import {
+  installPlugin,
+  installedView,
+  listInstalled,
+  loadStore,
+  missingDependencies,
+  type InstallOptions,
+} from '@dshm/core'
 import { createContext, loadMerged, resolvePluginById, resolveProfile } from '../context.js'
 import { pc } from '../output.js'
 import { describeSource } from './info.js'
@@ -94,6 +101,27 @@ export function registerInstallCommand(program: Command): void {
     }
     for (const warning of outcome.warnings) console.warn(pc.yellow(warning))
     console.log(pc.green(`installed ${outcome.record.pluginId} (${outcome.record.strategy})`))
+    // Dependency check AFTER install: a first install initializes the profile
+    // (bundles list lands in its manifest), so the closure is only complete now.
+    const store = loadStore(context.runner, context.paths)
+    // Full installed view (dshm records ∪ profile bundle closure) — a bare
+    // store read would re-warn about plugins base already provides.
+    const installedIds = new Set(
+      installedView(
+        context.runner,
+        context.env,
+        options.profile,
+        merged.plugins,
+        listInstalled(store, options.profile),
+      ).keys(),
+    )
+    const gaps = missingDependencies(resolved.plugin, installedIds, merged.plugins)
+    if (gaps.length > 0) {
+      console.warn(pc.yellow(`⚠ ${gaps.length} 个依赖未安装，建议补装：`))
+      for (const gap of gaps) {
+        console.warn(pc.yellow(`  - ${gap.id} (${gap.via}) → dshm install ${gap.id}`))
+      }
+    }
     for (const hint of outcome.hints) console.log(pc.dim(`- ${hint}`))
     return 'done'
   }

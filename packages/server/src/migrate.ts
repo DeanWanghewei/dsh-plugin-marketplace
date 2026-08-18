@@ -8,6 +8,7 @@ import type { SqlDriver } from './driver-types.js'
  */
 export async function applyMigrations(driver: SqlDriver): Promise<void> {
   await ensureColumn(driver, 'plugins', 'images_json', 'TEXT')
+  await ensureColumn(driver, 'plugins', 'deps_json', 'TEXT')
 }
 
 async function ensureColumn(

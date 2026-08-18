@@ -42,6 +42,8 @@ export interface PluginRow {
   tags_json: string
   /** Nullable for rows written before the images migration. */
   images_json: string | null
+  /** {requires, requiresServices, providesServices}; null before the deps migration. */
+  deps_json: string | null
   updated_at: string
 }
 

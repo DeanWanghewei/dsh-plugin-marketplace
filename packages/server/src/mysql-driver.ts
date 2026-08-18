@@ -14,6 +14,7 @@ const DDL = [
     source_json TEXT NOT NULL,
     tags_json TEXT NOT NULL,
     images_json TEXT,
+    deps_json TEXT,
     updated_at VARCHAR(40) NOT NULL,
     INDEX idx_plugins_name (name),
     INDEX idx_plugins_source_type (source_type),
@@ -64,13 +65,13 @@ const DDL = [
 
 const dialect: Dialect = {
   ddl: DDL,
-  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, images_json, updated_at)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, images_json, deps_json, updated_at)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       name = VALUES(name), description = VALUES(description), author = VALUES(author),
       homepage = VALUES(homepage), license = VALUES(license), verified = VALUES(verified),
       source_type = VALUES(source_type), source_json = VALUES(source_json),
-      tags_json = VALUES(tags_json), images_json = VALUES(images_json),
+      tags_json = VALUES(tags_json), images_json = VALUES(images_json), deps_json = VALUES(deps_json),
       updated_at = VALUES(updated_at)`,
   upsertCategorySql: `INSERT INTO categories(id, name_zh, name_en, parent, description) VALUES(?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE

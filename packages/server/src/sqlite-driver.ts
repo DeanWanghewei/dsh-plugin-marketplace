@@ -21,6 +21,7 @@ const DDL = [
     source_json TEXT NOT NULL,
     tags_json TEXT NOT NULL DEFAULT '[]',
     images_json TEXT,
+    deps_json TEXT,
     updated_at TEXT NOT NULL
   )`,
   'CREATE INDEX IF NOT EXISTS idx_plugins_name ON plugins(name)',
@@ -71,13 +72,13 @@ const DDL = [
 
 const dialect: Dialect = {
   ddl: DDL,
-  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, images_json, updated_at)
-    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  upsertPluginSql: `INSERT INTO plugins(id, name, description, author, homepage, license, verified, source_type, source_json, tags_json, images_json, deps_json, updated_at)
+    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
       name = excluded.name, description = excluded.description, author = excluded.author,
       homepage = excluded.homepage, license = excluded.license, verified = excluded.verified,
       source_type = excluded.source_type, source_json = excluded.source_json,
-      tags_json = excluded.tags_json, images_json = excluded.images_json,
+      tags_json = excluded.tags_json, images_json = excluded.images_json, deps_json = excluded.deps_json,
       updated_at = excluded.updated_at`,
   upsertCategorySql: `INSERT INTO categories(id, name_zh, name_en, parent, description) VALUES(?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET

@@ -134,6 +134,45 @@ interface SeedEntry extends Record<string, unknown> {
   author: string
   license: string
   verified: boolean
+  requiresServices?: string[]
+  providesServices?: string[]
+}
+
+/**
+ * Dependency facts from harness sources:
+ * - `export const inject = ['a', 'b']` — ctx services a plugin requires
+ * - `super(ctx, 'name')` / `Service.define(ctx, 'name', …)` — services it provides
+ */
+function extractServiceFacts(dir: string): {
+  requiresServices: string[]
+  providesServices: string[]
+} {
+  const requiresServices: string[] = []
+  const providesServices: string[] = []
+  const read = (path: string): string => {
+    try {
+      return readFileSync(path, 'utf8')
+    } catch {
+      return ''
+    }
+  }
+  const index = read(join(dir, 'src/index.ts'))
+  const inject = index.match(/export const inject\s*=\s*\[([^\]]*)\]/)
+  if (inject) {
+    for (const item of inject[1]!.matchAll(/'([^']+)'/g)) requiresServices.push(item[1]!)
+  }
+  const servicePattern = /(?:super\(ctx,\s*|Service\.define\(\s*ctx,\s*)'([a-zA-Z][a-zA-Z0-9]*)'/g
+  for (const file of readdirSync(join(dir, 'src'), { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.ts'))
+    .map((entry) => entry.name)) {
+    for (const match of read(join(dir, 'src', file)).matchAll(servicePattern)) {
+      providesServices.push(match[1]!)
+    }
+  }
+  return {
+    requiresServices: [...new Set(requiresServices)],
+    providesServices: [...new Set(providesServices)],
+  }
 }
 
 const packageEntries: SeedEntry[] = []
@@ -151,11 +190,14 @@ for (const entry of readdirSync(join(HARNESS_ROOT, 'packages'))) {
     const name = manifest?.name
     if (!name || !name.startsWith('@deepseek-ai/dsh-')) continue
     if (packageEntries.some((plugin) => plugin.id === pluginIdFromPackageName(name))) continue
+    const facts = extractServiceFacts(dir)
     packageEntries.push({
       id: pluginIdFromPackageName(name),
       name,
       packageName: name,
       dir,
+      requiresServices: facts.requiresServices.length > 0 ? facts.requiresServices : undefined,
+      providesServices: facts.providesServices.length > 0 ? facts.providesServices : undefined,
       description: manifest.description ?? readmeDescription(dir) ?? '',
       categories: categoriesFor(entry, dir, manifest),
       tags: [entry],
@@ -211,6 +253,26 @@ for (const entry of readdirSync(resolve('packages'))) {
     license: 'MIT',
     verified: true,
   })
+}
+
+// Derive plugin-level requires from the service graph: each injected service
+// resolves to the plugin(s) providing it (excluding self, in-marketplace only).
+const providersByService = new Map<string, string[]>()
+for (const entry of packageEntries) {
+  for (const service of entry.providesServices ?? []) {
+    const list = providersByService.get(service) ?? []
+    list.push(entry.id)
+    providersByService.set(service, list)
+  }
+}
+for (const entry of packageEntries) {
+  const requires = new Set<string>()
+  for (const service of entry.requiresServices ?? []) {
+    for (const provider of providersByService.get(service) ?? []) {
+      if (provider !== entry.id) requires.add(provider)
+    }
+  }
+  if (requires.size > 0) entry.requires = [...requires].sort()
 }
 
 packageEntries.sort((a, b) => a.id.localeCompare(b.id))
