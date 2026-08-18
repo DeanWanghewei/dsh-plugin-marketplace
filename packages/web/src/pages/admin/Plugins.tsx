@@ -160,7 +160,12 @@ export default function Plugins() {
         rowKey="id"
         size="small"
         dataSource={items}
-        pagination={{ pageSize: 15, showTotal: (count) => `共 ${count} 个` }}
+        pagination={{
+          defaultPageSize: 15,
+          showSizeChanger: true,
+          pageSizeOptions: [15, 30, 50, 100],
+          showTotal: (count) => `共 ${count} 个`,
+        }}
         columns={[
           { title: 'ID', dataIndex: 'id', width: 180 },
           {

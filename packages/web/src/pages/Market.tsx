@@ -10,10 +10,10 @@ export default function Market() {
   const [items, setItems] = useState<PluginView[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(24)
   const [q, setQ] = useState('')
   const [category, setCategory] = useState<string | undefined>()
   const [categories, setCategories] = useState<CategoryView[]>([])
-  const pageSize = 24
 
   const load = useCallback(async () => {
     const result = await api.listPlugins({
@@ -24,7 +24,7 @@ export default function Market() {
     })
     setItems(result.items)
     setTotal(result.total)
-  }, [q, category, page])
+  }, [q, category, page, pageSize])
 
   useEffect(() => {
     void load()
@@ -114,8 +114,17 @@ export default function Market() {
           current={page}
           pageSize={pageSize}
           total={total}
+          showSizeChanger
+          pageSizeOptions={[12, 24, 48, 96]}
           showTotal={(count) => `共 ${count} 个插件`}
-          onChange={setPage}
+          onChange={(nextPage, nextSize) => {
+            if (nextSize !== pageSize) {
+              setPageSize(nextSize)
+              setPage(1)
+            } else {
+              setPage(nextPage)
+            }
+          }}
           style={{ textAlign: 'center' }}
         />
       </Space>

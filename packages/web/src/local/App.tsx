@@ -250,7 +250,12 @@ export default function LocalApp() {
           size="small"
           loading={loading}
           dataSource={filtered}
-          pagination={{ pageSize: 20, showTotal: (count) => `共 ${count} 个` }}
+          pagination={{
+            defaultPageSize: 20,
+            showSizeChanger: true,
+            pageSizeOptions: [10, 20, 50, 100],
+            showTotal: (count) => `共 ${count} 个`,
+          }}
           onRow={(record) => ({ onClick: () => setDetail(record), style: { cursor: 'pointer' } })}
           columns={[
             {
