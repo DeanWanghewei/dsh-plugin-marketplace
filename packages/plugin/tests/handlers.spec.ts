@@ -1,7 +1,7 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { afterAll, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { stringify } from 'yaml'
 import {
   handleInfo,
@@ -12,20 +12,28 @@ import {
 } from '../src/handlers.js'
 
 const cleanups: Array<() => void> = []
-afterAll(() => {
-  for (const cleanup of cleanups) cleanup()
-})
+const previousEnv: Record<string, string | undefined> = {}
 
-function withTempHome(): void {
+beforeAll(() => {
+  // Deterministic isolated home BEFORE any test can run (shuffle-safe, and
+  // never touches the developer's real ~/.dshm).
+  for (const key of ['DSHM_HOME', 'DSH_HOME']) previousEnv[key] = process.env[key]
   const base = mkdtempSync(join(tmpdir(), 'dshm-plugin-'))
   cleanups.push(() => rmSync(base, { recursive: true, force: true }))
   process.env['DSHM_HOME'] = join(base, '.dshm')
   process.env['DSH_HOME'] = join(base, '.dsh')
-}
+})
 
-describe('dshm plugin handlers', () => {
+afterAll(() => {
+  for (const cleanup of cleanups) cleanup()
+  for (const [key, value] of Object.entries(previousEnv)) {
+    if (value === undefined) delete process.env[key]
+    else process.env[key] = value
+  }
+})
+
+describe.sequential('dshm plugin handlers', () => {
   it('search answers over the bundled registry', async () => {
-    withTempHome()
     const output = await handleSearch({ query: 'cordis', limit: 5 })
     expect(output).toContain('plugins:')
     expect(output).toContain('cordis-host-runner')

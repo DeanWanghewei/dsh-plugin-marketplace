@@ -66,7 +66,7 @@ const registryDoc = {
 }
 
 function suite(label: string, location: () => string) {
-  describe(label, () => {
+  describe.sequential(label, () => {
     let suite: Awaited<ReturnType<typeof makeSuite>>
 
     beforeAll(async () => {

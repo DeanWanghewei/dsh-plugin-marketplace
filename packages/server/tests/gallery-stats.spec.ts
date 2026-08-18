@@ -33,7 +33,7 @@ async function makeSuite(location: string) {
 }
 
 function suite(label: string, location: () => string) {
-  describe(label, () => {
+  describe.sequential(label, () => {
     let test: Awaited<ReturnType<typeof makeSuite>>
 
     beforeAll(async () => {

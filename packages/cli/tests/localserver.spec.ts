@@ -1,10 +1,13 @@
 import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { existsSync } from 'node:fs'
 import { afterAll, describe, expect, it } from 'vitest'
 import { stringify } from 'yaml'
 import { FakeRunner } from './fake-runner.js'
 import { createLocalApp } from '../src/localserver.js'
+
+const hasWebAssets = existsSync('web/local.html')
 
 const cleanups: Array<() => void> = []
 afterAll(() => {
@@ -52,7 +55,7 @@ describe('dshm web local console', () => {
     expect(registries.items[0]).toMatchObject({ name: 'default', type: 'file' })
   })
 
-  it('serves the LOCAL console at / and 404s unknown API paths', async () => {
+  it.skipIf(!hasWebAssets)('serves the LOCAL console at / and 404s unknown API paths', async () => {
     const { env, runner } = makeEnv()
     const app = createLocalApp(runner, env)
 
