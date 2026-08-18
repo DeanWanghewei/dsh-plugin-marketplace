@@ -7,13 +7,17 @@ import { registerListCommand } from './commands/list.js'
 import { registerRegistryCommand } from './commands/registry.js'
 import { registerSearchCommand } from './commands/search.js'
 import { registerUninstallCommand } from './commands/uninstall.js'
+import { registerUpdateCommand } from './commands/update.js'
+import { registerVersionCommand } from './commands/version.js'
 import { registerWebCommand } from './commands/web.js'
+import { readOwnVersion } from './version.js'
 
 const program = new Command()
 
 program
   .name('dshm')
   .description('Plugin marketplace for deepseek-harness: search, install, uninstall, categorize')
+  .version(readOwnVersion())
   .option('--profile <name>', 'target dsh profile (default from ~/.dshm/config.yaml)')
 
 registerSearchCommand(program)
@@ -24,6 +28,8 @@ registerListCommand(program)
 registerCategoriesCommand(program)
 registerRegistryCommand(program)
 registerDoctorCommand(program)
+registerVersionCommand(program)
+registerUpdateCommand(program)
 registerWebCommand(program)
 
 program.parseAsync(process.argv).catch((error: unknown) => {
