@@ -44,7 +44,7 @@ categories:
     parent: null
 plugins:
   - id: acp
-    name: '@deepseek-ai/dsh-acp'
+    name: "@deepseek-ai/dsh-acp"
     description: Automation-only Agent Client Protocol server for driving DeepSeek
       Harness agents over JSON-RPC stdio
     categories:
@@ -56,11 +56,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-acp'
+      package: "@deepseek-ai/dsh-acp"
   - id: acp-demo
-    name: '@deepseek-ai/dsh-acp-demo'
-    description: 'ACP automation server app: agent spine + JSONL persistence + ACP
-      transport, with a JSON-RPC stdio bin'
+    name: "@deepseek-ai/dsh-acp-demo"
+    description: "ACP automation server app: agent spine + JSONL persistence + ACP
+      transport, with a JSON-RPC stdio bin"
     categories:
       - infrastructure
     tags:
@@ -70,11 +70,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-acp-demo'
+      package: "@deepseek-ai/dsh-acp-demo"
   - id: acp-snapshot
-    name: '@deepseek-ai/dsh-acp-snapshot'
-    description: 'ACP test kit: shared subprocess launcher, snapshot scenario
-      harness, expected-output normalizers, and suite factory'
+    name: "@deepseek-ai/dsh-acp-snapshot"
+    description: "ACP test kit: shared subprocess launcher, snapshot scenario
+      harness, expected-output normalizers, and suite factory"
     categories:
       - infrastructure
     tags:
@@ -84,9 +84,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-acp-snapshot'
+      package: "@deepseek-ai/dsh-acp-snapshot"
   - id: agent
-    name: '@deepseek-ai/dsh-agent'
+    name: "@deepseek-ai/dsh-agent"
     description: Agent interface, registry, initiator scope, and event vocabulary
       for the DeepSeek Harness
     categories:
@@ -98,9 +98,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent'
+      package: "@deepseek-ai/dsh-agent"
   - id: agent-default-model
-    name: '@deepseek-ai/dsh-agent-default-model'
+    name: "@deepseek-ai/dsh-agent-default-model"
     description: Default model selection shared by Agent entry points
     categories:
       - infrastructure
@@ -111,9 +111,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-default-model'
+      package: "@deepseek-ai/dsh-agent-default-model"
   - id: agent-instructions
-    name: '@deepseek-ai/dsh-agent-instructions'
+    name: "@deepseek-ai/dsh-agent-instructions"
     description: Workspace context loader for AGENTS.md/CLAUDE.md instruction files
     categories:
       - infrastructure
@@ -124,9 +124,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-instructions'
+      package: "@deepseek-ai/dsh-agent-instructions"
   - id: agent-loop
-    name: '@deepseek-ai/dsh-agent-loop'
+    name: "@deepseek-ai/dsh-agent-loop"
     description: The concrete agent loop plugin for the DeepSeek Harness
     categories:
       - infrastructure
@@ -137,9 +137,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-loop'
+      package: "@deepseek-ai/dsh-agent-loop"
   - id: agent-loop-testkit
-    name: '@deepseek-ai/dsh-agent-loop-testkit'
+    name: "@deepseek-ai/dsh-agent-loop-testkit"
     description: Shared prerequisite mounting for tests that exercise the concrete
       agent loop
     categories:
@@ -151,9 +151,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-loop-testkit'
+      package: "@deepseek-ai/dsh-agent-loop-testkit"
   - id: agent-presets
-    name: '@deepseek-ai/dsh-agent-presets'
+    name: "@deepseek-ai/dsh-agent-presets"
     description: Per-session agent composition from preset cordis.yml files for the
       DeepSeek Harness
     categories:
@@ -165,9 +165,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-presets'
+      package: "@deepseek-ai/dsh-agent-presets"
   - id: agent-spine-demo
-    name: '@deepseek-ai/dsh-agent-spine-demo'
+    name: "@deepseek-ai/dsh-agent-spine-demo"
     description: The default executor-less/UI-less agent spine with fallback session
       titles, provider-routed retry, and optional persisted goals
     categories:
@@ -179,9 +179,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-spine-demo'
+      package: "@deepseek-ai/dsh-agent-spine-demo"
   - id: agent-tool-presentation
-    name: '@deepseek-ai/dsh-agent-tool-presentation'
+    name: "@deepseek-ai/dsh-agent-tool-presentation"
     description: "Agent-plane presentation selector: composes one agent's tools as
       Code Mode, native, or both"
     categories:
@@ -193,9 +193,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-agent-tool-presentation'
+      package: "@deepseek-ai/dsh-agent-tool-presentation"
   - id: anonymous-user-id
-    name: '@deepseek-ai/dsh-anonymous-user-id'
+    name: "@deepseek-ai/dsh-anonymous-user-id"
     description: Shared anonymous user identity for DeepSeek Harness telemetry and
       feedback correlation
     categories:
@@ -207,9 +207,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-anonymous-user-id'
+      package: "@deepseek-ai/dsh-anonymous-user-id"
   - id: api-gateway
-    name: '@deepseek-ai/dsh-api-gateway'
+    name: "@deepseek-ai/dsh-api-gateway"
     description: Typert Remote Host dispatcher and Client API endpoint
     categories:
       - infrastructure
@@ -220,9 +220,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-api-gateway'
+      package: "@deepseek-ai/dsh-api-gateway"
   - id: api-remotes
-    name: '@deepseek-ai/dsh-api-remotes'
+    name: "@deepseek-ai/dsh-api-remotes"
     description: Remote BFF assembly and Host Agent/Session lookup policy
     categories:
       - infrastructure
@@ -233,11 +233,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-api-remotes'
+      package: "@deepseek-ai/dsh-api-remotes"
   - id: app-boot
-    name: '@deepseek-ai/dsh-app-boot'
-    description: 'Shared boot glue for the app bins: .env loading, fail-loud Loader
-      guards, snapshot-aware config resolution, and the Loader boot sequence'
+    name: "@deepseek-ai/dsh-app-boot"
+    description: "Shared boot glue for the app bins: .env loading, fail-loud Loader
+      guards, snapshot-aware config resolution, and the Loader boot sequence"
     categories:
       - infrastructure
     tags:
@@ -247,12 +247,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-app-boot'
+      package: "@deepseek-ai/dsh-app-boot"
   - id: atomic-write
-    name: '@deepseek-ai/dsh-atomic-write'
-    description: 'Zero-dependency atomic file replacement: exclusive-create
+    name: "@deepseek-ai/dsh-atomic-write"
+    description: "Zero-dependency atomic file replacement: exclusive-create
       random-suffix temp + rename carrying the caller-stated permissions
-      (writeFileAtomic)'
+      (writeFileAtomic)"
     categories:
       - infrastructure
     tags:
@@ -262,9 +262,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-atomic-write'
+      package: "@deepseek-ai/dsh-atomic-write"
   - id: attachment
-    name: '@deepseek-ai/dsh-attachment'
+    name: "@deepseek-ai/dsh-attachment"
     description: Durable immutable attachment storage seam for the DeepSeek Harness
     categories:
       - infrastructure
@@ -275,9 +275,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-attachment'
+      package: "@deepseek-ai/dsh-attachment"
   - id: attachment-local
-    name: '@deepseek-ai/dsh-attachment-local'
+    name: "@deepseek-ai/dsh-attachment-local"
     description: Private content-addressed DSH_HOME attachment storage
     categories:
       - infrastructure
@@ -288,9 +288,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-attachment-local'
+      package: "@deepseek-ai/dsh-attachment-local"
   - id: base
-    name: '@deepseek-ai/dsh-base'
+    name: "@deepseek-ai/dsh-base"
     description: "The shared dsh core as a profile bundle: every profile's first
       patch layer, inserting the base plugin rows over the empty profile root"
     categories:
@@ -303,9 +303,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-base'
+      package: "@deepseek-ai/dsh-base"
   - id: bash-local
-    name: '@deepseek-ai/dsh-bash-local'
+    name: "@deepseek-ai/dsh-bash-local"
     description: Local-subprocess implementation of the DeepSeek Harness bash executor seam
     categories:
       - infrastructure
@@ -316,9 +316,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-bash-local'
+      package: "@deepseek-ai/dsh-bash-local"
   - id: bash-sandbox
-    name: '@deepseek-ai/dsh-bash-sandbox'
+    name: "@deepseek-ai/dsh-bash-sandbox"
     description: Sandbox-consuming implementation of the DeepSeek Harness bash
       executor seam (confines every command via ctx.sandbox, reports
       denial/enforcement result facts)
@@ -331,9 +331,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-bash-sandbox'
+      package: "@deepseek-ai/dsh-bash-sandbox"
   - id: brand
-    name: '@deepseek-ai/dsh-brand'
+    name: "@deepseek-ai/dsh-brand"
     description: Type-only Branded<B> nominal-typing primitive for the DeepSeek Harness
     categories:
       - infrastructure
@@ -344,11 +344,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-brand'
+      package: "@deepseek-ai/dsh-brand"
   - id: client-connection
-    name: '@deepseek-ai/dsh-client-connection'
-    description: 'Wire consumer layer: HTTP-up/WebSocket-down client,
-      ConnectionController dual streams with reconnect, and fixture api'
+    name: "@deepseek-ai/dsh-client-connection"
+    description: "Wire consumer layer: HTTP-up/WebSocket-down client,
+      ConnectionController dual streams with reconnect, and fixture api"
     categories:
       - ui
       - agent-tool
@@ -359,12 +359,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-connection'
+      package: "@deepseek-ai/dsh-client-connection"
   - id: client-hmr
-    name: '@deepseek-ai/dsh-client-hmr'
-    description: 'Dev-only hot-reload driver for script-loaded client entries: SSE
+    name: "@deepseek-ai/dsh-client-hmr"
+    description: "Dev-only hot-reload driver for script-loaded client entries: SSE
       rebuilt frames → invalidate/prefetch → fiber swap through the vendored
-      Loader entry'
+      Loader entry"
     categories:
       - ui
     tags:
@@ -374,11 +374,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-hmr'
+      package: "@deepseek-ai/dsh-client-hmr"
   - id: client-locale
-    name: '@deepseek-ai/dsh-client-locale'
-    description: 'Locale plugin: Host-backed zh/en preference, browser-derived
-      fallback, locale snapshots, and typed namespace dictionaries'
+    name: "@deepseek-ai/dsh-client-locale"
+    description: "Locale plugin: Host-backed zh/en preference, browser-derived
+      fallback, locale snapshots, and typed namespace dictionaries"
     categories:
       - ui
     tags:
@@ -388,13 +388,13 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-locale'
+      package: "@deepseek-ai/dsh-client-locale"
   - id: client-modules
-    name: '@deepseek-ai/dsh-client-modules'
-    description: 'Client module system, dual-face: node half composes the
+    name: "@deepseek-ai/dsh-client-modules"
+    description: "Client module system, dual-face: node half composes the
       __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index
       tap, webPlugins service); browser half is the lazy-CJS module table the
-      vendored cordis Loader consumes as its internal seam'
+      vendored cordis Loader consumes as its internal seam"
     categories:
       - ui
     tags:
@@ -404,11 +404,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-modules'
+      package: "@deepseek-ai/dsh-client-modules"
   - id: client-runtime
-    name: '@deepseek-ai/dsh-client-runtime'
-    description: 'Client core services: SlotRegistry, SessionRuntime (scope tree +
-      object layer)'
+    name: "@deepseek-ai/dsh-client-runtime"
+    description: "Client core services: SlotRegistry, SessionRuntime (scope tree +
+      object layer)"
     categories:
       - ui
       - agent-tool
@@ -419,12 +419,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-runtime'
+      package: "@deepseek-ai/dsh-client-runtime"
   - id: client-schema-form
-    name: '@deepseek-ai/dsh-client-schema-form'
-    description: 'Schema/draft model layer for settings editors: rehydrates a
+    name: "@deepseek-ai/dsh-client-schema-form"
+    description: "Schema/draft model layer for settings editors: rehydrates a
       serialized schemastery schema, validates drafts, and edits them immutably
-      by path'
+      by path"
     categories:
       - ui
     tags:
@@ -434,12 +434,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-schema-form'
+      package: "@deepseek-ai/dsh-client-schema-form"
   - id: client-test-runtime
-    name: '@deepseek-ai/dsh-client-test-runtime'
-    description: 'jsdom slot test runtime: real Cordis Context + SlotRegistry +
+    name: "@deepseek-ai/dsh-client-test-runtime"
+    description: "jsdom slot test runtime: real Cordis Context + SlotRegistry +
       web-react renderer with test-owned session/workspace doubles for feature
-      specs'
+      specs"
     categories:
       - infrastructure
     tags:
@@ -449,9 +449,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-test-runtime'
+      package: "@deepseek-ai/dsh-client-test-runtime"
   - id: client-ui-agent-preset
-    name: '@deepseek-ai/dsh-client-ui-agent-preset'
+    name: "@deepseek-ai/dsh-client-ui-agent-preset"
     description: "Agent-preset surfaces: the default for later sessions, this
       session's seat, and the composition editor"
     categories:
@@ -463,11 +463,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-agent-preset'
+      package: "@deepseek-ai/dsh-client-ui-agent-preset"
   - id: client-ui-attachment
-    name: '@deepseek-ai/dsh-client-ui-attachment'
-    description: 'Pure React attachment atoms for the dsh web UI: draft-image rail,
-      message image gallery, and original-image lightbox (zero cordis)'
+    name: "@deepseek-ai/dsh-client-ui-attachment"
+    description: "Pure React attachment atoms for the dsh web UI: draft-image rail,
+      message image gallery, and original-image lightbox (zero cordis)"
     categories:
       - ui
     tags:
@@ -477,9 +477,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-attachment'
+      package: "@deepseek-ai/dsh-client-ui-attachment"
   - id: client-ui-commands
-    name: '@deepseek-ai/dsh-client-ui-commands'
+    name: "@deepseek-ai/dsh-client-ui-commands"
     description: "Client command surface: global directory cache, '/' source, three
       command UI kinds, popupSelect registry"
     categories:
@@ -491,11 +491,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-commands'
+      package: "@deepseek-ai/dsh-client-ui-commands"
   - id: client-ui-conversation
-    name: '@deepseek-ai/dsh-client-ui-conversation'
-    description: 'Conversation domain: skeleton, ordered chat flow, composer with
-      the Host-backed busy-Enter preference, and details host'
+    name: "@deepseek-ai/dsh-client-ui-conversation"
+    description: "Conversation domain: skeleton, ordered chat flow, composer with
+      the Host-backed busy-Enter preference, and details host"
     categories:
       - ui
     tags:
@@ -505,11 +505,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-conversation'
+      package: "@deepseek-ai/dsh-client-ui-conversation"
   - id: client-ui-cordis
-    name: '@deepseek-ai/dsh-client-ui-cordis'
-    description: 'Cordis dynamic-plugin definition card: the keyed cordis_define
-      tool row with its run/stop switch'
+    name: "@deepseek-ai/dsh-client-ui-cordis"
+    description: "Cordis dynamic-plugin definition card: the keyed cordis_define
+      tool row with its run/stop switch"
     categories:
       - extension
       - ui
@@ -520,9 +520,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-cordis'
+      package: "@deepseek-ai/dsh-client-ui-cordis"
   - id: client-ui-deliverables
-    name: '@deepseek-ai/dsh-client-ui-deliverables'
+    name: "@deepseek-ai/dsh-client-ui-deliverables"
     description: Produced-files turn tail and clickable final-response file
       references for Web
     categories:
@@ -534,9 +534,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-deliverables'
+      package: "@deepseek-ai/dsh-client-ui-deliverables"
   - id: client-ui-directory-picker-browse
-    name: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+    name: "@deepseek-ai/dsh-client-ui-directory-picker-browse"
     description: "In-app directory browsing surface: the workspace directory-flow
       owner rendering the host's listing and creation primitives"
     categories:
@@ -548,9 +548,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-directory-picker-browse'
+      package: "@deepseek-ai/dsh-client-ui-directory-picker-browse"
   - id: client-ui-directory-picker-native
-    name: '@deepseek-ai/dsh-client-ui-directory-picker-native'
+    name: "@deepseek-ai/dsh-client-ui-directory-picker-native"
     description: "Native directory-picker surface: the renderless workspace
       directory-flow occupant driving the host's OS chooser"
     categories:
@@ -562,11 +562,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-directory-picker-native'
+      package: "@deepseek-ai/dsh-client-ui-directory-picker-native"
   - id: client-ui-goal
-    name: '@deepseek-ai/dsh-client-ui-goal'
-    description: 'Session goal surface: GoalBar docked above the composer, read from
-      the goal session projection'
+    name: "@deepseek-ai/dsh-client-ui-goal"
+    description: "Session goal surface: GoalBar docked above the composer, read from
+      the goal session projection"
     categories:
       - ui
     tags:
@@ -576,9 +576,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-goal'
+      package: "@deepseek-ai/dsh-client-ui-goal"
   - id: client-ui-input-trigger
-    name: '@deepseek-ai/dsh-client-ui-input-trigger'
+    name: "@deepseek-ai/dsh-client-ui-input-trigger"
     description: "Input trigger pipeline: '/' and '@' detection, candidate menu,
       pick routing to registered sources"
     categories:
@@ -590,11 +590,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-input-trigger'
+      package: "@deepseek-ai/dsh-client-ui-input-trigger"
   - id: client-ui-jobs
-    name: '@deepseek-ai/dsh-client-ui-jobs'
-    description: 'Session-header background-job list: live registry state mirrored
-      from session/jobs frames'
+    name: "@deepseek-ai/dsh-client-ui-jobs"
+    description: "Session-header background-job list: live registry state mirrored
+      from session/jobs frames"
     categories:
       - ui
     tags:
@@ -604,11 +604,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-jobs'
+      package: "@deepseek-ai/dsh-client-ui-jobs"
   - id: client-ui-layout
-    name: '@deepseek-ai/dsh-client-ui-layout'
-    description: 'Shell plugin: three-column AppFrame with drag handles, ctx.layout
-      viewing-state service (navigation + panels)'
+    name: "@deepseek-ai/dsh-client-ui-layout"
+    description: "Shell plugin: three-column AppFrame with drag handles, ctx.layout
+      viewing-state service (navigation + panels)"
     categories:
       - ui
     tags:
@@ -618,9 +618,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-layout'
+      package: "@deepseek-ai/dsh-client-ui-layout"
   - id: client-ui-message-feedback
-    name: '@deepseek-ai/dsh-client-ui-message-feedback'
+    name: "@deepseek-ai/dsh-client-ui-message-feedback"
     description: Per-message feedback controls contributed to the assistant-message
       action strip, backed by the messageFeedback Host Remote
     categories:
@@ -632,11 +632,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-message-feedback'
+      package: "@deepseek-ai/dsh-client-ui-message-feedback"
   - id: client-ui-model-selection
-    name: '@deepseek-ai/dsh-client-ui-model-selection'
-    description: 'Model selection: the /model popupSelect over session.models /
-      session.selectModel'
+    name: "@deepseek-ai/dsh-client-ui-model-selection"
+    description: "Model selection: the /model popupSelect over session.models /
+      session.selectModel"
     categories:
       - ui
     tags:
@@ -646,11 +646,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-model-selection'
+      package: "@deepseek-ai/dsh-client-ui-model-selection"
   - id: client-ui-permission-presets
-    name: '@deepseek-ai/dsh-client-ui-permission-presets'
-    description: 'Permission surfaces: a new-session default in General settings and
-      a current-session /permission popup over the permissions projection'
+    name: "@deepseek-ai/dsh-client-ui-permission-presets"
+    description: "Permission surfaces: a new-session default in General settings and
+      a current-session /permission popup over the permissions projection"
     categories:
       - ui
     tags:
@@ -660,11 +660,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-permission-presets'
+      package: "@deepseek-ai/dsh-client-ui-permission-presets"
   - id: client-ui-plan
-    name: '@deepseek-ai/dsh-client-ui-plan'
-    description: 'Plan-mode composer control: the conversation.input.plan seat over
-      the plan projection and the /plan command channel'
+    name: "@deepseek-ai/dsh-client-ui-plan"
+    description: "Plan-mode composer control: the conversation.input.plan seat over
+      the plan projection and the /plan command channel"
     categories:
       - ui
     tags:
@@ -674,11 +674,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-plan'
+      package: "@deepseek-ai/dsh-client-ui-plan"
   - id: client-ui-primitives
-    name: '@deepseek-ai/dsh-client-ui-primitives'
-    description: 'Pure React atoms for the dsh web UI: controls, icons, markdown,
-      and JSON inspectors (zero cordis)'
+    name: "@deepseek-ai/dsh-client-ui-primitives"
+    description: "Pure React atoms for the dsh web UI: controls, icons, markdown,
+      and JSON inspectors (zero cordis)"
     categories:
       - ui
     tags:
@@ -688,11 +688,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-primitives'
+      package: "@deepseek-ai/dsh-client-ui-primitives"
   - id: client-ui-settings
-    name: '@deepseek-ai/dsh-client-ui-settings'
-    description: 'Settings domain base plugin: the settings-namespace scope service
-      and the canonical settings slot-type contract'
+    name: "@deepseek-ai/dsh-client-ui-settings"
+    description: "Settings domain base plugin: the settings-namespace scope service
+      and the canonical settings slot-type contract"
     categories:
       - ui
     tags:
@@ -702,12 +702,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-settings'
+      package: "@deepseek-ai/dsh-client-ui-settings"
   - id: client-ui-settings-general
-    name: '@deepseek-ai/dsh-client-ui-settings-general'
-    description: 'Settings ownerless-copy and product onboarding plugin: the General
+    name: "@deepseek-ai/dsh-client-ui-settings-general"
+    description: "Settings ownerless-copy and product onboarding plugin: the General
       section, shell trigger/header chrome content, settings dictionaries, and
-      the versioned welcome notice'
+      the versioned welcome notice"
     categories:
       - ui
     tags:
@@ -717,9 +717,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-settings-general'
+      package: "@deepseek-ai/dsh-client-ui-settings-general"
   - id: client-ui-settings-models
-    name: '@deepseek-ai/dsh-client-ui-settings-models'
+    name: "@deepseek-ai/dsh-client-ui-settings-models"
     description: Models settings and shared product-onboarding dialogs over existing
       settings and credential joins
     categories:
@@ -731,9 +731,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-settings-models'
+      package: "@deepseek-ai/dsh-client-ui-settings-models"
   - id: client-ui-settings-plugin-inventory
-    name: '@deepseek-ai/dsh-client-ui-settings-plugin-inventory'
+    name: "@deepseek-ai/dsh-client-ui-settings-plugin-inventory"
     description: Read-only Cordis Loader inventory tab in Web Plugins settings
     categories:
       - ui
@@ -744,9 +744,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-settings-plugin-inventory'
+      package: "@deepseek-ai/dsh-client-ui-settings-plugin-inventory"
   - id: client-ui-settings-plugins
-    name: '@deepseek-ai/dsh-client-ui-settings-plugins'
+    name: "@deepseek-ai/dsh-client-ui-settings-plugins"
     description: Plugins settings section with feature-owned tabs and configurable
       host-plane plugin cards
     categories:
@@ -758,10 +758,10 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-settings-plugins'
+      package: "@deepseek-ai/dsh-client-ui-settings-plugins"
   - id: client-ui-sidebar
-    name: '@deepseek-ai/dsh-client-ui-sidebar'
-    description: 'Sidebar plugin: session multi-level tree, search, grouping, state dots'
+    name: "@deepseek-ai/dsh-client-ui-sidebar"
+    description: "Sidebar plugin: session multi-level tree, search, grouping, state dots"
     categories:
       - ui
     tags:
@@ -771,9 +771,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-sidebar'
+      package: "@deepseek-ai/dsh-client-ui-sidebar"
   - id: client-ui-skill
-    name: '@deepseek-ai/dsh-client-ui-skill'
+    name: "@deepseek-ai/dsh-client-ui-skill"
     description: Web skill references and the dedicated skill tool row
     categories:
       - ui
@@ -784,12 +784,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-skill'
+      package: "@deepseek-ai/dsh-client-ui-skill"
   - id: client-ui-slots
-    name: '@deepseek-ai/dsh-client-ui-slots'
-    description: 'Slot registry pure core: SlotMap declaration merging, single
+    name: "@deepseek-ai/dsh-client-ui-slots"
+    description: "Slot registry pure core: SlotMap declaration merging, single
       register composition API, four-share props types, store-seat types,
-      renderer install seam'
+      renderer install seam"
     categories:
       - ui
     tags:
@@ -799,9 +799,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-slots'
+      package: "@deepseek-ai/dsh-client-ui-slots"
   - id: client-ui-subagent
-    name: '@deepseek-ai/dsh-client-ui-subagent'
+    name: "@deepseek-ai/dsh-client-ui-subagent"
     description: Subagent conversation catalog, continuation routing UI, and '@'
       reference source
     categories:
@@ -813,12 +813,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-subagent'
+      package: "@deepseek-ai/dsh-client-ui-subagent"
   - id: client-ui-theme
-    name: '@deepseek-ai/dsh-client-ui-theme'
-    description: 'Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free
+    name: "@deepseek-ai/dsh-client-ui-theme"
+    description: "Theme plugin: Host bootstrap for the pre-plugin palette; DOM-free
       ThemeRuntime for light/dark/system state; --dsw-* token styles and
-      Appearance settings row'
+      Appearance settings row"
     categories:
       - ui
     tags:
@@ -828,9 +828,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-theme'
+      package: "@deepseek-ai/dsh-client-ui-theme"
   - id: client-ui-tool
-    name: '@deepseek-ai/dsh-client-ui-tool'
+    name: "@deepseek-ai/dsh-client-ui-tool"
     description: Client Tool call-tree renderer and keyed per-tool presentation slot
     categories:
       - ui
@@ -841,12 +841,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-tool'
+      package: "@deepseek-ai/dsh-client-ui-tool"
   - id: client-ui-trajectory
-    name: '@deepseek-ai/dsh-client-ui-trajectory'
-    description: 'Trajectory event ledger with an interactive timing overview:
+    name: "@deepseek-ai/dsh-client-ui-trajectory"
+    description: "Trajectory event ledger with an interactive timing overview:
       pure-consumer plugin registering into the conversation ViewMap (no
-      service)'
+      service)"
     categories:
       - ui
     tags:
@@ -856,11 +856,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-trajectory'
+      package: "@deepseek-ai/dsh-client-ui-trajectory"
   - id: client-ui-user-questions
-    name: '@deepseek-ai/dsh-client-ui-user-questions'
-    description: 'Web ask_user_question feature: host tool mount plus
-      composer-takeover question UI'
+    name: "@deepseek-ai/dsh-client-ui-user-questions"
+    description: "Web ask_user_question feature: host tool mount plus
+      composer-takeover question UI"
     categories:
       - ui
     tags:
@@ -870,9 +870,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-user-questions'
+      package: "@deepseek-ai/dsh-client-ui-user-questions"
   - id: client-ui-workflow-run
-    name: '@deepseek-ai/dsh-client-ui-workflow-run'
+    name: "@deepseek-ai/dsh-client-ui-workflow-run"
     description: Durable workflow-run Conversation Node and nested member disclosure
       for dsh web
     categories:
@@ -884,11 +884,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-workflow-run'
+      package: "@deepseek-ai/dsh-client-ui-workflow-run"
   - id: client-ui-workspace
-    name: '@deepseek-ai/dsh-client-ui-workspace'
-    description: 'Workspace picker plugin: one WorkspacePicker registered into the
-      sidebar and empty-state workspace slots'
+    name: "@deepseek-ai/dsh-client-ui-workspace"
+    description: "Workspace picker plugin: one WorkspacePicker registered into the
+      sidebar and empty-state workspace slots"
     categories:
       - ui
     tags:
@@ -898,12 +898,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-ui-workspace'
+      package: "@deepseek-ai/dsh-client-ui-workspace"
   - id: client-web
-    name: '@deepseek-ai/dsh-client-web'
-    description: 'Web shell kernel: bootWebShell (module system holding + seed table
+    name: "@deepseek-ai/dsh-client-web"
+    description: "Web shell kernel: bootWebShell (module system holding + seed table
       + two-stage boot + AppRoot gate + app-shell assembly entry), consumed by
-      the apps/web vite entry'
+      the apps/web vite entry"
     categories:
       - ui
     tags:
@@ -913,11 +913,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-web'
+      package: "@deepseek-ai/dsh-client-web"
   - id: client-web-react
-    name: '@deepseek-ai/dsh-client-web-react'
-    description: 'Shell-side React glue: createSlotRenderer, SessionProvider,
-      bindSnapshotSelector (uSES bridge), useInvoke'
+    name: "@deepseek-ai/dsh-client-web-react"
+    description: "Shell-side React glue: createSlotRenderer, SessionProvider,
+      bindSnapshotSelector (uSES bridge), useInvoke"
     categories:
       - ui
     tags:
@@ -927,9 +927,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-client-web-react'
+      package: "@deepseek-ai/dsh-client-web-react"
   - id: cmdline
-    name: '@deepseek-ai/dsh-cmdline'
+    name: "@deepseek-ai/dsh-cmdline"
     description: Immutable command-line handoff from a dsh launcher to any app
       plugin that injects cmdlineArgs
     categories:
@@ -941,9 +941,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-cmdline'
+      package: "@deepseek-ai/dsh-cmdline"
   - id: code-runtime
-    name: '@deepseek-ai/dsh-code-runtime'
+    name: "@deepseek-ai/dsh-code-runtime"
     description: Abstract code-execution seam (ctx.codeRuntime) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -954,9 +954,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-code-runtime'
+      package: "@deepseek-ai/dsh-code-runtime"
   - id: code-runtime-worker-thread
-    name: '@deepseek-ai/dsh-code-runtime-worker-thread'
+    name: "@deepseek-ai/dsh-code-runtime-worker-thread"
     description: Worker-thread implementation of the DeepSeek Harness code-execution seam
     categories:
       - infrastructure
@@ -967,9 +967,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-code-runtime-worker-thread'
+      package: "@deepseek-ai/dsh-code-runtime-worker-thread"
   - id: command-compact
-    name: '@deepseek-ai/dsh-command-compact'
+    name: "@deepseek-ai/dsh-command-compact"
     description: Human-facing slash command for explicit session compaction
     categories:
       - infrastructure
@@ -980,9 +980,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-command-compact'
+      package: "@deepseek-ai/dsh-command-compact"
   - id: command-feedback
-    name: '@deepseek-ai/dsh-command-feedback'
+    name: "@deepseek-ai/dsh-command-feedback"
     description: Log-only session feedback producer and human-facing slash command
     categories:
       - infrastructure
@@ -993,9 +993,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-command-feedback'
+      package: "@deepseek-ai/dsh-command-feedback"
   - id: command-goal
-    name: '@deepseek-ai/dsh-command-goal'
+    name: "@deepseek-ai/dsh-command-goal"
     description: Human-facing slash command for persisted same-session goals
     categories:
       - infrastructure
@@ -1006,9 +1006,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-command-goal'
+      package: "@deepseek-ai/dsh-command-goal"
   - id: commands
-    name: '@deepseek-ai/dsh-commands'
+    name: "@deepseek-ai/dsh-commands"
     description: Plugin-owned human command registry for DeepSeek Harness UIs
     categories:
       - infrastructure
@@ -1019,9 +1019,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-commands'
+      package: "@deepseek-ai/dsh-commands"
   - id: compaction
-    name: '@deepseek-ai/dsh-compaction'
+    name: "@deepseek-ai/dsh-compaction"
     description: Abstract compaction service seam (ctx.compaction) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1032,9 +1032,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-compaction'
+      package: "@deepseek-ai/dsh-compaction"
   - id: compaction-basic
-    name: '@deepseek-ai/dsh-compaction-basic'
+    name: "@deepseek-ai/dsh-compaction-basic"
     description: Token-meter-driven compaction policy and LLM summarization backend
       for the DeepSeek Harness
     categories:
@@ -1046,9 +1046,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-compaction-basic'
+      package: "@deepseek-ai/dsh-compaction-basic"
   - id: compaction-tool-result-pruner
-    name: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+    name: "@deepseek-ai/dsh-compaction-tool-result-pruner"
     description: Replay-safe model-free head/middle/tail pruning for tool-result
       surface nodes
     categories:
@@ -1060,11 +1060,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-compaction-tool-result-pruner'
+      package: "@deepseek-ai/dsh-compaction-tool-result-pruner"
   - id: cordis-client-runner
-    name: '@deepseek-ai/dsh-cordis-client-runner'
-    description: 'Browser half of dynamic dual-half plugin packages: event
-      subscription, closure evaluation, guard facade, and loader entries'
+    name: "@deepseek-ai/dsh-cordis-client-runner"
+    description: "Browser half of dynamic dual-half plugin packages: event
+      subscription, closure evaluation, guard facade, and loader entries"
     categories:
       - extension
     tags:
@@ -1074,9 +1074,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-cordis-client-runner'
+      package: "@deepseek-ai/dsh-cordis-client-runner"
   - id: cordis-host-runner
-    name: '@deepseek-ai/dsh-cordis-host-runner'
+    name: "@deepseek-ai/dsh-cordis-host-runner"
     description: Dynamic package definition registry, host-half sandbox lifecycle,
       and invoke handler table for model-mounted dual-half packages
     categories:
@@ -1089,11 +1089,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-cordis-host-runner'
+      package: "@deepseek-ai/dsh-cordis-host-runner"
   - id: credentials
-    name: '@deepseek-ai/dsh-credentials'
-    description: 'Abstract credential seam (ctx.credentials): settings carry
-      references to secrets, providers own the values'
+    name: "@deepseek-ai/dsh-credentials"
+    description: "Abstract credential seam (ctx.credentials): settings carry
+      references to secrets, providers own the values"
     categories:
       - infrastructure
     tags:
@@ -1103,9 +1103,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-credentials'
+      package: "@deepseek-ai/dsh-credentials"
   - id: credentials-local
-    name: '@deepseek-ai/dsh-credentials-local'
+    name: "@deepseek-ai/dsh-credentials-local"
     description: File-backed credentials provider ($DSH_HOME/.env under the live
       process environment) for the DeepSeek Harness
     categories:
@@ -1117,9 +1117,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-credentials-local'
+      package: "@deepseek-ai/dsh-credentials-local"
   - id: e2b
-    name: '@deepseek-ai/dsh-e2b'
+    name: "@deepseek-ai/dsh-e2b"
     description: Shared E2B sandbox lifecycle for DeepSeek Harness provider adapters
     categories:
       - infrastructure
@@ -1130,9 +1130,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-e2b'
+      package: "@deepseek-ai/dsh-e2b"
   - id: fs
-    name: '@deepseek-ai/dsh-fs'
+    name: "@deepseek-ai/dsh-fs"
     description: Abstract filesystem capability seam (ctx.fs) for the DeepSeek
       Harness — vocabulary types, the FileSystem service (text IO + optional
       version-guarded atomic mutations), and the fs/* policy event vocabulary
@@ -1145,9 +1145,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-fs'
+      package: "@deepseek-ai/dsh-fs"
   - id: fs-e2b
-    name: '@deepseek-ai/dsh-fs-e2b'
+    name: "@deepseek-ai/dsh-fs-e2b"
     description: E2B filesystem implementation for DeepSeek Harness
     categories:
       - infrastructure
@@ -1158,9 +1158,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-fs-e2b'
+      package: "@deepseek-ai/dsh-fs-e2b"
   - id: fs-local
-    name: '@deepseek-ai/dsh-fs-local'
+    name: "@deepseek-ai/dsh-fs-local"
     description: Local-filesystem implementation of the DeepSeek Harness filesystem
       seam (ctx.fs)
     categories:
@@ -1172,9 +1172,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-fs-local'
+      package: "@deepseek-ai/dsh-fs-local"
   - id: fs-observation-policy
-    name: '@deepseek-ai/dsh-fs-observation-policy'
+    name: "@deepseek-ai/dsh-fs-observation-policy"
     description: File-context policy plugin for the DeepSeek Harness —
       observed-state, read-before-edit, and version-guarded write/edit added
       over the ctx.fs provider seam through the fs/* event gate (no service API)
@@ -1187,13 +1187,13 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-fs-observation-policy'
+      package: "@deepseek-ai/dsh-fs-observation-policy"
   - id: fs-sandbox
-    name: '@deepseek-ai/dsh-fs-sandbox'
-    description: 'Sandbox-enforcing implementation of the DeepSeek Harness
+    name: "@deepseek-ai/dsh-fs-sandbox"
+    description: "Sandbox-enforcing implementation of the DeepSeek Harness
       filesystem seam: fences write/edit by the per-call sandbox mode (read-only
       denies mutation, workspace-write contains it to the workspace + temp
-      roots) while reads pass through'
+      roots) while reads pass through"
     categories:
       - infrastructure
     tags:
@@ -1203,9 +1203,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-fs-sandbox'
+      package: "@deepseek-ai/dsh-fs-sandbox"
   - id: goal
-    name: '@deepseek-ai/dsh-goal'
+    name: "@deepseek-ai/dsh-goal"
     description: Event-sourced same-session goal state and lifecycle service for the
       DeepSeek Harness
     categories:
@@ -1217,9 +1217,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-goal'
+      package: "@deepseek-ai/dsh-goal"
   - id: goal-round-driver
-    name: '@deepseek-ai/dsh-goal-round-driver'
+    name: "@deepseek-ai/dsh-goal-round-driver"
     description: Race-fenced same-session goal-round driver
     categories:
       - infrastructure
@@ -1230,11 +1230,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-goal-round-driver'
+      package: "@deepseek-ai/dsh-goal-round-driver"
   - id: headless
-    name: '@deepseek-ai/dsh-headless'
-    description: 'The dsh one-shot bundle: a direct core Agent/Session runner over
-      dsh-base with no Host, HTTP, or browser layer'
+    name: "@deepseek-ai/dsh-headless"
+    description: "The dsh one-shot bundle: a direct core Agent/Session runner over
+      dsh-base with no Host, HTTP, or browser layer"
     categories:
       - bundle
     tags:
@@ -1244,9 +1244,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-headless'
+      package: "@deepseek-ai/dsh-headless"
   - id: home-paths
-    name: '@deepseek-ai/dsh-home-paths'
+    name: "@deepseek-ai/dsh-home-paths"
     description: Shared filesystem path helpers for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1257,11 +1257,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-home-paths'
+      package: "@deepseek-ai/dsh-home-paths"
   - id: hook-protocol
-    name: '@deepseek-ai/dsh-hook-protocol'
-    description: 'Shared Claude Code / Codex hook wire protocol: matcher engine,
-      stdin/exit-code/stdout codec, multi-hook merge, and hook/* session events'
+    name: "@deepseek-ai/dsh-hook-protocol"
+    description: "Shared Claude Code / Codex hook wire protocol: matcher engine,
+      stdin/exit-code/stdout codec, multi-hook merge, and hook/* session events"
     categories:
       - infrastructure
     tags:
@@ -1271,11 +1271,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-hook-protocol'
+      package: "@deepseek-ai/dsh-hook-protocol"
   - id: hooks-claude-code
-    name: '@deepseek-ai/dsh-hooks-claude-code'
-    description: 'Bridge plugin: run a Claude Code hooks.json / settings hook config
-      on the DeepSeek Harness interception seams'
+    name: "@deepseek-ai/dsh-hooks-claude-code"
+    description: "Bridge plugin: run a Claude Code hooks.json / settings hook config
+      on the DeepSeek Harness interception seams"
     categories:
       - infrastructure
     tags:
@@ -1285,11 +1285,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-hooks-claude-code'
+      package: "@deepseek-ai/dsh-hooks-claude-code"
   - id: hooks-codex
-    name: '@deepseek-ai/dsh-hooks-codex'
-    description: 'Bridge plugin: run a Codex hooks.json hook config on the DeepSeek
-      Harness interception seams'
+    name: "@deepseek-ai/dsh-hooks-codex"
+    description: "Bridge plugin: run a Codex hooks.json hook config on the DeepSeek
+      Harness interception seams"
     categories:
       - infrastructure
     tags:
@@ -1299,11 +1299,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-hooks-codex'
+      package: "@deepseek-ai/dsh-hooks-codex"
   - id: host-apiproxy
-    name: '@deepseek-ai/dsh-host-apiproxy'
-    description: 'API gateway: the ApiProxy contract (api/), the fetch carrier pair
-      (fetch/), and the host-side gateway plugin providing ctx.apiProxy'
+    name: "@deepseek-ai/dsh-host-apiproxy"
+    description: "API gateway: the ApiProxy contract (api/), the fetch carrier pair
+      (fetch/), and the host-side gateway plugin providing ctx.apiProxy"
     categories:
       - agent-tool
     tags:
@@ -1313,9 +1313,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-apiproxy'
+      package: "@deepseek-ai/dsh-host-apiproxy"
   - id: host-directory-picker
-    name: '@deepseek-ai/dsh-host-directory-picker'
+    name: "@deepseek-ai/dsh-host-directory-picker"
     description: Abstract workspace-directory picking seam (ctx.directoryPicker) for
       the DeepSeek Harness web GUI host
     categories:
@@ -1327,12 +1327,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-directory-picker'
+      package: "@deepseek-ai/dsh-host-directory-picker"
   - id: host-directory-picker-auto
-    name: '@deepseek-ai/dsh-host-directory-picker-auto'
-    description: 'Adaptive chooser of the directory-picker seam: resolves the host
+    name: "@deepseek-ai/dsh-host-directory-picker-auto"
+    description: "Adaptive chooser of the directory-picker seam: resolves the host
       situation at boot and mounts the native or browse backend for the DeepSeek
-      Harness web GUI host'
+      Harness web GUI host"
     categories:
       - infrastructure
     tags:
@@ -1342,9 +1342,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-directory-picker-auto'
+      package: "@deepseek-ai/dsh-host-directory-picker-auto"
   - id: host-directory-picker-browse
-    name: '@deepseek-ai/dsh-host-directory-picker-browse'
+    name: "@deepseek-ai/dsh-host-directory-picker-browse"
     description: In-app browsing backend of the directory-picker seam
       (listing/creation primitives over the host filesystem)
     categories:
@@ -1356,9 +1356,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-directory-picker-browse'
+      package: "@deepseek-ai/dsh-host-directory-picker-browse"
   - id: host-directory-picker-native
-    name: '@deepseek-ai/dsh-host-directory-picker-native'
+    name: "@deepseek-ai/dsh-host-directory-picker-native"
     description: Native-OS-chooser backend of the directory-picker seam for the
       DeepSeek Harness web GUI host
     categories:
@@ -1370,12 +1370,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-directory-picker-native'
+      package: "@deepseek-ai/dsh-host-directory-picker-native"
   - id: host-frontend-static
-    name: '@deepseek-ai/dsh-host-frontend-static'
-    description: 'SPA dist server for the Web shell: owns the webserver fallback
+    name: "@deepseek-ai/dsh-host-frontend-static"
+    description: "SPA dist server for the Web shell: owns the webserver fallback
       seat, serving the built frontend with index-tap injection, traversal
-      rejection, and SPA index fallback'
+      rejection, and SPA index fallback"
     categories:
       - infrastructure
     tags:
@@ -1385,9 +1385,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-frontend-static'
+      package: "@deepseek-ai/dsh-host-frontend-static"
   - id: host-plugin-inventory
-    name: '@deepseek-ai/dsh-host-plugin-inventory'
+    name: "@deepseek-ai/dsh-host-plugin-inventory"
     description: Read-only Remote projection of current Cordis Loader plugin state
     categories:
       - infrastructure
@@ -1398,11 +1398,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-plugin-inventory'
+      package: "@deepseek-ai/dsh-host-plugin-inventory"
   - id: host-webserver
-    name: '@deepseek-ai/dsh-host-webserver'
-    description: 'Web route-registration plugin: HTTP and upgrade routes, index
-      transform taps, and static dist fallback; knows no harness concepts'
+    name: "@deepseek-ai/dsh-host-webserver"
+    description: "Web route-registration plugin: HTTP and upgrade routes, index
+      transform taps, and static dist fallback; knows no harness concepts"
     categories:
       - infrastructure
     tags:
@@ -1412,9 +1412,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-host-webserver'
+      package: "@deepseek-ai/dsh-host-webserver"
   - id: invariants
-    name: '@deepseek-ai/dsh-invariants'
+    name: "@deepseek-ai/dsh-invariants"
     description: Registry service for package-owned DeepSeek Harness runtime invariants
     categories:
       - infrastructure
@@ -1425,9 +1425,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-invariants'
+      package: "@deepseek-ai/dsh-invariants"
   - id: jobs
-    name: '@deepseek-ai/dsh-jobs'
+    name: "@deepseek-ai/dsh-jobs"
     description: Background job registry (ctx.jobs) for the DeepSeek Harness —
       shared ids, owner isolation, polling, cancellation, and completion
       listeners for long-running tool work
@@ -1440,9 +1440,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-jobs'
+      package: "@deepseek-ai/dsh-jobs"
   - id: jobs-local
-    name: '@deepseek-ai/dsh-jobs-local'
+    name: "@deepseek-ai/dsh-jobs-local"
     description: Process-local implementation of the DeepSeek Harness background job
       registry seam
     categories:
@@ -1454,9 +1454,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-jobs-local'
+      package: "@deepseek-ai/dsh-jobs-local"
   - id: launch-environment
-    name: '@deepseek-ai/dsh-launch-environment'
+    name: "@deepseek-ai/dsh-launch-environment"
     description: Immutable DeepSeek Harness launch environment that records which
       layer supplied each value
     categories:
@@ -1468,9 +1468,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-launch-environment'
+      package: "@deepseek-ai/dsh-launch-environment"
   - id: llm
-    name: '@deepseek-ai/dsh-llm'
+    name: "@deepseek-ai/dsh-llm"
     description: Provider-neutral LLM service interface for the DeepSeek Harness
     categories:
       - adapter
@@ -1481,9 +1481,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-llm'
+      package: "@deepseek-ai/dsh-llm"
   - id: llm-deepseek
-    name: '@deepseek-ai/dsh-llm-deepseek'
+    name: "@deepseek-ai/dsh-llm-deepseek"
     description: DeepSeek chat-completions adapter for the DeepSeek Harness LLM seam
     categories:
       - adapter
@@ -1494,9 +1494,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-llm-deepseek'
+      package: "@deepseek-ai/dsh-llm-deepseek"
   - id: llm-mock-server
-    name: '@deepseek-ai/dsh-llm-mock-server'
+    name: "@deepseek-ai/dsh-llm-mock-server"
     description: Scriptable OpenAI-compatible HTTP/SSE fault server for LLM recovery tests
     categories:
       - adapter
@@ -1507,9 +1507,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-llm-mock-server'
+      package: "@deepseek-ai/dsh-llm-mock-server"
   - id: llm-pi-ai
-    name: '@deepseek-ai/dsh-llm-pi-ai'
+    name: "@deepseek-ai/dsh-llm-pi-ai"
     description: pi-ai-backed DeepSeek adapter for the DeepSeek Harness LLM seam
       (design-verification twin of dsh-llm-deepseek)
     categories:
@@ -1521,11 +1521,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-llm-pi-ai'
+      package: "@deepseek-ai/dsh-llm-pi-ai"
   - id: llm-replay
-    name: '@deepseek-ai/dsh-llm-replay'
-    description: 'Replay LLM plugin: short-circuits llm/stream with model chunks
-      reconstructed from a recorded session JSONL (keyless snapshot tests)'
+    name: "@deepseek-ai/dsh-llm-replay"
+    description: "Replay LLM plugin: short-circuits llm/stream with model chunks
+      reconstructed from a recorded session JSONL (keyless snapshot tests)"
     categories:
       - adapter
     tags:
@@ -1535,9 +1535,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-llm-replay'
+      package: "@deepseek-ai/dsh-llm-replay"
   - id: llm-retry
-    name: '@deepseek-ai/dsh-llm-retry'
+    name: "@deepseek-ai/dsh-llm-retry"
     description: Provider-routed LLM request retry policy for the DeepSeek Harness
     categories:
       - adapter
@@ -1548,9 +1548,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-llm-retry'
+      package: "@deepseek-ai/dsh-llm-retry"
   - id: loader-smoke
-    name: '@deepseek-ai/dsh-loader-smoke'
+    name: "@deepseek-ai/dsh-loader-smoke"
     description: Shared subprocess and direct-agent harness for keyless real-Loader
       example smoke tests
     categories:
@@ -1562,9 +1562,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-loader-smoke'
+      package: "@deepseek-ai/dsh-loader-smoke"
   - id: lsp
-    name: '@deepseek-ai/dsh-lsp'
+    name: "@deepseek-ai/dsh-lsp"
     description: Abstract LSP capability seam (ctx.lsp) for the DeepSeek Harness —
       language-server provider registry keyed by branded id and extension
       mapping, order-independent per-query selection, normalized
@@ -1579,9 +1579,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-lsp'
+      package: "@deepseek-ai/dsh-lsp"
   - id: lsp-stdio
-    name: '@deepseek-ai/dsh-lsp-stdio'
+    name: "@deepseek-ai/dsh-lsp-stdio"
     description: Generic stdio language-server provider for the DeepSeek Harness LSP
       capability seam (ctx.lsp) — spawns configured servers, translates
       JSON-RPC, and serves transient-open
@@ -1596,11 +1596,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-lsp-stdio'
+      package: "@deepseek-ai/dsh-lsp-stdio"
   - id: mcp-client
-    name: '@deepseek-ai/dsh-mcp-client'
-    description: 'MCP client bridge: connects to MCP servers and registers their
-      tools on ctx.tools'
+    name: "@deepseek-ai/dsh-mcp-client"
+    description: "MCP client bridge: connects to MCP servers and registers their
+      tools on ctx.tools"
     categories:
       - infrastructure
     tags:
@@ -1610,9 +1610,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-mcp-client'
+      package: "@deepseek-ai/dsh-mcp-client"
   - id: message-feedback
-    name: '@deepseek-ai/dsh-message-feedback'
+    name: "@deepseek-ai/dsh-message-feedback"
     description: Lifecycle-bound per-message rating and note sidecar for the
       DeepSeek Harness
     categories:
@@ -1624,11 +1624,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-message-feedback'
+      package: "@deepseek-ai/dsh-message-feedback"
   - id: native-command
-    name: '@deepseek-ai/dsh-native-command'
-    description: 'Zero-dependency no-shell execFile runner for host-native OS
-      integrations: utf8 stdio capture, abort propagation, Windows hide'
+    name: "@deepseek-ai/dsh-native-command"
+    description: "Zero-dependency no-shell execFile runner for host-native OS
+      integrations: utf8 stdio capture, abort propagation, Windows hide"
     categories:
       - infrastructure
     tags:
@@ -1638,12 +1638,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-native-command'
+      package: "@deepseek-ai/dsh-native-command"
   - id: output-retention
-    name: '@deepseek-ai/dsh-output-retention'
-    description: 'Zero-dependency bounded-retention primitive:
+    name: "@deepseek-ai/dsh-output-retention"
+    description: "Zero-dependency bounded-retention primitive:
       ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what
-      did we omit)'
+      did we omit)"
     categories:
       - infrastructure
     tags:
@@ -1653,13 +1653,13 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-output-retention'
+      package: "@deepseek-ai/dsh-output-retention"
   - id: permission-presets
-    name: '@deepseek-ai/dsh-permission-presets'
-    description: 'User-facing permission presets (ctx.permissionPresets) for the
+    name: "@deepseek-ai/dsh-permission-presets"
+    description: "User-facing permission presets (ctx.permissionPresets) for the
       DeepSeek Harness: one product-level Permissions select bundling the
       sandbox-mode and approval-policy knobs, written through to their own
-      session events'
+      session events"
     categories:
       - infrastructure
     tags:
@@ -1669,9 +1669,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-permission-presets'
+      package: "@deepseek-ai/dsh-permission-presets"
   - id: persona
-    name: '@deepseek-ai/dsh-persona'
+    name: "@deepseek-ai/dsh-persona"
     description: Composition-authored deployment persona section for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1682,9 +1682,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-persona'
+      package: "@deepseek-ai/dsh-persona"
   - id: plan-mode
-    name: '@deepseek-ai/dsh-plan-mode'
+    name: "@deepseek-ai/dsh-plan-mode"
     description: Logged per-agent plan mode with deployment guidance, a direct slash
       command, and a user-reviewed exit
     categories:
@@ -1696,9 +1696,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-plan-mode'
+      package: "@deepseek-ai/dsh-plan-mode"
   - id: pwsh-local
-    name: '@deepseek-ai/dsh-pwsh-local'
+    name: "@deepseek-ai/dsh-pwsh-local"
     description: Local PowerShell implementation of the DeepSeek Harness bash executor seam
     categories:
       - infrastructure
@@ -1709,9 +1709,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-pwsh-local'
+      package: "@deepseek-ai/dsh-pwsh-local"
   - id: pwsh-sandbox
-    name: '@deepseek-ai/dsh-pwsh-sandbox'
+    name: "@deepseek-ai/dsh-pwsh-sandbox"
     description: Sandbox-consuming implementation of the DeepSeek Harness PowerShell
       executor seam (confines every command via ctx.sandbox, reports
       denial/enforcement result facts)
@@ -1724,11 +1724,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-pwsh-sandbox'
+      package: "@deepseek-ai/dsh-pwsh-sandbox"
   - id: repeat-tool-reminder
-    name: '@deepseek-ai/dsh-repeat-tool-reminder'
-    description: 'Repeat-tool-call guard plugin: advisory reminders when an agent
-      loops on identical tool calls'
+    name: "@deepseek-ai/dsh-repeat-tool-reminder"
+    description: "Repeat-tool-call guard plugin: advisory reminders when an agent
+      loops on identical tool calls"
     categories:
       - infrastructure
     tags:
@@ -1738,12 +1738,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-repeat-tool-reminder'
+      package: "@deepseek-ai/dsh-repeat-tool-reminder"
   - id: sandbox
-    name: '@deepseek-ai/dsh-sandbox'
-    description: 'Abstract process-sandbox seam (ctx.sandbox) for the DeepSeek
+    name: "@deepseek-ai/dsh-sandbox"
+    description: "Abstract process-sandbox seam (ctx.sandbox) for the DeepSeek
       Harness: same-world confinement vocabulary and the SandboxProvider
-      contract'
+      contract"
     categories:
       - infrastructure
     tags:
@@ -1753,13 +1753,13 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sandbox'
+      package: "@deepseek-ai/dsh-sandbox"
   - id: sandbox-local
-    name: '@deepseek-ai/dsh-sandbox-local'
-    description: 'Local process-sandbox backends for the DeepSeek Harness sandbox
+    name: "@deepseek-ai/dsh-sandbox-local"
+    description: "Local process-sandbox backends for the DeepSeek Harness sandbox
       seam: bwrap, the npm-distributed landlock-run launcher, macOS Seatbelt, or
       the Windows ACL restricted-token runner — functionally probed,
-      fail-closed'
+      fail-closed"
     categories:
       - infrastructure
     tags:
@@ -1769,9 +1769,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sandbox-local'
+      package: "@deepseek-ai/dsh-sandbox-local"
   - id: sandbox-policy
-    name: '@deepseek-ai/dsh-sandbox-policy'
+    name: "@deepseek-ai/dsh-sandbox-policy"
     description: "Per-call sandbox policy resolver and current model context:
       deployment fallbacks plus each session's mode and workspace root, shared
       by every enforcing capability family"
@@ -1784,9 +1784,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sandbox-policy'
+      package: "@deepseek-ai/dsh-sandbox-policy"
   - id: sandbox-windows-acl
-    name: '@deepseek-ai/dsh-sandbox-windows-acl'
+    name: "@deepseek-ai/dsh-sandbox-windows-acl"
     description: Windows ACL write-restriction sandbox backend (restricted-token
       spawn with capability-SID write allowlist) for the DeepSeek Harness
       sandbox seam
@@ -1799,9 +1799,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sandbox-windows-acl'
+      package: "@deepseek-ai/dsh-sandbox-windows-acl"
   - id: schedule
-    name: '@deepseek-ai/dsh-schedule'
+    name: "@deepseek-ai/dsh-schedule"
     description: Agent-scoped durable after, at, and fixed-rate reminders over the
       session event log
     categories:
@@ -1813,9 +1813,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-schedule'
+      package: "@deepseek-ai/dsh-schedule"
   - id: scope
-    name: '@deepseek-ai/dsh-scope'
+    name: "@deepseek-ai/dsh-scope"
     description: Scoped-context registration primitive (scope tags, scope-filtered
       event dispatch) for the DeepSeek Harness
     categories:
@@ -1827,12 +1827,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-scope'
+      package: "@deepseek-ai/dsh-scope"
   - id: sdk-client
-    name: '@deepseek-ai/dsh-sdk-client'
-    description: 'TypeScript client SDK for driving a DeepSeek Harness runtime
+    name: "@deepseek-ai/dsh-sdk-client"
+    description: "TypeScript client SDK for driving a DeepSeek Harness runtime
       subprocess over stdio JSON-RPC: the DeepSeekHarness high-level turns API
-      and the lower-level HarnessClient'
+      and the lower-level HarnessClient"
     categories:
       - sdk
     tags:
@@ -1842,9 +1842,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sdk-client'
+      package: "@deepseek-ai/dsh-sdk-client"
   - id: sdk-jsonrpc-demo
-    name: '@deepseek-ai/dsh-sdk-jsonrpc-demo'
+    name: "@deepseek-ai/dsh-sdk-jsonrpc-demo"
     description: Bin that boots an external Cordis config for the stdio JSON-RPC SDK runtime
     categories:
       - infrastructure
@@ -1855,9 +1855,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sdk-jsonrpc-demo'
+      package: "@deepseek-ai/dsh-sdk-jsonrpc-demo"
   - id: sdk-jsonrpc-server
-    name: '@deepseek-ai/dsh-sdk-jsonrpc-server'
+    name: "@deepseek-ai/dsh-sdk-jsonrpc-server"
     description: Stdio JSON-RPC server plugin for out-of-process DeepSeek Harness
       SDK clients
     categories:
@@ -1869,12 +1869,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sdk-jsonrpc-server'
+      package: "@deepseek-ai/dsh-sdk-jsonrpc-server"
   - id: sdk-protocol
-    name: '@deepseek-ai/dsh-sdk-protocol'
-    description: 'Shared wire protocol for the DeepSeek Harness SDK runtime: the
+    name: "@deepseek-ai/dsh-sdk-protocol"
+    description: "Shared wire protocol for the DeepSeek Harness SDK runtime: the
       newline-delimited JSON-RPC stdio transport and the named request, result,
-      and notification types spoken between the runtime server and SDK clients'
+      and notification types spoken between the runtime server and SDK clients"
     categories:
       - sdk
     tags:
@@ -1884,9 +1884,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-sdk-protocol'
+      package: "@deepseek-ai/dsh-sdk-protocol"
   - id: session
-    name: '@deepseek-ai/dsh-session'
+    name: "@deepseek-ai/dsh-session"
     description: Event-sourced session store for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1897,9 +1897,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session'
+      package: "@deepseek-ai/dsh-session"
   - id: session-checkpoint-policy
-    name: '@deepseek-ai/dsh-session-checkpoint-policy'
+    name: "@deepseek-ai/dsh-session-checkpoint-policy"
     description: Semantic session durability checkpoints before model requests and
       tool side effects
     categories:
@@ -1911,9 +1911,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-checkpoint-policy'
+      package: "@deepseek-ai/dsh-session-checkpoint-policy"
   - id: session-log-export
-    name: '@deepseek-ai/dsh-session-log-export'
+    name: "@deepseek-ai/dsh-session-log-export"
     description: Web Session-log export command and shared download dialog
     categories:
       - infrastructure
@@ -1924,9 +1924,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-log-export'
+      package: "@deepseek-ai/dsh-session-log-export"
   - id: session-persistence
-    name: '@deepseek-ai/dsh-session-persistence'
+    name: "@deepseek-ai/dsh-session-persistence"
     description: Abstract durable session persistence seam (ctx.sessionPersistence)
       for the DeepSeek Harness
     categories:
@@ -1938,9 +1938,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-persistence'
+      package: "@deepseek-ai/dsh-session-persistence"
   - id: session-persistence-jsonl
-    name: '@deepseek-ai/dsh-session-persistence-jsonl'
+    name: "@deepseek-ai/dsh-session-persistence-jsonl"
     description: JSONL durable session persistence backend for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1951,9 +1951,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-persistence-jsonl'
+      package: "@deepseek-ai/dsh-session-persistence-jsonl"
   - id: session-persistence-sqlite
-    name: '@deepseek-ai/dsh-session-persistence-sqlite'
+    name: "@deepseek-ai/dsh-session-persistence-sqlite"
     description: SQLite durable session persistence backend for the DeepSeek Harness
     categories:
       - infrastructure
@@ -1964,12 +1964,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-persistence-sqlite'
+      package: "@deepseek-ai/dsh-session-persistence-sqlite"
   - id: session-projection
-    name: '@deepseek-ai/dsh-session-projection'
-    description: 'Session-projection seam: the merge-extensible projection type
+    name: "@deepseek-ai/dsh-session-projection"
+    description: "Session-projection seam: the merge-extensible projection type
       table, the provider contract, and the ctx.sessionProjections registry
-      serving whole current values of log-derived per-session state'
+      serving whole current values of log-derived per-session state"
     categories:
       - infrastructure
     tags:
@@ -1979,13 +1979,13 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-projection'
+      package: "@deepseek-ai/dsh-session-projection"
   - id: session-projection-cache
-    name: '@deepseek-ai/dsh-session-projection-cache'
-    description: 'Persisted projection cache (ctx.sessionProjectionCache): durable
+    name: "@deepseek-ai/dsh-session-projection-cache"
+    description: "Persisted projection cache (ctx.sessionProjectionCache): durable
       per-session projection checkpoints over the domain data form, throttled
       write-behind, and the cold-read ladder (cache row + persistence tail
-      replay)'
+      replay)"
     categories:
       - infrastructure
     tags:
@@ -1995,9 +1995,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-projection-cache'
+      package: "@deepseek-ai/dsh-session-projection-cache"
   - id: session-query
-    name: '@deepseek-ai/dsh-session-query'
+    name: "@deepseek-ai/dsh-session-query"
     description: Combined session query service contract with concrete reads,
       traces, and filters
     categories:
@@ -2009,9 +2009,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-query'
+      package: "@deepseek-ai/dsh-session-query"
   - id: session-query-sqlite
-    name: '@deepseek-ai/dsh-session-query-sqlite'
+    name: "@deepseek-ai/dsh-session-query-sqlite"
     description: Concrete ctx.sessionQuery backend with SQLite FTS5 search
     categories:
       - infrastructure
@@ -2022,9 +2022,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-query-sqlite'
+      package: "@deepseek-ai/dsh-session-query-sqlite"
   - id: session-reference
-    name: '@deepseek-ai/dsh-session-reference'
+    name: "@deepseek-ai/dsh-session-reference"
     description: Cross-session snapshot references and durable untrusted model
       context (ctx.sessionReferenceResolver)
     categories:
@@ -2036,9 +2036,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-reference'
+      package: "@deepseek-ai/dsh-session-reference"
   - id: session-stats
-    name: '@deepseek-ai/dsh-session-stats'
+    name: "@deepseek-ai/dsh-session-stats"
     description: Whole-log conversation counts and wall times projection
       (sessionStats) for the DeepSeek Harness
     categories:
@@ -2050,12 +2050,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-stats'
+      package: "@deepseek-ai/dsh-session-stats"
   - id: session-telemetry
-    name: '@deepseek-ai/dsh-session-telemetry'
-    description: 'SessionTelemetryBackend seam for the DeepSeek Harness:
+    name: "@deepseek-ai/dsh-session-telemetry"
+    description: "SessionTelemetryBackend seam for the DeepSeek Harness:
       session-event capture, projection, redaction, and handoff to a reporting
-      backend'
+      backend"
     categories:
       - infrastructure
     tags:
@@ -2065,9 +2065,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-telemetry'
+      package: "@deepseek-ai/dsh-session-telemetry"
   - id: session-telemetry-otel
-    name: '@deepseek-ai/dsh-session-telemetry-otel'
+    name: "@deepseek-ai/dsh-session-telemetry-otel"
     description: "OpenTelemetry backend for the DeepSeek Harness telemetry seam:
       hands captured session records to the OTel JS SDK's log pipeline"
     categories:
@@ -2079,9 +2079,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-telemetry-otel'
+      package: "@deepseek-ai/dsh-session-telemetry-otel"
   - id: session-title
-    name: '@deepseek-ai/dsh-session-title'
+    name: "@deepseek-ai/dsh-session-title"
     description: Log-backed session title service and provider registry for the
       DeepSeek Harness
     categories:
@@ -2093,9 +2093,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-title'
+      package: "@deepseek-ai/dsh-session-title"
   - id: session-title-all-prompts-llm
-    name: '@deepseek-ai/dsh-session-title-all-prompts-llm'
+    name: "@deepseek-ai/dsh-session-title-all-prompts-llm"
     description: All-user-messages LLM provider plugin for DeepSeek Harness session titles
     categories:
       - infrastructure
@@ -2106,9 +2106,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-title-all-prompts-llm'
+      package: "@deepseek-ai/dsh-session-title-all-prompts-llm"
   - id: session-title-first-prompt-llm
-    name: '@deepseek-ai/dsh-session-title-first-prompt-llm'
+    name: "@deepseek-ai/dsh-session-title-first-prompt-llm"
     description: First-message LLM provider plugin for DeepSeek Harness session titles
     categories:
       - infrastructure
@@ -2119,9 +2119,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-title-first-prompt-llm'
+      package: "@deepseek-ai/dsh-session-title-first-prompt-llm"
   - id: session-title-llm
-    name: '@deepseek-ai/dsh-session-title-llm'
+    name: "@deepseek-ai/dsh-session-title-llm"
     description: Shared LLM generation policy for DeepSeek Harness session-title providers
     categories:
       - infrastructure
@@ -2132,9 +2132,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-session-title-llm'
+      package: "@deepseek-ai/dsh-session-title-llm"
   - id: settings
-    name: '@deepseek-ai/dsh-settings'
+    name: "@deepseek-ai/dsh-settings"
     description: Abstract user-settings seam (ctx.settings) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2145,9 +2145,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-settings'
+      package: "@deepseek-ai/dsh-settings"
   - id: settings-file
-    name: '@deepseek-ai/dsh-settings-file'
+    name: "@deepseek-ai/dsh-settings-file"
     description: File-backed settings provider (settings.yaml) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2158,9 +2158,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-settings-file'
+      package: "@deepseek-ai/dsh-settings-file"
   - id: shell
-    name: '@deepseek-ai/dsh-shell'
+    name: "@deepseek-ai/dsh-shell"
     description: Abstract bash executor seam (ctx.shell) for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2171,9 +2171,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-shell'
+      package: "@deepseek-ai/dsh-shell"
   - id: shell-env
-    name: '@deepseek-ai/dsh-shell-env'
+    name: "@deepseek-ai/dsh-shell-env"
     description: Tool-independent managed DSH_* shell environment registry
     categories:
       - infrastructure
@@ -2184,9 +2184,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-shell-env'
+      package: "@deepseek-ai/dsh-shell-env"
   - id: skill
-    name: '@deepseek-ai/dsh-skill'
+    name: "@deepseek-ai/dsh-skill"
     description: Agent skill provider registry for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2197,9 +2197,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-skill'
+      package: "@deepseek-ai/dsh-skill"
   - id: skill-badge
-    name: '@deepseek-ai/dsh-skill-badge'
+    name: "@deepseek-ai/dsh-skill-badge"
     description: Bundled dsh badge skill provider for DeepSeek Harness
     categories:
       - infrastructure
@@ -2210,9 +2210,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-skill-badge'
+      package: "@deepseek-ai/dsh-skill-badge"
   - id: skill-filesystem
-    name: '@deepseek-ai/dsh-skill-filesystem'
+    name: "@deepseek-ai/dsh-skill-filesystem"
     description: Local filesystem skill provider for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2223,9 +2223,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-skill-filesystem'
+      package: "@deepseek-ai/dsh-skill-filesystem"
   - id: spill
-    name: '@deepseek-ai/dsh-spill'
+    name: "@deepseek-ai/dsh-spill"
     description: Abstract spill storage seam (ctx.spillStore) for the DeepSeek
       Harness — save oversized tool text and return a retrieval locator
     categories:
@@ -2237,9 +2237,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-spill'
+      package: "@deepseek-ai/dsh-spill"
   - id: spill-local
-    name: '@deepseek-ai/dsh-spill-local'
+    name: "@deepseek-ai/dsh-spill-local"
     description: Local-filesystem implementation of the DeepSeek Harness spill
       storage seam (private session-scoped files)
     categories:
@@ -2251,9 +2251,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-spill-local'
+      package: "@deepseek-ai/dsh-spill-local"
   - id: spill-policy
-    name: '@deepseek-ai/dsh-spill-policy'
+    name: "@deepseek-ai/dsh-spill-policy"
     description: Tool-result spill policy for the DeepSeek Harness — replaces
       oversized plain-text tool results with a retained preview plus a
       spill-file path (no service API)
@@ -2266,11 +2266,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-spill-policy'
+      package: "@deepseek-ai/dsh-spill-policy"
   - id: storage
-    name: '@deepseek-ai/dsh-storage'
-    description: 'Storage hub (ctx.storage): named backend registry plus mounted
-      data-form facilities for the DeepSeek Harness'
+    name: "@deepseek-ai/dsh-storage"
+    description: "Storage hub (ctx.storage): named backend registry plus mounted
+      data-form facilities for the DeepSeek Harness"
     categories:
       - infrastructure
     tags:
@@ -2280,11 +2280,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-storage'
+      package: "@deepseek-ai/dsh-storage"
   - id: storage-domain
-    name: '@deepseek-ai/dsh-storage-domain'
-    description: 'Domain data form (ctx.storage.domain): schema-validated,
-      event-emitting KV domains over storage backends for the DeepSeek Harness'
+    name: "@deepseek-ai/dsh-storage-domain"
+    description: "Domain data form (ctx.storage.domain): schema-validated,
+      event-emitting KV domains over storage backends for the DeepSeek Harness"
     categories:
       - infrastructure
     tags:
@@ -2294,9 +2294,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-storage-domain'
+      package: "@deepseek-ai/dsh-storage-domain"
   - id: storage-json
-    name: '@deepseek-ai/dsh-storage-json'
+    name: "@deepseek-ai/dsh-storage-json"
     description: JSON file KV storage backend for the DeepSeek Harness storage hub
     categories:
       - infrastructure
@@ -2307,9 +2307,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-storage-json'
+      package: "@deepseek-ai/dsh-storage-json"
   - id: storage-sqlite
-    name: '@deepseek-ai/dsh-storage-sqlite'
+    name: "@deepseek-ai/dsh-storage-sqlite"
     description: SQLite storage backend (kv facet) for the DeepSeek Harness storage hub
     categories:
       - infrastructure
@@ -2320,11 +2320,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-storage-sqlite'
+      package: "@deepseek-ai/dsh-storage-sqlite"
   - id: subagent
-    name: '@deepseek-ai/dsh-subagent'
-    description: 'Abstract subagent seam (ctx.subagents): named-provider registry
-      for delegating to child agents'
+    name: "@deepseek-ai/dsh-subagent"
+    description: "Abstract subagent seam (ctx.subagents): named-provider registry
+      for delegating to child agents"
     categories:
       - infrastructure
     tags:
@@ -2334,11 +2334,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent'
+      package: "@deepseek-ai/dsh-subagent"
   - id: subagent-acp
-    name: '@deepseek-ai/dsh-subagent-acp'
-    description: 'Out-of-process ACP subagent backend: drives a child agent in a
-      spawned subprocess over the Agent Client Protocol'
+    name: "@deepseek-ai/dsh-subagent-acp"
+    description: "Out-of-process ACP subagent backend: drives a child agent in a
+      spawned subprocess over the Agent Client Protocol"
     categories:
       - infrastructure
     tags:
@@ -2348,9 +2348,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-acp'
+      package: "@deepseek-ai/dsh-subagent-acp"
   - id: subagent-claude-code
-    name: '@deepseek-ai/dsh-subagent-claude-code'
+    name: "@deepseek-ai/dsh-subagent-claude-code"
     description: One-shot Claude Code subagent provider over the official Agent SDK
     categories:
       - infrastructure
@@ -2361,9 +2361,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-claude-code'
+      package: "@deepseek-ai/dsh-subagent-claude-code"
   - id: subagent-codex
-    name: '@deepseek-ai/dsh-subagent-codex'
+    name: "@deepseek-ai/dsh-subagent-codex"
     description: One-shot Codex subagent provider over the official app-server protocol
     categories:
       - infrastructure
@@ -2374,12 +2374,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-codex'
+      package: "@deepseek-ai/dsh-subagent-codex"
   - id: subagent-dsh-sdk
-    name: '@deepseek-ai/dsh-subagent-dsh-sdk'
-    description: 'Out-of-process SDK subagent backend: drives a child DeepSeek
+    name: "@deepseek-ai/dsh-subagent-dsh-sdk"
+    description: "Out-of-process SDK subagent backend: drives a child DeepSeek
       Harness runtime subprocess over stdio JSON-RPC through the TypeScript SDK
-      client'
+      client"
     categories:
       - sdk
     tags:
@@ -2389,9 +2389,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-dsh-sdk'
+      package: "@deepseek-ai/dsh-subagent-dsh-sdk"
   - id: subagent-fork-in-process
-    name: '@deepseek-ai/dsh-subagent-fork-in-process'
+    name: "@deepseek-ai/dsh-subagent-fork-in-process"
     description: "In-process fork subagent backend: runs a child agent seeded with a
       prefix of the parent's log"
     categories:
@@ -2403,11 +2403,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-fork-in-process'
+      package: "@deepseek-ai/dsh-subagent-fork-in-process"
   - id: subagent-in-process-driver
-    name: '@deepseek-ai/dsh-subagent-in-process-driver'
-    description: 'Shared in-process subagent run driver: drives a child agent on
-      ctx.agents (used by the spawn and fork backends)'
+    name: "@deepseek-ai/dsh-subagent-in-process-driver"
+    description: "Shared in-process subagent run driver: drives a child agent on
+      ctx.agents (used by the spawn and fork backends)"
     categories:
       - agent-tool
     tags:
@@ -2417,10 +2417,10 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-in-process-driver'
+      package: "@deepseek-ai/dsh-subagent-in-process-driver"
   - id: subagent-spawn-in-process
-    name: '@deepseek-ai/dsh-subagent-spawn-in-process'
-    description: 'In-process spawn subagent backend: runs a fresh child agent on ctx.agents'
+    name: "@deepseek-ai/dsh-subagent-spawn-in-process"
+    description: "In-process spawn subagent backend: runs a fresh child agent on ctx.agents"
     categories:
       - infrastructure
     tags:
@@ -2430,9 +2430,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subagent-spawn-in-process'
+      package: "@deepseek-ai/dsh-subagent-spawn-in-process"
   - id: subprocess
-    name: '@deepseek-ai/dsh-subprocess'
+    name: "@deepseek-ai/dsh-subprocess"
     description: Subprocess seam (ctx.subprocess) for the DeepSeek Harness — managed
       process groups, bounded spill-backed output, and escalated kills behind
       one abstract service
@@ -2445,9 +2445,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subprocess'
+      package: "@deepseek-ai/dsh-subprocess"
   - id: subprocess-e2b
-    name: '@deepseek-ai/dsh-subprocess-e2b'
+    name: "@deepseek-ai/dsh-subprocess-e2b"
     description: E2B subprocess implementation for DeepSeek Harness
     categories:
       - infrastructure
@@ -2458,9 +2458,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subprocess-e2b'
+      package: "@deepseek-ai/dsh-subprocess-e2b"
   - id: subprocess-local
-    name: '@deepseek-ai/dsh-subprocess-local'
+    name: "@deepseek-ai/dsh-subprocess-local"
     description: Local-subprocess implementation of the DeepSeek Harness subprocess seam
     categories:
       - infrastructure
@@ -2471,9 +2471,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-subprocess-local'
+      package: "@deepseek-ai/dsh-subprocess-local"
   - id: system-prompt
-    name: '@deepseek-ai/dsh-system-prompt'
+    name: "@deepseek-ai/dsh-system-prompt"
     description: System prompt assembly registry for the DeepSeek Harness
     categories:
       - infrastructure
@@ -2484,9 +2484,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-system-prompt'
+      package: "@deepseek-ai/dsh-system-prompt"
   - id: terminal
-    name: '@deepseek-ai/dsh-terminal'
+    name: "@deepseek-ai/dsh-terminal"
     description: Persistent PTY session seam for the DeepSeek Harness — owner-scoped
       ids, backend registry, interactive sends, reads, signals, and awaited
       cleanup
@@ -2499,9 +2499,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-terminal'
+      package: "@deepseek-ai/dsh-terminal"
   - id: terminal-bash
-    name: '@deepseek-ai/dsh-terminal-bash'
+    name: "@deepseek-ai/dsh-terminal-bash"
     description: Persistent shell PTY backend over the DeepSeek Harness subprocess
       terminal primitive
     categories:
@@ -2513,9 +2513,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-terminal-bash'
+      package: "@deepseek-ai/dsh-terminal-bash"
   - id: time-context
-    name: '@deepseek-ai/dsh-time-context'
+    name: "@deepseek-ai/dsh-time-context"
     description: Opt-in durable per-step context with the current time and elapsed time
     categories:
       - infrastructure
@@ -2526,12 +2526,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-time-context'
+      package: "@deepseek-ai/dsh-time-context"
   - id: timeout
-    name: '@deepseek-ai/dsh-timeout'
-    description: 'Zero-dependency timeout/deadline primitive: clampTimeout,
+    name: "@deepseek-ai/dsh-timeout"
+    description: "Zero-dependency timeout/deadline primitive: clampTimeout,
       deadline, timeoutOf, TimeoutReason (timing + classification only, no
-      termination)'
+      termination)"
     categories:
       - infrastructure
     tags:
@@ -2541,9 +2541,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-timeout'
+      package: "@deepseek-ai/dsh-timeout"
   - id: tmux-context
-    name: '@deepseek-ai/dsh-tmux-context'
+    name: "@deepseek-ai/dsh-tmux-context"
     description: Opt-in durable per-step context with this agent's tmux pane and
       window location
     categories:
@@ -2555,9 +2555,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tmux-context'
+      package: "@deepseek-ai/dsh-tmux-context"
   - id: token-meter
-    name: '@deepseek-ai/dsh-token-meter'
+    name: "@deepseek-ai/dsh-token-meter"
     description: Replay-aware token measurement service (ctx.tokenMeter) for the
       DeepSeek Harness
     categories:
@@ -2569,9 +2569,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-token-meter'
+      package: "@deepseek-ai/dsh-token-meter"
   - id: tool-ask-user
-    name: '@deepseek-ai/dsh-tool-ask-user'
+    name: "@deepseek-ai/dsh-tool-ask-user"
     description: Model-facing ask_user_question tool over the ctx.userQuestions seam
     categories:
       - agent-tool
@@ -2582,9 +2582,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-ask-user'
+      package: "@deepseek-ai/dsh-tool-ask-user"
   - id: tool-bash
-    name: '@deepseek-ai/dsh-tool-bash'
+    name: "@deepseek-ai/dsh-tool-bash"
     description: Model-facing bash tool with optional generic background-job and
       sandbox-escalation support
     categories:
@@ -2596,9 +2596,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-bash'
+      package: "@deepseek-ai/dsh-tool-bash"
   - id: tool-bash-persistent
-    name: '@deepseek-ai/dsh-tool-bash-persistent'
+    name: "@deepseek-ai/dsh-tool-bash-persistent"
     description: Model-facing owner-scoped persistent Bash tool backed by the
       Harness PTY service
     categories:
@@ -2610,11 +2610,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-bash-persistent'
+      package: "@deepseek-ai/dsh-tool-bash-persistent"
   - id: tool-call-timeout-policy
-    name: '@deepseek-ai/dsh-tool-call-timeout-policy'
-    description: 'Tool-call timeout policy: a tools/execute wrapper that arms a
-      per-tool deadline on exec.signal and returns TOOL_TIMEOUT when it wins'
+    name: "@deepseek-ai/dsh-tool-call-timeout-policy"
+    description: "Tool-call timeout policy: a tools/execute wrapper that arms a
+      per-tool deadline on exec.signal and returns TOOL_TIMEOUT when it wins"
     categories:
       - infrastructure
     tags:
@@ -2624,11 +2624,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-call-timeout-policy'
+      package: "@deepseek-ai/dsh-tool-call-timeout-policy"
   - id: tool-cordis
-    name: '@deepseek-ai/dsh-tool-cordis'
-    description: 'Self-referential cordis toolset: inspect the live runtime, mount
-      and dispose model-written plugins'
+    name: "@deepseek-ai/dsh-tool-cordis"
+    description: "Self-referential cordis toolset: inspect the live runtime, mount
+      and dispose model-written plugins"
     categories:
       - extension
       - agent-tool
@@ -2639,9 +2639,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-cordis'
+      package: "@deepseek-ai/dsh-tool-cordis"
   - id: tool-fs
-    name: '@deepseek-ai/dsh-tool-fs'
+    name: "@deepseek-ai/dsh-tool-fs"
     description: Model-facing filesystem tools (read, write, edit) over the DeepSeek
       Harness filesystem seam (ctx.fs)
     categories:
@@ -2653,9 +2653,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-fs'
+      package: "@deepseek-ai/dsh-tool-fs"
   - id: tool-fs-search
-    name: '@deepseek-ai/dsh-tool-fs-search'
+    name: "@deepseek-ai/dsh-tool-fs-search"
     description: Model-facing filesystem discovery tools (glob, grep) backed by the
       packaged ripgrep binary (@vscode/ripgrep)
     categories:
@@ -2667,9 +2667,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-fs-search'
+      package: "@deepseek-ai/dsh-tool-fs-search"
   - id: tool-goal
-    name: '@deepseek-ai/dsh-tool-goal'
+    name: "@deepseek-ai/dsh-tool-goal"
     description: Model-facing same-session goal tools with execution-time authority checks
     categories:
       - agent-tool
@@ -2680,9 +2680,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-goal'
+      package: "@deepseek-ai/dsh-tool-goal"
   - id: tool-jobs
-    name: '@deepseek-ai/dsh-tool-jobs'
+    name: "@deepseek-ai/dsh-tool-jobs"
     description: Model-facing background job control tools (job_output, job_list,
       job_kill) over the ctx.jobs registry
     categories:
@@ -2694,9 +2694,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-jobs'
+      package: "@deepseek-ai/dsh-tool-jobs"
   - id: tool-lsp
-    name: '@deepseek-ai/dsh-tool-lsp'
+    name: "@deepseek-ai/dsh-tool-lsp"
     description: Model-facing lsp tool over the DeepSeek Harness LSP capability seam
       (ctx.lsp) — one read-only tool with
       goToDefinition/findReferences/goToImplementation/hover operations,
@@ -2711,9 +2711,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-lsp'
+      package: "@deepseek-ai/dsh-tool-lsp"
   - id: tool-pwsh
-    name: '@deepseek-ai/dsh-tool-pwsh'
+    name: "@deepseek-ai/dsh-tool-pwsh"
     description: Model-facing pwsh tool over the bash executor seam
     categories:
       - agent-tool
@@ -2724,9 +2724,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-pwsh'
+      package: "@deepseek-ai/dsh-tool-pwsh"
   - id: tool-ralph
-    name: '@deepseek-ai/dsh-tool-ralph'
+    name: "@deepseek-ai/dsh-tool-ralph"
     description: Model-facing fresh-agent Ralph loop over the workflow and subagent seams
     categories:
       - agent-tool
@@ -2737,9 +2737,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-ralph'
+      package: "@deepseek-ai/dsh-tool-ralph"
   - id: tool-session-query
-    name: '@deepseek-ai/dsh-tool-session-query'
+    name: "@deepseek-ai/dsh-tool-session-query"
     description: Workspace-authorized model-facing session history search, trace,
       and event read tools
     categories:
@@ -2751,9 +2751,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-session-query'
+      package: "@deepseek-ai/dsh-tool-session-query"
   - id: tool-skill
-    name: '@deepseek-ai/dsh-tool-skill'
+    name: "@deepseek-ai/dsh-tool-skill"
     description: Model-facing skill loading tool for the DeepSeek Harness
     categories:
       - agent-tool
@@ -2764,9 +2764,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-skill'
+      package: "@deepseek-ai/dsh-tool-skill"
   - id: tool-str-replace-editor
-    name: '@deepseek-ai/dsh-tool-str-replace-editor'
+    name: "@deepseek-ai/dsh-tool-str-replace-editor"
     description: Model-facing view, create, literal replace, and line insert tool
       over the Harness filesystem service
     categories:
@@ -2778,9 +2778,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-str-replace-editor'
+      package: "@deepseek-ai/dsh-tool-str-replace-editor"
   - id: tool-subagent
-    name: '@deepseek-ai/dsh-tool-subagent'
+    name: "@deepseek-ai/dsh-tool-subagent"
     description: Model-facing subagent delegation tool over the ctx.subagents seam
     categories:
       - agent-tool
@@ -2791,9 +2791,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-subagent'
+      package: "@deepseek-ai/dsh-tool-subagent"
   - id: tool-subagent-control
-    name: '@deepseek-ai/dsh-tool-subagent-control'
+    name: "@deepseek-ai/dsh-tool-subagent-control"
     description: Globally named send_message, interrupt_agent, and list_agents tools
       over ctx.subagents continuations
     categories:
@@ -2805,9 +2805,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-subagent-control'
+      package: "@deepseek-ai/dsh-tool-subagent-control"
   - id: tool-subagent-report
-    name: '@deepseek-ai/dsh-tool-subagent-report'
+    name: "@deepseek-ai/dsh-tool-subagent-report"
     description: Child-scoped report tool over ctx.subagents continuations
     categories:
       - agent-tool
@@ -2818,9 +2818,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-subagent-report'
+      package: "@deepseek-ai/dsh-tool-subagent-report"
   - id: tool-terminal
-    name: '@deepseek-ai/dsh-tool-terminal'
+    name: "@deepseek-ai/dsh-tool-terminal"
     description: Six model-facing persistent PTY tools with owner isolation and
       generic background-job integration
     categories:
@@ -2832,9 +2832,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-terminal'
+      package: "@deepseek-ai/dsh-tool-terminal"
   - id: tool-todo
-    name: '@deepseek-ai/dsh-tool-todo'
+    name: "@deepseek-ai/dsh-tool-todo"
     description: Model-facing todo_write tool over the DeepSeek Harness
       event-sourced session log
     categories:
@@ -2846,9 +2846,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-todo'
+      package: "@deepseek-ai/dsh-tool-todo"
   - id: tool-web
-    name: '@deepseek-ai/dsh-tool-web'
+    name: "@deepseek-ai/dsh-tool-web"
     description: Model-facing web tools (web_search, web_fetch) over the DeepSeek
       Harness web capability seam (ctx.web)
     categories:
@@ -2861,11 +2861,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-web'
+      package: "@deepseek-ai/dsh-tool-web"
   - id: tool-workflow
-    name: '@deepseek-ai/dsh-tool-workflow'
-    description: 'Model-facing workflow tool: run a JavaScript orchestration script
-      over ctx.workflowEngine'
+    name: "@deepseek-ai/dsh-tool-workflow"
+    description: "Model-facing workflow tool: run a JavaScript orchestration script
+      over ctx.workflowEngine"
     categories:
       - agent-tool
     tags:
@@ -2875,9 +2875,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tool-workflow'
+      package: "@deepseek-ai/dsh-tool-workflow"
   - id: tools
-    name: '@deepseek-ai/dsh-tools'
+    name: "@deepseek-ai/dsh-tools"
     description: Tool registry and execution pipeline for the DeepSeek Harness
     categories:
       - agent-tool
@@ -2888,9 +2888,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-tools'
+      package: "@deepseek-ai/dsh-tools"
   - id: typert-generator
-    name: '@deepseek-ai/dsh-typert-generator'
+    name: "@deepseek-ai/dsh-typert-generator"
     description: TypeScript project analyzer and model-driven Typert artifact generator
     categories:
       - infrastructure
@@ -2901,9 +2901,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-typert-generator'
+      package: "@deepseek-ai/dsh-typert-generator"
   - id: typert-loader
-    name: '@deepseek-ai/dsh-typert-loader'
+    name: "@deepseek-ai/dsh-typert-loader"
     description: Loader integration for generated Typert package contributions
     categories:
       - infrastructure
@@ -2914,9 +2914,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-typert-loader'
+      package: "@deepseek-ai/dsh-typert-loader"
   - id: typert-protocol
-    name: '@deepseek-ai/dsh-typert-protocol'
+    name: "@deepseek-ai/dsh-typert-protocol"
     description: Compiler-independent Remote metadata and Typert provider protocols
     categories:
       - infrastructure
@@ -2927,9 +2927,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-typert-protocol'
+      package: "@deepseek-ai/dsh-typert-protocol"
   - id: typert-registry
-    name: '@deepseek-ai/dsh-typert-registry'
+    name: "@deepseek-ai/dsh-typert-registry"
     description: Runtime registry for generated package reflection and Zod schemas
     categories:
       - infrastructure
@@ -2940,12 +2940,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-typert-registry'
+      package: "@deepseek-ai/dsh-typert-registry"
   - id: user-approval
-    name: '@deepseek-ai/dsh-user-approval'
-    description: 'User-approval seam (ctx.approval) for the DeepSeek Harness:
+    name: "@deepseek-ai/dsh-user-approval"
+    description: "User-approval seam (ctx.approval) for the DeepSeek Harness:
       one-shot permission decisions dispatched to composed answerers over the
-      approval/request waterfall, fail-closed by default'
+      approval/request waterfall, fail-closed by default"
     categories:
       - infrastructure
     tags:
@@ -2955,9 +2955,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-user-approval'
+      package: "@deepseek-ai/dsh-user-approval"
   - id: user-questions
-    name: '@deepseek-ai/dsh-user-questions'
+    name: "@deepseek-ai/dsh-user-questions"
     description: Abstract user-questions seam (ctx.userQuestions) for asking the
       human during agent runs
     categories:
@@ -2969,9 +2969,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-user-questions'
+      package: "@deepseek-ai/dsh-user-questions"
   - id: web
-    name: '@deepseek-ai/dsh-web'
+    name: "@deepseek-ai/dsh-web"
     description: Abstract web access capability seam (ctx.web) for the DeepSeek
       Harness — search/fetch provider registry, registration-order-independent
       selection, request/result vocabulary, and the WebError taxonomy
@@ -2984,12 +2984,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-web'
+      package: "@deepseek-ai/dsh-web"
   - id: web-app
-    name: '@deepseek-ai/dsh-web-app'
-    description: 'The dsh browser-surface bundle: the web patch layer over dsh-base
+    name: "@deepseek-ai/dsh-web-app"
+    description: "The dsh browser-surface bundle: the web patch layer over dsh-base
       plus the runtime glue plugin (frontend dist serving, web-surface prompt,
-      bash runtime variables, URL line)'
+      bash runtime variables, URL line)"
     categories:
       - bundle
     tags:
@@ -2999,9 +2999,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-web-app'
+      package: "@deepseek-ai/dsh-web-app"
   - id: web-fetch-http
-    name: '@deepseek-ai/dsh-web-fetch-http'
+    name: "@deepseek-ai/dsh-web-fetch-http"
     description: Anonymous public HTTP(S) fetch provider for the DeepSeek Harness
       web capability seam (ctx.web)
     categories:
@@ -3013,9 +3013,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-web-fetch-http'
+      package: "@deepseek-ai/dsh-web-fetch-http"
   - id: web-search-deepseek
-    name: '@deepseek-ai/dsh-web-search-deepseek'
+    name: "@deepseek-ai/dsh-web-search-deepseek"
     description: DeepSeek-backed search provider (native web_search via the
       Anthropic-compatible API) for the DeepSeek Harness web capability seam
       (ctx.web)
@@ -3028,9 +3028,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-web-search-deepseek'
+      package: "@deepseek-ai/dsh-web-search-deepseek"
   - id: web-search-exa
-    name: '@deepseek-ai/dsh-web-search-exa'
+    name: "@deepseek-ai/dsh-web-search-exa"
     description: Exa-backed search provider for the DeepSeek Harness web capability
       seam (ctx.web)
     categories:
@@ -3042,9 +3042,9 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-web-search-exa'
+      package: "@deepseek-ai/dsh-web-search-exa"
   - id: web-search-perplexity
-    name: '@deepseek-ai/dsh-web-search-perplexity'
+    name: "@deepseek-ai/dsh-web-search-perplexity"
     description: Perplexity-backed search provider for the DeepSeek Harness web
       capability seam (ctx.web)
     categories:
@@ -3056,11 +3056,11 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-web-search-perplexity'
+      package: "@deepseek-ai/dsh-web-search-perplexity"
   - id: workflow
-    name: '@deepseek-ai/dsh-workflow'
-    description: 'Workflow capability seam: ctx.workflowEngine service, run
-      vocabulary, and workflow/* events'
+    name: "@deepseek-ai/dsh-workflow"
+    description: "Workflow capability seam: ctx.workflowEngine service, run
+      vocabulary, and workflow/* events"
     categories:
       - infrastructure
     tags:
@@ -3070,12 +3070,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-workflow'
+      package: "@deepseek-ai/dsh-workflow"
   - id: workflow-worker-thread
-    name: '@deepseek-ai/dsh-workflow-worker-thread'
-    description: 'worker-thread workflow engine: executes model-written
+    name: "@deepseek-ai/dsh-workflow-worker-thread"
+    description: "worker-thread workflow engine: executes model-written
       orchestration scripts off the host event loop, bridging agent() calls back
-      to ctx.subagents'
+      to ctx.subagents"
     categories:
       - infrastructure
     tags:
@@ -3085,12 +3085,12 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-workflow-worker-thread'
+      package: "@deepseek-ai/dsh-workflow-worker-thread"
   - id: workspace
-    name: '@deepseek-ai/dsh-workspace'
-    description: 'Workspace entity registry (ctx.workspaceRegistry): durable
+    name: "@deepseek-ai/dsh-workspace"
+    description: "Workspace entity registry (ctx.workspaceRegistry): durable
       workspace records with validated session attachment over the domain data
-      form for the DeepSeek Harness'
+      form for the DeepSeek Harness"
     categories:
       - infrastructure
     tags:
@@ -3100,4 +3100,5 @@ plugins:
     verified: true
     source:
       type: npm
-      package: '@deepseek-ai/dsh-workspace'
+      package: "@deepseek-ai/dsh-workspace"
+

@@ -1,0 +1,23 @@
+{
+  "name": "@dshm/plugin",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "dshm as a deepseek-harness plugin: model-facing marketplace tools (search/info/install/uninstall/list)",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@dshm/core": "workspace:*",
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0"
+  }
+}

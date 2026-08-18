@@ -189,6 +189,30 @@ if (isDirectory(examplesDir)) {
   }
 }
 
+// This repository's own installable packages (the dshm harness plugin).
+// Path variant only — they publish on their own schedule.
+for (const entry of readdirSync(resolve('packages'))) {
+  const dir = resolve('packages', entry)
+  const manifest = readJson(join(dir, 'package.json'))
+  const name = manifest?.name
+  if (!name?.startsWith('@dshm/') || name === '@dshm/core') continue
+  const id = name === '@dshm/plugin' ? 'dshm-plugin' : name.split('/').pop()!
+  packageEntries.push({
+    id,
+    name: 'dshm · harness 插件（模型可调用的插件市场工具）',
+    packageName: name,
+    dir,
+    ownPackage: true,
+    description:
+      '以 deepseek-harness 插件形态运行的 dshm：向模型注册 marketplace_search/info/install/uninstall/list_installed 工具',
+    categories: ['extension', 'agent-tool'],
+    tags: ['marketplace', 'tools'],
+    author: 'DeanWanghewei',
+    license: 'MIT',
+    verified: true,
+  })
+}
+
 packageEntries.sort((a, b) => a.id.localeCompare(b.id))
 exampleEntries.sort((a, b) => a.id.localeCompare(b.id))
 
@@ -217,16 +241,21 @@ writeVariant(
     source: { type: 'path', path: entry['dir'] },
     dir: undefined,
     packageName: undefined,
+    ownPackage: undefined,
   })),
 )
 
-// npm variant (bundled into the published package): npm sources only.
+// npm variant (bundled into the published package): npm sources only —
+// this repo's own packages are unpublished, so they stay path-variant only.
 writeVariant(
   OUTPUT_NPM_VARIANT,
-  packageEntries.map((entry) => ({
-    ...entry,
-    source: { type: 'npm', package: entry.packageName },
-    dir: undefined,
-    packageName: undefined,
-  })),
+  packageEntries
+    .filter((entry) => !entry.ownPackage)
+    .map((entry) => ({
+      ...entry,
+      source: { type: 'npm', package: entry.packageName },
+      dir: undefined,
+      packageName: undefined,
+      ownPackage: undefined,
+    })),
 )

@@ -206,9 +206,12 @@ async function commitPnpmInstall(
   const { runner, env, paths } = deps
   const profileDirectory = profileDir(resolveDshHome(env), options.profile)
   const manifest = readProfileManifest(runner, profileDirectory)
+  const hintBase = basename(packageNameHint)
+  // Path specs install under the package's scoped name (@scope/dir-name), so
+  // match dependencies by exact name, bare basename, or scoped suffix.
   const packageName =
     Object.keys(manifest.dependencies ?? {}).find(
-      (name) => name === packageNameHint || name === basename(packageNameHint),
+      (name) => name === packageNameHint || name === hintBase || name.endsWith(`/${hintBase}`),
     ) ?? packageNameHint
   // A package declaring `dsh.bundle` already joined the layer stack through
   // `dsh plugin`'s reconcile. Bundle-less packages (older npm releases) stay
