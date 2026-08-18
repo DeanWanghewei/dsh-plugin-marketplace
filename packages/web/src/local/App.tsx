@@ -21,10 +21,13 @@ import {
   CloudDownloadOutlined,
   DeleteOutlined,
   LinkOutlined,
+  PauseCircleOutlined,
+  PlayCircleOutlined,
   PlusOutlined,
   ReloadOutlined,
   SafetyCertificateOutlined,
   SearchOutlined,
+  SettingOutlined,
 } from '@ant-design/icons'
 
 const { Title, Text, Paragraph } = Typography
@@ -50,6 +53,9 @@ interface LocalPlugin {
   images: LocalImage[]
   installed: boolean
   origin?: 'dshm' | 'profile'
+  requiresConfig?: boolean
+  /** 'enabled' | 'disabled' | 'unmanaged' for installed dshm plugins */
+  rowState?: string
 }
 
 interface RegistryRow {
@@ -171,6 +177,58 @@ export default function LocalApp() {
     }
   }
 
+  const enable = async (plugin: LocalPlugin, configYaml?: string) => {
+    setBusyId(plugin.qualifiedId)
+    try {
+      const outcome = await api<{
+        status: string
+        message?: string
+        hints?: string[]
+      }>('/api/local/enable', {
+        method: 'POST',
+        body: JSON.stringify({ id: plugin.qualifiedId, profile, configYaml }),
+      })
+      if (outcome.status === 'config-required') {
+        void message.warning(outcome.message ?? '需要配置')
+        openConfig(plugin)
+        return
+      }
+      if (outcome.status === 'not-managed') {
+        void message.info(outcome.message ?? '仅 dshm 安装的插件支持启用/停用')
+        return
+      }
+      void message.success(`已启用 ${plugin.name}`)
+      void load()
+    } catch (error) {
+      void message.error(String(error))
+    } finally {
+      setBusyId('')
+    }
+  }
+
+  const disable = async (plugin: LocalPlugin) => {
+    setBusyId(plugin.qualifiedId)
+    try {
+      await api('/api/local/disable', {
+        method: 'POST',
+        body: JSON.stringify({ id: plugin.qualifiedId, profile }),
+      })
+      void message.success(`已停用 ${plugin.name}（依赖保留，可随时再启用）`)
+      void load()
+    } catch (error) {
+      void message.error(String(error))
+    } finally {
+      setBusyId('')
+    }
+  }
+
+  const [configTarget, setConfigTarget] = useState<LocalPlugin>()
+  const [configYaml, setConfigYaml] = useState('')
+  const openConfig = (plugin: LocalPlugin) => {
+    setConfigTarget(plugin)
+    setConfigYaml('serverName: my-server\ntransport: stdio\ncommand: npx\nargs: []')
+  }
+
   const filtered = plugins.filter((plugin) => {
     if (registryFilter && plugin.registry !== registryFilter) return false
     if (statusFilter === 'installed' && !plugin.installed) return false
@@ -283,31 +341,63 @@ export default function LocalApp() {
             },
             {
               title: '状态',
-              width: 90,
-              render: (_, record) =>
-                record.installed ? (
+              width: 110,
+              render: (_, record) => {
+                if (!record.installed) return <Badge status="default" text="未安装" />
+                if (record.rowState === 'disabled') {
+                  return <Badge status="error" text="已停用" />
+                }
+                return (
                   <Badge
                     status={record.origin === 'profile' ? 'warning' : 'success'}
                     text={record.origin === 'profile' ? 'profile 已有' : 'dshm 安装'}
                   />
-                ) : (
-                  <Badge status="default" text="未安装" />
-                ),
+                )
+              },
             },
             {
               title: '操作',
-              width: 130,
+              width: 210,
               render: (_, record) => (
                 <Space onClick={(event) => event.stopPropagation()}>
                   {record.installed ? (
-                    <Popconfirm
-                      title={`从 profile「${profile}」卸载？`}
-                      onConfirm={() => uninstall(record)}
-                    >
-                      <Button size="small" danger icon={<DeleteOutlined />} loading={busyId === record.qualifiedId}>
-                        卸载
-                      </Button>
-                    </Popconfirm>
+                    <>
+                      {record.rowState === 'disabled' && (
+                        <Button
+                          size="small"
+                          type="primary"
+                          icon={<PlayCircleOutlined />}
+                          loading={busyId === record.qualifiedId}
+                          onClick={() => {
+                            if (record.requiresConfig && record.rowState === 'disabled') {
+                              openConfig(record)
+                            } else {
+                              void enable(record)
+                            }
+                          }}
+                        >
+                          启用
+                        </Button>
+                      )}
+                      {record.rowState === 'enabled' && (
+                        <Button
+                          size="small"
+                          icon={<PauseCircleOutlined />}
+                          loading={busyId === record.qualifiedId}
+                          onClick={() => disable(record)}
+                        >
+                          停用
+                        </Button>
+                      )}
+                      <Popconfirm
+                        title={`从 profile「${profile}」卸载？`}
+                        onConfirm={() => uninstall(record)}
+                      >
+                        <Button size="small" danger icon={<DeleteOutlined />}>
+                          卸载
+                        </Button>
+                      </Popconfirm>
+                    </>
                   ) : (
                     <Button
                       size="small"
@@ -391,6 +481,37 @@ export default function LocalApp() {
         onClose={() => setAddOpen(false)}
         onChanged={load}
       />
+
+      <Modal
+        title={
+          <Space>
+            <SettingOutlined />
+            {configTarget?.name} — 配置并启用
+          </Space>
+        }
+        open={Boolean(configTarget)}
+        onCancel={() => setConfigTarget(undefined)}
+        onOk={() => {
+          if (configTarget) {
+            void enable(configTarget, configYaml.trim() || undefined)
+            setConfigTarget(undefined)
+          }
+        }}
+        okText="保存并启用"
+        width={640}
+      >
+        <Typography.Paragraph type="secondary" style={{ fontSize: 13 }}>
+          此插件需要配置才能启动。填写 YAML 格式的配置（注入到 cordis.patch.yml 行的 config: 下），
+          保存后自动启用，运行中的 dsh 热加载生效。
+        </Typography.Paragraph>
+        <Input.TextArea
+          rows={8}
+          placeholder={'serverName: my-mcp\ntransport: stdio\ncommand: npx\nargs: [\'-y\', \'@modelcontextprotocol/server-filesystem\', \'/tmp\']'}
+          value={configYaml}
+          onChange={(event) => setConfigYaml(event.target.value)}
+          style={{ fontFamily: 'monospace', fontSize: 12 }}
+        />
+      </Modal>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
+import { profileDir, resolveDshHome, hasBlock } from '@dshm/core'
 import { fileURLToPath } from 'node:url'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -17,6 +18,8 @@ import {
   NodeRunner,
   saveConfig,
   uninstallPlugin,
+  enablePlugin,
+  disablePlugin,
   type InstallerDeps,
   type RegistryRef,
   type ResolvedPlugin,
@@ -62,12 +65,30 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
     )
     const items = merged.plugins.map((plugin: ResolvedPlugin) => {
       const origin = view.get(plugin.qualifiedId)
+      // Row state for dshm-managed installs: check the patch file for
+      // disabled flag on this plugin's managed row.
+      let rowState: string | undefined
+      if (origin?.kind === 'dshm') {
+        const profileDirectory = profileDir(resolveDshHome(env), profile)
+        const patchContent = runner.readTextFile(join(profileDirectory, 'cordis.patch.yml'))
+        if (patchContent !== undefined && hasBlock(patchContent, plugin.entry.id)) {
+          const body = patchContent
+            .split('\n')
+            .slice(
+              (patchContent.split('\n').findIndex((l) => l.trim() === `# >>> dshm:${plugin.entry.id}`) ?? -1) + 1,
+              patchContent.split('\n').findIndex((l) => l.trim() === `# <<< dshm:${plugin.entry.id}`) ?? -1,
+            )
+            .join('\n')
+          rowState = /^\s*disabled:\s*true/m.test(body) ? 'disabled' : 'enabled'
+        }
+      }
       return {
         ...plugin.entry,
         qualifiedId: plugin.qualifiedId,
         registry: plugin.registry,
         installed: origin !== undefined,
         origin: origin?.kind,
+        rowState,
       }
     })
     // Uncataloged: packages the profile holds that no registry indexes.
@@ -87,6 +108,7 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
         verified: false,
         source: { type: 'npm', package: uncataloged.packageName },
         images: [],
+        rowState: undefined,
         installed: true,
         origin: 'profile' as const,
         description: `（registry 未收录 · 本机已安装 ${uncataloged.version}）`,
@@ -180,6 +202,27 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
   app.post('/api/local/uninstall', async (context) => {
     const body = (await context.req.json().catch(() => ({}))) as { id?: string; profile?: string }
     const outcome = await uninstallPlugin(deps, body.id ?? '', body.profile ?? config.defaultProfile)
+    return context.json(outcome)
+  })
+
+  app.post('/api/local/enable', async (context) => {
+    const body = (await context.req.json().catch(() => ({}))) as {
+      id?: string
+      profile?: string
+      configYaml?: string
+    }
+    const outcome = await enablePlugin(
+      deps,
+      body.id ?? '',
+      body.profile ?? config.defaultProfile,
+      body.configYaml,
+    )
+    return context.json(outcome)
+  })
+
+  app.post('/api/local/disable', async (context) => {
+    const body = (await context.req.json().catch(() => ({}))) as { id?: string; profile?: string }
+    const outcome = await disablePlugin(deps, body.id ?? '', body.profile ?? config.defaultProfile)
     return context.json(outcome)
   })
 
