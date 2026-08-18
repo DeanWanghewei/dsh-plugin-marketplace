@@ -43,6 +43,11 @@ export {
   type ServiceProviders,
 } from './requires.js'
 export {
+  directProfilePackages,
+  uncatalogedPackages,
+  type UncatalogedPackage,
+} from './installed.js'
+export {
   installedView,
   matchProfilePlugins,
   profilePackages,

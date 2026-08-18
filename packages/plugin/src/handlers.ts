@@ -1,6 +1,8 @@
 import {
   installedView,
   listInstalled,
+  directProfilePackages,
+  uncatalogedPackages,
   loadConfig,
   loadRegistries,
   loadStore,
@@ -112,11 +114,20 @@ export async function handleListInstalled(profile?: string): Promise<string> {
     merged.plugins,
     listInstalled(loadStore(runner, paths), targetProfile),
   )
-  if (view.size === 0) return `nothing installed in profile '${targetProfile}'`
+  const uncataloged = uncatalogedPackages(
+    runner,
+    directProfilePackages(runner, process.env, targetProfile),
+    merged.plugins,
+  )
+  const total = view.size + uncataloged.length
+  if (total === 0) return `nothing installed in profile '${targetProfile}'`
   const lines = [...view]
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([qualifiedId, origin]) => `${qualifiedId} (${origin.kind}${origin.version ? `, ${origin.version}` : ''})`)
-  return `profile '${targetProfile}' (${view.size} installed):\n${lines.join('\n')}`
+  for (const item of uncataloged) {
+    lines.push(`uncataloged:${item.packageName} (profile, ${item.version} — registry 未收录)`)
+  }
+  return `profile '${targetProfile}' (${total} installed):\n${lines.join('\n')}`
 }
 
 export async function handleInstall(

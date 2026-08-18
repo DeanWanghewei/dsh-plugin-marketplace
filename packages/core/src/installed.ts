@@ -68,6 +68,15 @@ function pathPackageName(runner: Runner, path: string): string | undefined {
   }
 }
 
+/** All npm names one registry entry can appear as in a profile manifest. */
+function candidateNames(runner: Runner, plugin: ResolvedPlugin): string[] {
+  const source = plugin.entry.source
+  if (source.type === 'npm') return [source.package]
+  if (source.type === 'git') return [packageNameFromGitUrl(source.url)]
+  const pathName = pathPackageName(runner, source.path)
+  return pathName ? [pathName] : []
+}
+
 /** Match registry plugins against the packages a profile actually holds. */
 export function matchProfilePlugins(
   runner: Runner,
@@ -76,15 +85,8 @@ export function matchProfilePlugins(
 ): Map<string, InstalledOrigin> {
   const matches = new Map<string, InstalledOrigin>()
   for (const plugin of plugins) {
-    const source = plugin.entry.source
-    const candidates =
-      source.type === 'npm'
-        ? [source.package]
-        : source.type === 'git'
-          ? [packageNameFromGitUrl(source.url)]
-          : [pathPackageName(runner, source.path)].filter(Boolean)
-    for (const name of candidates) {
-      const version = packages.get(name as string)
+    for (const name of candidateNames(runner, plugin)) {
+      const version = packages.get(name)
       if (version !== undefined) {
         matches.set(plugin.qualifiedId, { kind: 'profile', packageName: name, version })
         break
@@ -92,6 +94,50 @@ export function matchProfilePlugins(
     }
   }
   return matches
+}
+
+/** Direct holdings only: manifest dependencies plus declared bundles, WITHOUT
+ * the transitive closure — library deps of bundles (babel, js-tokens, …) are
+ * not plugins and must not flood the uncataloged view. */
+export function directProfilePackages(
+  runner: Runner,
+  env: NodeJS.ProcessEnv,
+  profile: string,
+): Map<string, string> {
+  const manifest = readProfileManifest(runner, profileDir(resolveDshHome(env), profile))
+  const packages = new Map<string, string>()
+  for (const [name, spec] of Object.entries(manifest.dependencies ?? {})) {
+    packages.set(name, spec)
+  }
+  for (const name of manifest.bundles ?? []) {
+    if (!packages.has(name)) packages.set(name, 'bundle')
+  }
+  return packages
+}
+
+export interface UncatalogedPackage {
+  packageName: string
+  version: string
+}
+
+/**
+ * Packages a profile actually holds that NO registry catalogs: private
+ * plugins, manual `dsh plugin add`s, anything the marketplaces never
+ * indexed. They stay visible and manageable — installation state must not
+ * depend on catalog coverage.
+ */
+export function uncatalogedPackages(
+  runner: Runner,
+  packages: Map<string, string>,
+  plugins: ResolvedPlugin[],
+): UncatalogedPackage[] {
+  const known = new Set<string>()
+  for (const plugin of plugins) {
+    for (const name of candidateNames(runner, plugin)) known.add(name)
+  }
+  return [...packages]
+    .filter(([name]) => !known.has(name))
+    .map(([packageName, version]) => ({ packageName, version }))
 }
 
 /**

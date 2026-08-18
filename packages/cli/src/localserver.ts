@@ -8,6 +8,8 @@ import { Hono, type Handler } from 'hono'
 import {
   installPlugin,
   installedView,
+  directProfilePackages,
+  uncatalogedPackages,
   loadConfig,
   loadRegistries,
   loadStore,
@@ -68,6 +70,28 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
         origin: origin?.kind,
       }
     })
+    // Uncataloged: packages the profile holds that no registry indexes.
+    // Synthesized rows keep them visible and uninstallable.
+    for (const uncataloged of uncatalogedPackages(
+      runner,
+      directProfilePackages(runner, env, profile),
+      merged.plugins,
+    )) {
+      items.push({
+        id: uncataloged.packageName,
+        qualifiedId: `uncataloged:${uncataloged.packageName}`,
+        registry: 'uncataloged',
+        name: uncataloged.packageName,
+        categories: [],
+        tags: [],
+        verified: false,
+        source: { type: 'npm', package: uncataloged.packageName },
+        images: [],
+        installed: true,
+        origin: 'profile' as const,
+        description: `（registry 未收录 · 本机已安装 ${uncataloged.version}）`,
+      })
+    }
     return context.json({ items })
   })
 

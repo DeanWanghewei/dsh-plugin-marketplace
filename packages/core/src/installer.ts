@@ -332,7 +332,26 @@ export async function uninstallPlugin(
 ): Promise<UninstallOutcome> {
   const { runner, env, paths } = deps
   const record = findInstalled(loadStore(runner, paths), profile, pluginId)
-  if (!record) return { status: 'not-installed' }
+  if (!record) {
+    // Uncataloged installs: the profile holds the package but dshm never
+    // recorded it (manual `dsh plugin add`, private plugins). Removing the
+    // dependency is the honest uninstall — installation visibility must not
+    // depend on dshm having done the install.
+    const pkgName = pluginId.startsWith('uncataloged:') ? pluginId.slice('uncataloged:'.length) : pluginId
+    const { profilePackages } = await import('./installed.js')
+    if (profilePackages(runner, env, profile).has(pkgName)) {
+      const result = await dshPlugin(runner, profile, ['remove', '-w', pkgName])
+      if (!result.ok) return { status: 'error', message: `移除依赖 ${pkgName} 失败` }
+      return {
+        status: 'uninstalled',
+        hints: [
+          `已移除依赖 ${pkgName}（非 dshm 安装，registry 未收录）`,
+          `verify: dsh --profile ${profile} --dump-config`,
+        ],
+      }
+    }
+    return { status: 'not-installed' }
+  }
 
   const hints: string[] = []
   // Drop the activation row first: a running dsh hot-reloads the patch file,

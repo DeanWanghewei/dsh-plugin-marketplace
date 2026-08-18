@@ -3,6 +3,8 @@ import {
   installedView,
   loadRegistries,
   loadStore,
+  directProfilePackages,
+  uncatalogedPackages,
   type InstalledOrigin,
 } from '@dshm/core'
 import { createContext, resolveProfile } from '../context.js'
@@ -42,6 +44,23 @@ export function registerListCommand(program: Command): void {
               origin.kind === 'dshm' ? pc.cyan('dshm') : pc.yellow('profile'),
               origin.packageName ?? '—',
               origin.version ?? '—',
+            ])
+          }
+        }
+        for (const name of profiles) {
+          // Packages the profile holds that no registry catalogs — still
+          // installed, still manageable.
+          for (const uncataloged of uncatalogedPackages(
+            context.runner,
+            directProfilePackages(context.runner, context.env, name),
+            merged.plugins,
+          )) {
+            rows.push([
+              name,
+              `uncataloged:${uncataloged.packageName}`,
+              pc.magenta('外部安装'),
+              uncataloged.packageName,
+              uncataloged.version,
             ])
           }
         }
