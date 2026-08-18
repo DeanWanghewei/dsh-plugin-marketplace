@@ -7,6 +7,7 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
 import {
   installPlugin,
+  installedView,
   loadConfig,
   loadRegistries,
   loadStore,
@@ -48,15 +49,25 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
   app.get('/api/local/plugins', async (context) => {
     const profile = context.req.query('profile') ?? config.defaultProfile
     const merged = await loadRegistries(runner, config, paths.cacheDir)
-    const installed = new Set(
-      listInstalled(loadStore(runner, paths), profile).map((record) => record.pluginId),
+    // Installed = dshm records ∪ packages the profile actually holds
+    // (in-box bundles and manual installs live in the profile manifest).
+    const view = installedView(
+      runner,
+      env,
+      profile,
+      merged.plugins,
+      listInstalled(loadStore(runner, paths), profile),
     )
-    const items = merged.plugins.map((plugin: ResolvedPlugin) => ({
-      ...plugin.entry,
-      qualifiedId: plugin.qualifiedId,
-      registry: plugin.registry,
-      installed: installed.has(plugin.qualifiedId),
-    }))
+    const items = merged.plugins.map((plugin: ResolvedPlugin) => {
+      const origin = view.get(plugin.qualifiedId)
+      return {
+        ...plugin.entry,
+        qualifiedId: plugin.qualifiedId,
+        registry: plugin.registry,
+        installed: origin !== undefined,
+        origin: origin?.kind,
+      }
+    })
     return context.json({ items })
   })
 

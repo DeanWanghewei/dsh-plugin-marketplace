@@ -37,6 +37,12 @@ export {
 } from './registry.js'
 export { searchPlugins, categoryCounts, type SearchQuery, type ScoredPlugin } from './search.js'
 export {
+  installedView,
+  matchProfilePlugins,
+  profilePackages,
+  type InstalledOrigin,
+} from './installed.js'
+export {
   NodeRunner,
   commandExists,
   type ExecOptions,

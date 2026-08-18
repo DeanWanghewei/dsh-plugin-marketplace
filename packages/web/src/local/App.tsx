@@ -49,6 +49,7 @@ interface LocalPlugin {
   source: { type: string; [key: string]: unknown }
   images: LocalImage[]
   installed: boolean
+  origin?: 'dshm' | 'profile'
 }
 
 interface RegistryRow {
@@ -267,7 +268,10 @@ export default function LocalApp() {
               width: 90,
               render: (_, record) =>
                 record.installed ? (
-                  <Badge status="success" text="已安装" />
+                  <Badge
+                    status={record.origin === 'profile' ? 'warning' : 'success'}
+                    text={record.origin === 'profile' ? 'profile 已有' : 'dshm 安装'}
+                  />
                 ) : (
                   <Badge status="default" text="未安装" />
                 ),
