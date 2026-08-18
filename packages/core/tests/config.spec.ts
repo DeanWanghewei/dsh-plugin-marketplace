@@ -27,7 +27,7 @@ describe('curated default registry', () => {
   })
 
   it('ships in a fresh config', () => {
-    const { env, dshmHome } = makeTestEnv()
+    const { env } = makeTestEnv()
     const runner = new FakeRunner()
     const { config, created } = loadConfig(runner, { ...env, ...CURATED_ENV })
     expect(created).toBe(true)

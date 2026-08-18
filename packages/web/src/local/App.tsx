@@ -78,6 +78,7 @@ export default function LocalApp() {
   const [profiles, setProfiles] = useState<string[]>([])
   const [profile, setProfile] = useState('')
   const [registryFilter, setRegistryFilter] = useState<string | undefined>()
+  const [statusFilter, setStatusFilter] = useState<'all' | 'installed' | 'notInstalled'>('all')
   const [q, setQ] = useState('')
   const [loading, setLoading] = useState(false)
   const [busyId, setBusyId] = useState('')
@@ -172,6 +173,8 @@ export default function LocalApp() {
 
   const filtered = plugins.filter((plugin) => {
     if (registryFilter && plugin.registry !== registryFilter) return false
+    if (statusFilter === 'installed' && !plugin.installed) return false
+    if (statusFilter === 'notInstalled' && plugin.installed) return false
     if (!q.trim()) return true
     const needle = q.trim().toLowerCase()
     return (
@@ -217,6 +220,16 @@ export default function LocalApp() {
             style={{ width: 320 }}
             value={q}
             onChange={(event) => setQ(event.target.value)}
+          />
+          <Select
+            style={{ width: 130 }}
+            value={statusFilter}
+            onChange={setStatusFilter}
+            options={[
+              { value: 'all', label: '全部状态' },
+              { value: 'installed', label: '已安装' },
+              { value: 'notInstalled', label: '未安装' },
+            ]}
           />
           <Select
             allowClear

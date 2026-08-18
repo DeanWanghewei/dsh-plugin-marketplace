@@ -1,6 +1,6 @@
 {
   "name": "dshm-cli",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "type": "module",
   "description": "dshm — plugin marketplace for deepseek-harness: search, install, uninstall, and categorize plugins",
   "bin": {
