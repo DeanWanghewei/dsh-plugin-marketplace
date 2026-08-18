@@ -231,6 +231,30 @@ if (isDirectory(examplesDir)) {
   }
 }
 
+// Vendored cordis plugins (vendor/): in-box bundle members like timer and
+// hmr. Their ids drop the cordis-plugin- prefix to match bundle row ids.
+for (const entry of readdirSync(join(HARNESS_ROOT, 'vendor'))) {
+  const dir = join(HARNESS_ROOT, 'vendor', entry)
+  if (!isDirectory(dir)) continue
+  const manifest = readJson(join(dir, 'package.json'))
+  const name = manifest?.name
+  if (!name?.startsWith('@deepseek-ai/')) continue
+  const unscoped = name.split('/').pop()!
+  const id = unscoped.replace(/^cordis-plugin-/, '')
+  packageEntries.push({
+    id,
+    name: `${manifest.name}（vendored）`,
+    packageName: name,
+    dir,
+    description: manifest.description ?? '',
+    categories: ['infrastructure'],
+    tags: ['vendor', 'cordis'],
+    author: 'deepseek-ai',
+    license: manifest.license ?? 'MIT',
+    verified: true,
+  })
+}
+
 // This repository's own installable packages (the dshm harness plugin).
 // Path variant only — they publish on their own schedule.
 for (const entry of readdirSync(resolve('packages'))) {

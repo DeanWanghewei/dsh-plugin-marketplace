@@ -1,5 +1,5 @@
 import type { Command } from 'commander'
-import { loadStore, type PluginSource } from '@dshm/core'
+import { installedView, loadStore, type PluginSource } from '@dshm/core'
 import { createContext, loadMerged, resolvePluginById } from '../context.js'
 import { pc } from '../output.js'
 
@@ -47,20 +47,30 @@ export function registerInfoCommand(program: Command): void {
       ].filter(Boolean)
       lines.push(meta.join('  ·  '))
 
+      // Installed state per profile uses the full view (dshm records ∪
+      // profile bundles/deps), matching `list --installed`.
       const store = loadStore(context.runner, context.paths)
-      const installedSomewhere = Object.entries(store.profiles)
-        .flatMap(([profile, { plugins }]) =>
-          plugins
-            .filter((record) => record.pluginId === resolved.plugin.qualifiedId)
-            .map((record) => ({ profile, record })),
+      const profiles = new Set([
+        ...Object.keys(store.profiles),
+        context.config.defaultProfile,
+      ])
+      const rows: string[] = []
+      for (const profile of profiles) {
+        const view = installedView(
+          context.runner,
+          context.env,
+          profile,
+          merged.plugins,
+          store.profiles[profile]?.plugins ?? [],
         )
-        .map(
-          ({ profile, record }) =>
-            `installed: ${profile} (${record.strategy}, ${record.version.version ?? record.version.spec})`,
-        )
-      lines.push(
-        ...(installedSomewhere.length > 0 ? installedSomewhere : [pc.dim('installed: nowhere')]),
-      )
+        const origin = view.get(resolved.plugin.qualifiedId)
+        if (origin) {
+          rows.push(
+            `installed: ${profile} (${origin.kind === 'dshm' ? `dshm, ${origin.version ?? ''}` : 'profile 已有'})`,
+          )
+        }
+      }
+      lines.push(...(rows.length > 0 ? rows : [pc.dim('installed: nowhere')]))
 
       console.log(lines.join('\n'))
     })

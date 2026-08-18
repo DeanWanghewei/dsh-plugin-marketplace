@@ -1123,6 +1123,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-compaction-tool-result-pruner"
+  - id: cordis
+    name: "@deepseek-ai/cordis（vendored）"
+    description: Meta-Framework for Modern JavaScript Applications
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis"
   - id: cordis-client-runner
     name: "@deepseek-ai/dsh-cordis-client-runner"
     description: "Browser half of dynamic dual-half plugin packages: event
@@ -1155,6 +1169,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-cordis-host-runner"
+  - id: cosmokit
+    name: "@deepseek-ai/cosmokit（vendored）"
+    description: A collection of common utilities
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cosmokit"
   - id: credentials
     name: "@deepseek-ai/dsh-credentials"
     providesServices:
@@ -1312,6 +1340,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-goal-round-driver"
+  - id: group
+    name: "@deepseek-ai/cordis-plugin-group（vendored）"
+    description: Nested plugin group for cordis
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis-plugin-group"
   - id: headless
     name: "@deepseek-ai/dsh-headless"
     requiresServices:
@@ -1334,6 +1376,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-headless"
+  - id: hmr
+    name: "@deepseek-ai/cordis-plugin-hmr（vendored）"
+    description: Hot Module Replacement Plugin for Cordis
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis-plugin-hmr"
   - id: home-paths
     name: "@deepseek-ai/dsh-home-paths"
     description: Shared filesystem path helpers for the DeepSeek Harness
@@ -1527,6 +1583,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-host-webserver"
+  - id: include
+    name: "@deepseek-ai/cordis-plugin-include（vendored）"
+    description: Include files in cordis configurations
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis-plugin-include"
   - id: invariants
     name: "@deepseek-ai/dsh-invariants"
     providesServices:
@@ -1685,6 +1755,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-llm-retry"
+  - id: loader
+    name: "@deepseek-ai/cordis-plugin-loader（vendored）"
+    description: Plugin loader for cordis
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis-plugin-loader"
   - id: loader-smoke
     name: "@deepseek-ai/dsh-loader-smoke"
     description: Shared subprocess and direct-agent harness for keyless real-Loader
@@ -1699,6 +1783,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-loader-smoke"
+  - id: logger-console
+    name: "@deepseek-ai/cordis-plugin-logger-console（vendored）"
+    description: Console logger exporter for cordis
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis-plugin-logger-console"
   - id: lsp
     name: "@deepseek-ai/dsh-lsp"
     providesServices:
@@ -1988,6 +2086,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-schedule"
+  - id: schemastery
+    name: "@deepseek-ai/schemastery（vendored）"
+    description: Type driven schema validator
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/schemastery"
   - id: scope
     name: "@deepseek-ai/dsh-scope"
     description: Scoped-context registration primitive (scope tags, scope-filtered
@@ -2856,6 +2968,20 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-timeout"
+  - id: timer
+    name: "@deepseek-ai/cordis-plugin-timer（vendored）"
+    description: Timer service for cordis
+    categories:
+      - infrastructure
+    tags:
+      - vendor
+      - cordis
+    author: deepseek-ai
+    license: MIT
+    verified: true
+    source:
+      type: npm
+      package: "@deepseek-ai/cordis-plugin-timer"
   - id: tmux-context
     name: "@deepseek-ai/dsh-tmux-context"
     requiresServices:
