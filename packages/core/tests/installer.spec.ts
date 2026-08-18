@@ -137,6 +137,47 @@ describe('installer — pnpm strategy (npm source via fake dsh)', () => {
     }
   })
 
+  it('activates scoped names carrying a dsh- prefix the path lacks', async () => {
+    const { env, runner, deps } = setup()
+    runner.on(
+      (command, args) => command === 'dsh' && args[0] === 'plugin' && args[3] === 'add',
+      () => {
+        const profile = profileDir(env.dshHome, 'demo')
+        // Directory packages/mcp/mcp-client installs as @deepseek-ai/dsh-mcp-client.
+        runner.writeTextFile(
+          join(profile, 'package.json'),
+          JSON.stringify({ dependencies: { '@deepseek-ai/dsh-mcp-client': 'link:/x/y' } }),
+        )
+        runner.writeTextFile(
+          join(profile, 'node_modules/@deepseek-ai/dsh-mcp-client/package.json'),
+          JSON.stringify({ name: '@deepseek-ai/dsh-mcp-client' }),
+        )
+        return { ok: true, stdout: 'ok\n', stderr: '' }
+      },
+    )
+    const plugin: ResolvedPlugin = {
+      registry: 'default',
+      qualifiedId: 'default:mcp-client',
+      entry: {
+        id: 'mcp-client',
+        name: 'mcp-client',
+        description: '',
+        categories: [],
+        tags: [],
+        verified: true,
+        source: { type: 'path', path: '/abs/harness/packages/mcp/mcp-client' },
+        images: [],
+      },
+    }
+    const outcome = await installPlugin(deps(), plugin, { profile: 'demo' })
+    expect(outcome.status).toBe('installed')
+    if (outcome.status === 'installed') {
+      expect(outcome.warnings.join(' ')).toContain('activated via a profile-patch row')
+    }
+    const patch = runner.readTextFile(join(profileDir(env.dshHome, 'demo'), 'cordis.patch.yml'))!
+    expect(patch).toContain('name: "@deepseek-ai/dsh-mcp-client"')
+  })
+
   it('activates bundle-less packages with a profile-patch row', async () => {
     const { env, runner, deps } = setup()
     runner.on(

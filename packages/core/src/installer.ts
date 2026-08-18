@@ -207,11 +207,15 @@ async function commitPnpmInstall(
   const profileDirectory = profileDir(resolveDshHome(env), options.profile)
   const manifest = readProfileManifest(runner, profileDirectory)
   const hintBase = basename(packageNameHint)
-  // Path specs install under the package's scoped name (@scope/dir-name), so
-  // match dependencies by exact name, bare basename, or scoped suffix.
+  // Path specs install under the package's scoped name, whose suffix may
+  // carry a dsh- prefix the directory lacks (packages/mcp/mcp-client →
+  // @deepseek-ai/dsh-mcp-client), so match bare and prefixed variants.
+  const hintCandidates = [hintBase, `dsh-${hintBase}`]
   const packageName =
-    Object.keys(manifest.dependencies ?? {}).find(
-      (name) => name === packageNameHint || name === hintBase || name.endsWith(`/${hintBase}`),
+    Object.keys(manifest.dependencies ?? {}).find((name) =>
+      hintCandidates.some(
+        (candidate) => name === candidate || name.endsWith(`/${candidate}`),
+      ),
     ) ?? packageNameHint
   // A package declaring `dsh.bundle` already joined the layer stack through
   // `dsh plugin`'s reconcile. Bundle-less packages (older npm releases) stay
