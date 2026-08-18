@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { dshmPaths, installedView, qualifiedId, type ResolvedPlugin } from '../src/index.js'
+import { installedView, qualifiedId, type ResolvedPlugin } from '../src/index.js'
 import { FakeRunner, makeTestEnv } from './helpers.js'
 
 function npmPlugin(registry: string, id: string, pkg: string): ResolvedPlugin {
@@ -57,9 +57,8 @@ describe('installed view (dshm store ∪ profile packages)', () => {
   })
 
   it('empty store and empty profile yield nothing', () => {
-    const { env, dshHome } = makeTestEnv()
+    const { env } = makeTestEnv()
     const runner = new FakeRunner()
-    void dshHome
     const plugins = [npmPlugin('default', 'x', 'x-pkg')]
     const view = installedView(runner, env, 'web', plugins, [])
     expect(view.size).toBe(0)

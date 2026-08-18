@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync } from 'node:fs'
+import { chmodSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
@@ -17,11 +17,20 @@ const previousEnv: Record<string, string | undefined> = {}
 beforeAll(() => {
   // Deterministic isolated home BEFORE any test can run (shuffle-safe, and
   // never touches the developer's real ~/.dshm).
-  for (const key of ['DSHM_HOME', 'DSH_HOME']) previousEnv[key] = process.env[key]
+  for (const key of ['DSHM_HOME', 'DSH_HOME', 'PATH']) previousEnv[key] = process.env[key]
   const base = mkdtempSync(join(tmpdir(), 'dshm-plugin-'))
   cleanups.push(() => rmSync(base, { recursive: true, force: true }))
   process.env['DSHM_HOME'] = join(base, '.dshm')
   process.env['DSH_HOME'] = join(base, '.dsh')
+  // CI machines have no dsh/pnpm: provide no-op shims so the install
+  // round-trip exercises the managed-row flow without a real harness.
+  const bin = join(base, 'bin')
+  mkdirSync(bin, { recursive: true })
+  for (const name of ['dsh', 'pnpm', 'which']) {
+    writeFileSync(join(bin, name), '#!/bin/sh\necho "0.1.0"\n')
+    chmodSync(join(bin, name), 0o755)
+  }
+  process.env['PATH'] = `${bin}:${process.env['PATH']}`
 })
 
 afterAll(() => {

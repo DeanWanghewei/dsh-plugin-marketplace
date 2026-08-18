@@ -1,2 +1,9 @@
 packages:
   - packages/*
+
+# Native optional dependencies (oxlint, rollup, esbuild) must exist for every
+# platform the lockfile is consumed on — macOS dev machines and Linux CI —
+# otherwise a frozen install on Linux lacks the native binding and crashes.
+supportedArchitectures:
+  os: [current, darwin, linux]
+  cpu: [current, arm64, x64]

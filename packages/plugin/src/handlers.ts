@@ -38,17 +38,20 @@ export async function handleSearch(input: {
   const runner = new NodeRunner()
   const { config, paths } = loadConfig(runner, process.env)
   const merged = await loadRegistries(runner, config, paths.cacheDir)
-  for (const error of merged.errors) {
-    // Surface but do not fail: other sources still answer.
-    return `registry '${error.registry}' failed: ${error.message} (try again or run \`dshm doctor\` on the host)`
-  }
+  // Degrade, never fail: unavailable sources are reported inline while the
+  // remaining marketplaces still answer (mirrors the CLI search behavior).
+  const degraded = merged.errors
+    .map((error) => `unavailable source '${error.registry}': ${error.message}`)
+    .join('\n')
   const results = searchPlugins(merged.plugins, {
     text: input.query,
     categories: input.category ? input.category.split(',').map((entry) => entry.trim()) : undefined,
     tag: input.tag,
     registry: input.registry,
   })
-  if (results.length === 0) return 'no plugins matched'
+  if (results.length === 0) {
+    return degraded ? `${degraded}\nno plugins matched` : 'no plugins matched'
+  }
   const limit = Math.min(Math.max(input.limit ?? 20, 1), 50)
   const lines = results.slice(0, limit).map(({ plugin }) => {
     const badges = [plugin.entry.verified ? 'verified' : 'unverified']
