@@ -52,6 +52,21 @@ describe('dshm web local console', () => {
     expect(registries.items[0]).toMatchObject({ name: 'default', type: 'file' })
   })
 
+  it('serves the LOCAL console at / and 404s unknown API paths', async () => {
+    const { env, runner } = makeEnv()
+    const app = createLocalApp(runner, env)
+
+    const home = await app.request('/')
+    const html = await home.text()
+    expect(home.status).toBe(200)
+    expect(html).toContain('本地控制台')
+    expect(html).not.toContain('插件市场') // the server SPA must not leak in
+
+    const unknown = await app.request('/api/does-not-exist')
+    expect(unknown.status).toBe(404)
+    expect(unknown.headers.get('content-type')).toContain('application/json')
+  })
+
   it('add/remove a file marketplace through the API', async () => {
     const { env, runner } = makeEnv()
     const app = createLocalApp(runner, env)

@@ -4,7 +4,7 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
-import { Hono } from 'hono'
+import { Hono, type Handler } from 'hono'
 import {
   installPlugin,
   installedView,
@@ -161,8 +161,26 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
 
   const root = webRoot()
   if (root) {
+    // '/' must serve the LOCAL console entry — the web dist also contains the
+    // server market SPA (index.html), and serveStatic's default directory
+    // index would load that instead, leaving a blank page calling /api/v1.
+    const localEntry = serveStatic({ root, path: '/local.html' })
+    // serveStatic's middleware signature is wider than Hono's Handler type;
+    // assert the wrapper to keep route registration type-clean.
+    const serveLocal = ((
+      context: Parameters<typeof localEntry>[0],
+      next: Parameters<typeof localEntry>[1],
+    ) => localEntry(context, next)) as unknown as Handler
+    app.get('/', serveLocal)
     app.use('*', serveStatic({ root }))
-    app.get('*', serveStatic({ root, path: '/local.html' }))
+    app.get('*', async (context, next) => {
+      // Unknown API paths must answer JSON 404, never the SPA shell.
+      if (context.req.path.startsWith('/api') || context.req.path === '/health') {
+        context.status(404)
+        return context.json({ error: 'not found' })
+      }
+      return serveLocal(context, next) as unknown as Response
+    })
   } else {
     app.get('*', (context) =>
       context.text('web assets missing — run pnpm build in packages/web first', 500),
