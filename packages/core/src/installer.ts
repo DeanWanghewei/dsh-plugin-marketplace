@@ -9,7 +9,7 @@ import {
   writeAllowBuilds,
 } from './dsh.js'
 import { profileDir, resolveDshHome, type DshmPaths } from './paths.js'
-import { ensureBlock, managedRowBody, removeBlock } from './patchfile.js'
+import { disabledRowBody, ensureBlock, managedRowBody, removeBlock } from './patchfile.js'
 import type { Runner } from './runner.js'
 import {
   buildPnpmSpecFromGit,
@@ -226,12 +226,16 @@ async function commitPnpmInstall(
   if (installed !== undefined && installed.dsh?.bundle === undefined) {
     const patchPath = join(profileDirectory, PATCH_FILE)
     const current = runner.readTextFile(patchPath) ?? '[]\n'
-    runner.writeTextFile(
-      patchPath,
-      ensureBlock(current, resolved.entry.id, managedRowBody(resolved.entry.id, packageName)),
-    )
+    const body = resolved.entry.requiresConfig
+      ? disabledRowBody(resolved.entry.id, packageName)
+      : managedRowBody(resolved.entry.id, packageName)
+    runner.writeTextFile(patchPath, ensureBlock(current, resolved.entry.id, body))
     managed = { rowId: resolved.entry.id, entryRelPath: '' }
-    warnings.push(`${packageName} declares no dsh bundle patch; activated via a profile-patch row`)
+    warnings.push(
+      resolved.entry.requiresConfig
+        ? `${packageName} needs transport config; row inserted disabled — edit ${patchPath} to enable`
+        : `${packageName} declares no dsh bundle patch; activated via a profile-patch row`,
+    )
   }
   const record: StoreRecord = {
     pluginId: resolved.qualifiedId,

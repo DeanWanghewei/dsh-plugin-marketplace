@@ -191,7 +191,11 @@ for (const entry of readdirSync(join(HARNESS_ROOT, 'packages'))) {
     if (!name || !name.startsWith('@deepseek-ai/dsh-')) continue
     if (packageEntries.some((plugin) => plugin.id === pluginIdFromPackageName(name))) continue
     const facts = extractServiceFacts(dir)
+    // Plugins whose apply() requires a transport/config payload cannot start
+    // from a bare row — their activation lands disabled with a template.
+    const requiresConfig = ['mcp-client'].includes(pluginIdFromPackageName(name))
     packageEntries.push({
+      requiresConfig: requiresConfig || undefined,
       id: pluginIdFromPackageName(name),
       name,
       packageName: name,
@@ -215,7 +219,7 @@ const examplesDir = join(HARNESS_ROOT, 'examples')
 if (isDirectory(examplesDir)) {
   for (const entry of readdirSync(examplesDir)) {
     const dir = join(examplesDir, entry)
-    if (!isDirectory(dir)) continue
+    if (!isDirectory(dir) || entry === 'node_modules' || entry.startsWith('.')) continue
     const manifest = readJson(join(dir, 'package.json'))
     exampleEntries.push({
       id: `example-${basename(dir)}`,

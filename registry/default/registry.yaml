@@ -1857,7 +1857,8 @@ plugins:
     source:
       type: path
       path: /Users/deanwang/IdeaProjects/githubProject/deepseek-harness/packages/lsp/lsp-stdio
-  - id: mcp-client
+  - requiresConfig: true
+    id: mcp-client
     name: "@deepseek-ai/dsh-mcp-client"
     requiresServices:
       - tools

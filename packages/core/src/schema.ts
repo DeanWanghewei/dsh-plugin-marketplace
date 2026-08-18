@@ -43,6 +43,7 @@ export const pluginEntrySchema = z.object({
   source: pluginSourceSchema,
   images: z.array(pluginImageSchema).default([]),
   requires: z.array(z.string()).optional(),
+  requiresConfig: z.boolean().optional(),
   requiresServices: z.array(z.string()).optional(),
   providesServices: z.array(z.string()).optional(),
 })

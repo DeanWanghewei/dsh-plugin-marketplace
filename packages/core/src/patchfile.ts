@@ -107,3 +107,17 @@ export function managedRowBody(rowId: string, name: string): string {
   // with `@`, a YAML reserved indicator that breaks unquoted scalars.
   return ['- insert:', `  - id: ${rowId}`, `    name: ${JSON.stringify(name)}`].join('\n')
 }
+
+/** Rows for plugins that cannot start without config: land disabled, with
+ * the transport template inline so enabling is a one-file edit. */
+export function disabledRowBody(rowId: string, name: string): string {
+  return [
+    `# 此插件需要 transport 配置才能启动；填好 config 后删除 disabled 行。示例：`,
+    `#   config: { serverName: my-mcp, transport: stdio, command: npx,`,
+    `#             args: ['-y', '@modelcontextprotocol/server-filesystem', '/tmp'] }`,
+    '- insert:',
+    `  - id: ${rowId}`,
+    `    name: ${JSON.stringify(name)}`,
+    '    disabled: true',
+  ].join('\n')
+}

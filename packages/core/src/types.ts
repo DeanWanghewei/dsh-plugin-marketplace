@@ -38,6 +38,8 @@ export interface PluginEntry {
   images: PluginImage[]
   /** Marketplace-level dependencies: plugin ids that should be installed too. */
   requires?: string[]
+  /** Plugin cannot start without transport/config; activation row lands disabled. */
+  requiresConfig?: boolean
   /** Harness ctx service keys the plugin injects (informational). */
   requiresServices?: string[]
   /** Harness ctx service keys this plugin provides (informational). */

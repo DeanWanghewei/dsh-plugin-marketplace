@@ -1841,7 +1841,8 @@ plugins:
     source:
       type: npm
       package: "@deepseek-ai/dsh-lsp-stdio"
-  - id: mcp-client
+  - requiresConfig: true
+    id: mcp-client
     name: "@deepseek-ai/dsh-mcp-client"
     requiresServices:
       - tools

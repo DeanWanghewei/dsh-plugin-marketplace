@@ -60,7 +60,14 @@ export {
   type ExecResult,
   type Runner,
 } from './runner.js'
-export { ensureBlock, hasBlock, listBlocks, managedRowBody, removeBlock } from './patchfile.js'
+export {
+  disabledRowBody,
+  ensureBlock,
+  hasBlock,
+  listBlocks,
+  managedRowBody,
+  removeBlock,
+} from './patchfile.js'
 export {
   detectEnvironment,
   dumpConfig,
