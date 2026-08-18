@@ -9,7 +9,14 @@ import {
   writeAllowBuilds,
 } from './dsh.js'
 import { profileDir, resolveDshHome, type DshmPaths } from './paths.js'
-import { disabledRowBody, ensureBlock, managedRowBody, removeBlock } from './patchfile.js'
+import {
+  disableBlock,
+  disabledRowBody,
+  enableBlock,
+  ensureBlock,
+  managedRowBody,
+  removeBlock,
+} from './patchfile.js'
 import type { Runner } from './runner.js'
 import {
   buildPnpmSpecFromGit,
@@ -17,6 +24,7 @@ import {
   injectHttpsToken,
   packageNameFromGitUrl,
 } from './spec.js'
+import { loadRegistries } from './registry.js'
 import {
   addInstalled,
   clearPending,
@@ -387,4 +395,89 @@ export async function uninstallPlugin(
     status: 'uninstalled',
     hints: [...hints, `verify: dsh --profile ${profile} --dump-config`],
   }
+}
+
+
+export type ToggleOutcome =
+  | { status: 'enabled'; hints: string[] }
+  | { status: 'disabled'; hints: string[] }
+  | { status: 'not-managed'; message: string }
+  | { status: 'config-required'; message: string }
+
+/**
+ * Enable a dshm-managed activation row. Config-required plugins refuse to
+ * enable without inline configYaml (or config already present in the row).
+ */
+export async function enablePlugin(
+  deps: InstallerDeps,
+  pluginId: string,
+  profile: string,
+  configYaml?: string,
+): Promise<ToggleOutcome> {
+  const { runner, env, paths, config } = deps
+  const record = findInstalled(loadStore(runner, paths), profile, pluginId)
+  if (!record?.managed) {
+    return {
+      status: 'not-managed',
+      message: `'${pluginId}' 不是 dshm 管理的激活行（仅 dshm 安装的插件支持 enable/disable）`,
+    }
+  }
+  const directory = profileDir(resolveDshHome(env), profile)
+  const patchPath = join(directory, PATCH_FILE)
+  const current = runner.readTextFile(patchPath)
+  if (current === undefined) return { status: 'not-managed', message: 'cordis.patch.yml missing' }
+  const body = current
+    .split('\n')
+    .slice(
+      (locate(current, record.managed.rowId)?.start ?? 0) + 1,
+      locate(current, record.managed.rowId)?.end ?? 0,
+    )
+    .join('\n')
+  const hasConfig = /\n\s{4}config:/.test(`\n${body}`)
+  const merged = await loadRegistries(runner, config, paths.cacheDir)
+  const entry = merged.plugins.find((plugin) => plugin.qualifiedId === record.pluginId)
+  if (entry?.entry.requiresConfig && !hasConfig && configYaml === undefined) {
+    return {
+      status: 'config-required',
+      message:
+        `'${entry.entry.id}' 需要 transport 配置才能启动。用 --config 传入，例如：\n` +
+        `  --config "serverName: my-mcp, transport: stdio, command: npx, args: ['-y', '@modelcontextprotocol/server-filesystem', '/tmp']"`,
+    }
+  }
+  const next = await enableBlock(current, record.managed.rowId, configYaml)
+  runner.writeTextFile(patchPath, next)
+  return {
+    status: 'enabled',
+    hints: [`运行中的 dsh 会热加载；验证: dsh --profile ${profile} --dump-config`],
+  }
+}
+
+function locate(content: string, id: string): { start: number; end: number } | undefined {
+  const lines = content.split('\n')
+  const start = lines.findIndex((line) => line.trim() === `# >>> dshm:${id}`)
+  if (start === -1) return undefined
+  const end = lines.findIndex((line) => line.trim() === `# <<< dshm:${id}`)
+  if (end === -1 || end < start) return undefined
+  return { start, end }
+}
+
+/** Disable a dshm-managed activation row (plugin stays installed). */
+export async function disablePlugin(
+  deps: InstallerDeps,
+  pluginId: string,
+  profile: string,
+): Promise<ToggleOutcome> {
+  const { runner, env, paths } = deps
+  const record = findInstalled(loadStore(runner, paths), profile, pluginId)
+  if (!record?.managed) {
+    return {
+      status: 'not-managed',
+      message: `'${pluginId}' 不是 dshm 管理的激活行`,
+    }
+  }
+  const patchPath = join(profileDir(resolveDshHome(env), profile), PATCH_FILE)
+  const current = runner.readTextFile(patchPath)
+  if (current === undefined) return { status: 'not-managed', message: 'cordis.patch.yml missing' }
+  runner.writeTextFile(patchPath, disableBlock(current, record.managed.rowId))
+  return { status: 'disabled', hints: [`验证: dsh --profile ${profile} --dump-config`] }
 }

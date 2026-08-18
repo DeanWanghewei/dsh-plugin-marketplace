@@ -8,6 +8,7 @@ import { registerRegistryCommand } from './commands/registry.js'
 import { registerSearchCommand } from './commands/search.js'
 import { registerUninstallCommand } from './commands/uninstall.js'
 import { registerUpdateCommand } from './commands/update.js'
+import { registerToggleCommands } from './commands/toggle.js'
 import { registerVersionCommand } from './commands/version.js'
 import { registerWebCommand } from './commands/web.js'
 import { readOwnVersion } from './version.js'
@@ -30,6 +31,7 @@ registerRegistryCommand(program)
 registerDoctorCommand(program)
 registerVersionCommand(program)
 registerUpdateCommand(program)
+registerToggleCommands(program)
 registerWebCommand(program)
 
 program.parseAsync(process.argv).catch((error: unknown) => {

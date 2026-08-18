@@ -16,8 +16,13 @@ const previousEnv: Record<string, string | undefined> = {}
 
 beforeAll(() => {
   // Deterministic isolated home BEFORE any test can run (shuffle-safe, and
-  // never touches the developer's real ~/.dshm).
-  for (const key of ['DSHM_HOME', 'DSH_HOME', 'PATH']) previousEnv[key] = process.env[key]
+  // never touches the developer's real ~/.dshm). The curated git source is
+  // disabled: its clone depends on network reachability and must not make
+  // unit tests flaky.
+  for (const key of ['DSHM_HOME', 'DSH_HOME', 'PATH', 'DSHM_CURATED_URL']) {
+    previousEnv[key] = process.env[key]
+  }
+  process.env['DSHM_CURATED_URL'] = 'none'
   const base = mkdtempSync(join(tmpdir(), 'dshm-plugin-'))
   cleanups.push(() => rmSync(base, { recursive: true, force: true }))
   process.env['DSHM_HOME'] = join(base, '.dshm')

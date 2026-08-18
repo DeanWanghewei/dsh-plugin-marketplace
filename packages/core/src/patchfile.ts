@@ -121,3 +121,62 @@ export function disabledRowBody(rowId: string, name: string): string {
     '    disabled: true',
   ].join('\n')
 }
+
+/**
+ * Enable one managed block: drop its `disabled: true` line. When configYaml
+ * is given (inline YAML object), it is parsed, re-indented, and inserted as
+ * the row's config — the config-required plugins become usable in one call.
+ */
+export async function enableBlock(
+  content: string,
+  id: string,
+  configYaml?: string,
+): Promise<string> {
+  const existing = locateBlockForWrite(content, id)
+  const { parse, stringify } = await import('yaml')
+  let configLines: string[] | undefined
+  if (configYaml !== undefined) {
+    const parsed = parse(configYaml)
+    if (parsed === null || typeof parsed !== 'object') {
+      throw new Error('--config 必须是 YAML 对象（如 "serverName: fs, transport: stdio, …"）')
+    }
+    configLines = stringify(parsed)
+      .trimEnd()
+      .split('\n')
+      .map((line) => `    ${line}`)
+  }
+  const lines = content.split('\n')
+  const body = lines.slice(existing.start + 1, existing.end)
+  const cleaned = body.filter((line) => !/^\s*disabled:\s*true\s*$/.test(line))
+  const nameIndex = cleaned.findIndex((line) => /^\s{name:/.test(line))
+  // Replace any pre-existing config block with the provided one.
+  const withoutConfig = cleaned.filter((line) => !/^\s{4}config:/.test(line))
+  const target = configLines && nameIndex >= 0 ? withoutConfig : cleaned
+  const finalNameIndex = target.findIndex((line) => /^\s{name:/.test(line))
+  const withConfig =
+    configLines && finalNameIndex >= 0
+      ? [...target.slice(0, finalNameIndex + 1), ...configLines, ...target.slice(finalNameIndex + 1)]
+      : target
+  return [...lines.slice(0, existing.start + 1), ...withConfig, ...lines.slice(existing.end)].join(
+    '\n',
+  )
+}
+
+/** Disable one managed block: add `disabled: true` after the name line. */
+export function disableBlock(content: string, id: string): string {
+  const existing = locateBlockForWrite(content, id)
+  const lines = content.split('\n')
+  const body = lines.slice(existing.start + 1, existing.end)
+  if (body.some((line) => /^\s*disabled:\s*true\s*$/.test(line))) return content
+  const nameIndex = body.findIndex((line) => /^\s{name:/.test(line))
+  if (nameIndex < 0) return content
+  const insertion = nameIndex + 1
+  const next = [...body.slice(0, insertion), '    disabled: true', ...body.slice(insertion)]
+  return [...lines.slice(0, existing.start + 1), ...next, ...lines.slice(existing.end)].join('\n')
+}
+
+function locateBlockForWrite(content: string, id: string): { start: number; end: number } {
+  const located = locateBlock(content, id)
+  if (!located) throw new Error(`managed block '${id}' not found in cordis.patch.yml`)
+  return located
+}

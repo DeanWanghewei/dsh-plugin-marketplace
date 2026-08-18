@@ -61,7 +61,9 @@ export {
   type Runner,
 } from './runner.js'
 export {
+  disableBlock,
   disabledRowBody,
+  enableBlock,
   ensureBlock,
   hasBlock,
   listBlocks,
@@ -87,8 +89,11 @@ export {
   packageNameFromGitUrl,
 } from './spec.js'
 export {
+  disablePlugin,
+  enablePlugin,
   installPlugin,
   uninstallPlugin,
+  type ToggleOutcome,
   type InstallOptions,
   type InstallOutcome,
   type InstallerDeps,
