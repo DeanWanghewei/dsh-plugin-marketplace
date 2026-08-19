@@ -4,6 +4,7 @@ import {
   Button,
   Col,
   Row,
+  Tabs,
   Card,
   Carousel,
   Descriptions,
@@ -20,8 +21,11 @@ import {
   message,
 } from 'antd'
 import {
+  AppstoreOutlined,
   CloudDownloadOutlined,
+  CloudServerOutlined,
   DeleteOutlined,
+  FolderOpenOutlined,
   LinkOutlined,
   PauseCircleOutlined,
   PlayCircleOutlined,
@@ -291,18 +295,18 @@ export default function LocalApp() {
           </Space>
         </div>
 
+        <Tabs
+          activeKey={viewMode}
+          onChange={(key) => setViewMode(key as typeof viewMode)}
+          items={[
+            { key: 'detail', label: <span><AppstoreOutlined /> 插件明细</span> },
+            { key: 'groups', label: <span><FolderOpenOutlined /> 插件分组</span> },
+            { key: 'market', label: <span><CloudServerOutlined /> 按市场浏览</span> },
+          ]}
+        />
+
+        {viewMode === 'detail' && (
         <Space wrap size="middle">
-          <Select
-            value={viewMode}
-            onChange={setViewMode}
-            style={{ width: 150 }}
-            options={[
-              { value: 'detail', label: '插件明细' },
-              { value: 'groups', label: '插件分组' },
-              { value: 'market', label: '按市场浏览' },
-            ]}
-          />
-          {viewMode === 'detail' && (
           <Input
             allowClear
             prefix={<SearchOutlined />}
@@ -311,8 +315,6 @@ export default function LocalApp() {
             value={q}
             onChange={(event) => setQ(event.target.value)}
           />
-          )}
-          {viewMode === 'detail' && (
           <Select
             style={{ width: 130 }}
             value={statusFilter}
@@ -322,8 +324,7 @@ export default function LocalApp() {
               { value: 'installed', label: '已安装' },
               { value: 'notInstalled', label: '未安装' },
             ]}
-          />)}
-          {viewMode === 'detail' && (
+          />
           <Select
             allowClear
             placeholder="按 marketplace 筛选"
@@ -334,9 +335,10 @@ export default function LocalApp() {
               value: entry.name,
               label: `${entry.name}（${entry.type}，${entry.plugins}）`,
             }))}
-          />)}
-          {viewMode === 'detail' && <Text type="secondary">{filtered.length} 个插件</Text>}
+          />
+          <Text type="secondary">{filtered.length} 个插件</Text>
         </Space>
+        )}
 
         {viewMode === 'detail' && (
         <Table
