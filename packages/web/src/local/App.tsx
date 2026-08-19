@@ -23,6 +23,7 @@ import {
 } from 'antd'
 import {
   AppstoreOutlined,
+  UnorderedListOutlined,
   DesktopOutlined,
   MoonOutlined,
   SunOutlined,
@@ -384,10 +385,10 @@ export default function LocalApp() {
           activeKey={viewMode}
           onChange={(key) => setViewMode(key as typeof viewMode)}
           items={[
-            { key: 'detail', label: <span><AppstoreOutlined /> {t('tab.detail')}</span> },
+            { key: 'category', label: <span><AppstoreOutlined /> {t('tab.category')}</span> },
+            { key: 'detail', label: <span><UnorderedListOutlined /> {t('tab.detail')}</span> },
             { key: 'groups', label: <span><FolderOpenOutlined /> {t('tab.groups')}</span> },
             { key: 'market', label: <span><CloudServerOutlined /> {t('tab.market')}</span> },
-            { key: 'category', label: <span><AppstoreOutlined /> {t('tab.category')}</span> },
           ]}
         />
 
@@ -422,7 +423,17 @@ export default function LocalApp() {
               label: `${entry.name}（${entry.type}，${entry.plugins}）`,
             }))}
           />
-          <Text type="secondary">{filtered.length} 个插件</Text>
+          <Select
+            allowClear
+            placeholder={t('filter.category')}
+            style={{ minWidth: 180 }}
+            value={categoryFilter}
+            onChange={setCategoryFilter}
+            options={[...new Set(plugins.flatMap((entry) => entry.categories))]
+              .sort()
+              .map((id) => ({ value: id, label: categoryLabel(id) }))}
+          />
+          <Text type="secondary">{t('filter.count', { n: filtered.length })}</Text>
         </Space>
         )}
 
@@ -441,13 +452,13 @@ export default function LocalApp() {
           onRow={(record) => ({ onClick: () => setDetail(record), style: { cursor: 'pointer' } })}
           columns={[
             {
-              title: '市场',
+              title: t('col.market'),
               dataIndex: 'registry',
               width: 110,
               render: (value: string) => <Tag color="geekblue">{value}</Tag>,
             },
             {
-              title: '名称',
+              title: t('col.name'),
               dataIndex: 'name',
               render: (value: string, record) => (
                 <Space>
@@ -456,15 +467,15 @@ export default function LocalApp() {
                 </Space>
               ),
             },
-            { title: 'ID', dataIndex: 'id', width: 180, ellipsis: true },
-            { title: '来源', dataIndex: ['source', 'type'], width: 80 },
+            { title: t('col.id'), dataIndex: 'id', width: 180, ellipsis: true },
+            { title: t('col.source'), dataIndex: ['source', 'type'], width: 80 },
             {
-              title: '截图',
+              title: t('col.screenshots'),
               width: 60,
               render: (_, record) => (record.images.length > 0 ? `${record.images.length} 张` : '—'),
             },
             {
-              title: '状态',
+              title: t('col.status'),
               width: 110,
               render: (_, record) => {
                 if (!record.installed) return <Badge status="default" text={t('status.notInstalled')} />
@@ -480,7 +491,7 @@ export default function LocalApp() {
               },
             },
             {
-              title: '操作',
+              title: t('col.actions'),
               width: 210,
               render: (_, record) => (
                 <Space onClick={(event) => event.stopPropagation()}>
@@ -514,7 +525,7 @@ export default function LocalApp() {
                         </Button>
                       )}
                       <Popconfirm
-                        title={`从 profile「${profile}」卸载？`}
+                        title={t('action.uninstallConfirm', { profile })}
                         onConfirm={() => uninstall(record)}
                       >
                         <Button size="small" danger icon={<DeleteOutlined />}>
@@ -554,6 +565,7 @@ export default function LocalApp() {
           <CategoryView
             plugins={plugins}
             labelOf={categoryLabel}
+            t={t}
             onOpenPlugin={setDetail}
             onViewAll={(categoryId) => {
               setViewMode('detail')
@@ -591,7 +603,7 @@ export default function LocalApp() {
                 ))}
               </Carousel>
             )}
-            <Paragraph type="secondary">{detail.description || '（暂无描述）'}</Paragraph>
+            <Paragraph type="secondary">{detail.description || t('detail.noDescription')}</Paragraph>
             <Descriptions column={1} size="small" bordered>
               <Descriptions.Item label="完整 ID">{detail.qualifiedId}</Descriptions.Item>
               <Descriptions.Item label="来源">
@@ -613,11 +625,11 @@ export default function LocalApp() {
             </Descriptions>
             {detail.installed ? (
               <Button danger icon={<DeleteOutlined />} onClick={() => uninstall(detail)}>
-                从 {profile} 卸载
+                {t('detail.uninstallFrom', { profile })}
               </Button>
             ) : (
               <Button type="primary" icon={<CloudDownloadOutlined />} onClick={() => install(detail)}>
-                安装到 {profile}
+                {t('detail.installTo', { profile })}
               </Button>
             )}
           </Space>
@@ -677,6 +689,7 @@ function RegistriesModal({
   onChanged: () => void
 }) {
   const [form, setForm] = useState({ name: '', type: 'url' as 'url' | 'git' | 'file', value: '' })
+  const { t } = useI18n()
   const [spinning, setSpinning] = useState(false)
 
   const add = async () => {
@@ -708,7 +721,7 @@ function RegistriesModal({
           dataSource={registries}
           pagination={false}
           columns={[
-            { title: '名称', dataIndex: 'name', width: 110 },
+            { title: t('col.name'), dataIndex: 'name', width: 110 },
             { title: '类型', dataIndex: 'type', width: 70 },
             {
               title: '位置',
@@ -721,7 +734,7 @@ function RegistriesModal({
               ),
             },
             {
-              title: '状态',
+              title: t('col.status'),
               dataIndex: 'ok',
               width: 130,
               render: (ok: boolean, record) =>
@@ -785,6 +798,7 @@ function GroupsView({
   profile: string
   onChanged: () => void
 }) {
+  const { t } = useI18n()
   const [creating, setCreating] = useState(false)
   const [name, setName] = useState('')
   const [desc, setDesc] = useState('')
@@ -852,7 +866,7 @@ function GroupsView({
         <Button type="primary" icon={<PlusOutlined />} onClick={() => setCreating(true)}>
           新建分组
         </Button>
-        <Button onClick={() => setImporting(true)}>导入分组</Button>
+        <Button onClick={() => setImporting(true)}>{t('groups.import')}</Button>
         <Text type="secondary">{groups.length} 个分组 · 同事可 export 分享后一键整套安装</Text>
       </Space>
       <Row gutter={[12, 12]}>
@@ -992,11 +1006,13 @@ function CategoryView({
   labelOf,
   onOpenPlugin,
   onViewAll,
+  t,
 }: {
   plugins: LocalPlugin[]
   labelOf: (id: string) => string
   onOpenPlugin: (plugin: LocalPlugin) => void
   onViewAll: (categoryId: string) => void
+  t: (key: string, params?: Record<string, string | number>) => string
 }) {
   const byCategory = new Map<string, LocalPlugin[]>()
   for (const plugin of plugins) {
@@ -1034,7 +1050,7 @@ function CategoryView({
                 onClick={() => onViewAll(category)}
               >
                 {list.length > 20 ? `+${list.length - 20} ` : ''}
-                t('category.viewAll')
+                {t('category.viewAll')}
               </Button>
             }
           >
