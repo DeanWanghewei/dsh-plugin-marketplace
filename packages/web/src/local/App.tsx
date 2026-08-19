@@ -36,6 +36,8 @@ import {
   SettingOutlined,
 } from '@ant-design/icons'
 
+import { useI18n } from '../i18n.js'
+import { useTheme } from '../theme.js'
 const { Title, Text, Paragraph } = Typography
 
 interface LocalImage {
@@ -98,6 +100,8 @@ async function api<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export default function LocalApp() {
+  const { lang, setLang, t } = useI18n()
+  const { mode: themeMode, setMode: setThemeMode } = useTheme()
   const [plugins, setPlugins] = useState<LocalPlugin[]>([])
   const [registries, setRegistries] = useState<RegistryRow[]>([])
   const [profiles, setProfiles] = useState<string[]>([])
@@ -276,19 +280,19 @@ export default function LocalApp() {
   })
 
   return (
-    <div style={{ maxWidth: 1280, margin: '0 auto', padding: '16px 16px 48px' }}>
+    <div style={{ maxWidth: 1280, margin: '0 auto', padding: '16px 16px 48px', minHeight: '100vh' }}>
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
           <Title level={3} style={{ margin: 0 }}>
-            dshm 本地控制台
+            {t('app.title')}
             <Text type="secondary" style={{ fontSize: 13, marginLeft: 12 }}>
-              聚合本机全部 marketplace · Ctrl+C 退出
+              {t('app.subtitle')}
             </Text>
           </Title>
           <Space wrap>
             <Select
               style={{ width: 160 }}
-              placeholder="目标 profile"
+              placeholder={t('app.profile')}
               value={profile || undefined}
               onChange={setProfile}
               options={profiles.map((entry) => ({ value: entry, label: `profile: ${entry}` }))}
@@ -297,8 +301,29 @@ export default function LocalApp() {
               刷新
             </Button>
             <Button icon={<PlusOutlined />} onClick={() => setAddOpen(true)}>
-              管理 marketplace
+              {t('app.manageSources')}
             </Button>
+            <Select
+              size="small"
+              style={{ width: 100 }}
+              value={lang}
+              onChange={(value) => setLang(value)}
+              options={[
+                { value: 'zh', label: t('lang.zh') },
+                { value: 'en', label: t('lang.en') },
+              ]}
+            />
+            <Select
+              size="small"
+              style={{ width: 110 }}
+              value={themeMode}
+              onChange={(value) => setThemeMode(value)}
+              options={[
+                { value: 'system', label: `🖥 ${t('theme.system')}` },
+                { value: 'light', label: `☀ ${t('theme.light')}` },
+                { value: 'dark', label: `🌙 ${t('theme.dark')}` },
+              ]}
+            />
           </Space>
         </div>
 
@@ -306,10 +331,10 @@ export default function LocalApp() {
           activeKey={viewMode}
           onChange={(key) => setViewMode(key as typeof viewMode)}
           items={[
-            { key: 'detail', label: <span><AppstoreOutlined /> 插件明细</span> },
-            { key: 'groups', label: <span><FolderOpenOutlined /> 插件分组</span> },
-            { key: 'market', label: <span><CloudServerOutlined /> 按市场浏览</span> },
-            { key: 'category', label: <span><AppstoreOutlined /> 按功能分类</span> },
+            { key: 'detail', label: <span><AppstoreOutlined /> {t('tab.detail')}</span> },
+            { key: 'groups', label: <span><FolderOpenOutlined /> {t('tab.groups')}</span> },
+            { key: 'market', label: <span><CloudServerOutlined /> {t('tab.market')}</span> },
+            { key: 'category', label: <span><AppstoreOutlined /> {t('tab.category')}</span> },
           ]}
         />
 
@@ -318,7 +343,7 @@ export default function LocalApp() {
           <Input
             allowClear
             prefix={<SearchOutlined />}
-            placeholder="搜索全部市场（名称 / 描述 / 标签）"
+            placeholder={t('search.placeholder')}
             style={{ width: 320 }}
             value={q}
             onChange={(event) => setQ(event.target.value)}
@@ -328,14 +353,14 @@ export default function LocalApp() {
             value={statusFilter}
             onChange={setStatusFilter}
             options={[
-              { value: 'all', label: '全部状态' },
-              { value: 'installed', label: '已安装' },
-              { value: 'notInstalled', label: '未安装' },
+              { value: 'all', label: t('filter.all') },
+              { value: 'installed', label: t('filter.installed') },
+              { value: 'notInstalled', label: t('filter.notInstalled') },
             ]}
           />
           <Select
             allowClear
-            placeholder="按 marketplace 筛选"
+            placeholder={t('filter.marketplace')}
             style={{ minWidth: 200 }}
             value={registryFilter}
             onChange={setRegistryFilter}
@@ -389,14 +414,14 @@ export default function LocalApp() {
               title: '状态',
               width: 110,
               render: (_, record) => {
-                if (!record.installed) return <Badge status="default" text="未安装" />
+                if (!record.installed) return <Badge status="default" text={t('status.notInstalled')} />
                 if (record.rowState === 'disabled') {
-                  return <Badge status="error" text="已停用" />
+                  return <Badge status="error" text={t('status.disabled')} />
                 }
                 return (
                   <Badge
                     status={record.origin === 'profile' ? 'warning' : 'success'}
-                    text={record.origin === 'profile' ? 'profile 已有' : 'dshm 安装'}
+                    text={record.origin === 'profile' ? t('status.profileOwned') : t('status.dshmInstalled')}
                   />
                 )
               },
@@ -422,7 +447,7 @@ export default function LocalApp() {
                             }
                           }}
                         >
-                          启用
+                          {t('action.enable')}
                         </Button>
                       )}
                       {record.rowState === 'enabled' && (
@@ -432,7 +457,7 @@ export default function LocalApp() {
                           loading={busyId === record.qualifiedId}
                           onClick={() => disable(record)}
                         >
-                          停用
+                          {t('action.disable')}
                         </Button>
                       )}
                       <Popconfirm
@@ -440,7 +465,7 @@ export default function LocalApp() {
                         onConfirm={() => uninstall(record)}
                       >
                         <Button size="small" danger icon={<DeleteOutlined />}>
-                          卸载
+                          {t('action.uninstall')}
                         </Button>
                       </Popconfirm>
                     </>
@@ -452,7 +477,7 @@ export default function LocalApp() {
                       loading={busyId === record.qualifiedId}
                       onClick={() => install(record)}
                     >
-                      安装
+                      {t('action.install')}
                     </Button>
                   )}
                 </Space>
