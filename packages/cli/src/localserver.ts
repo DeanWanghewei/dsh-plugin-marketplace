@@ -121,7 +121,9 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
         description: `（registry 未收录 · 本机已安装 ${uncataloged.version}）`,
       })
     }
-    return context.json({ items })
+    // Category defs travel with the response for zh display names; sources
+    // without defs (npm-scan) fall back to the UI's builtin name map.
+    return context.json({ items, categories: merged.categories })
   })
 
   app.get('/api/local/registries', async (context) => {

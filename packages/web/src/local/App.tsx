@@ -64,6 +64,11 @@ interface LocalPlugin {
   rowState?: string
 }
 
+interface CategoryDef {
+  id: string
+  name: { zh?: string; en?: string }
+}
+
 interface GroupRow {
   name: string
   description: string
@@ -111,7 +116,7 @@ export default function LocalApp() {
       const query = new URLSearchParams()
       if (profile) query.set('profile', profile)
       const [list, regs, profs, grps] = await Promise.all([
-        api<{ items: LocalPlugin[] }>(`/api/local/plugins?${query.toString()}`),
+        api<{ items: LocalPlugin[][] | LocalPlugin[]; categories?: CategoryDef[] }>(`/api/local/plugins?${query.toString()}`).then((r) => ({ ...r, items: r.items as LocalPlugin[] })),
         api<{ items: RegistryRow[] }>('/api/local/registries'),
         api<{ items: string[] }>('/api/local/profiles'),
         api<{ items: GroupRow[] }>('/api/local/groups').catch(() => ({ items: [] })),
@@ -120,6 +125,7 @@ export default function LocalApp() {
       setRegistries(regs.items)
       setProfiles(profs.items)
       setGroups(grps.items)
+      setCategories(list.categories ?? [])
     } catch (error) {
       void message.error(String(error))
     } finally {
@@ -240,8 +246,9 @@ export default function LocalApp() {
 
   const [configTarget, setConfigTarget] = useState<LocalPlugin>()
   const [configYaml, setConfigYaml] = useState('')
-  const [viewMode, setViewMode] = useState<'detail' | 'groups' | 'market'>('detail')
+  const [viewMode, setViewMode] = useState<'detail' | 'groups' | 'market' | 'category'>('detail')
   const [groups, setGroups] = useState<GroupRow[]>([])
+  const [categories, setCategories] = useState<CategoryDef[]>([])
   const [groupModal, setGroupModal] = useState<{
     mode: 'create' | 'import'
   } | null>(null)
@@ -302,6 +309,7 @@ export default function LocalApp() {
             { key: 'detail', label: <span><AppstoreOutlined /> 插件明细</span> },
             { key: 'groups', label: <span><FolderOpenOutlined /> 插件分组</span> },
             { key: 'market', label: <span><CloudServerOutlined /> 按市场浏览</span> },
+            { key: 'category', label: <span><AppstoreOutlined /> 按功能分类</span> },
           ]}
         />
 
@@ -464,6 +472,13 @@ export default function LocalApp() {
         )}
 
         {viewMode === 'market' && <MarketView plugins={plugins} onOpenPlugin={setDetail} />}
+        {viewMode === 'category' && (
+          <CategoryView
+            plugins={plugins}
+            categories={categories}
+            onOpenPlugin={setDetail}
+          />
+        )}
       </Space>
 
       <Drawer
@@ -881,6 +896,89 @@ function MarketView({
                 </Tag>
               ))}
               {list.length > 30 && <Tag>+{list.length - 30} 更多…</Tag>}
+            </Space>
+          </Card>
+        ))}
+    </Space>
+  )
+}
+
+function CategoryView({
+  plugins,
+  categories,
+  onOpenPlugin,
+}: {
+  plugins: LocalPlugin[]
+  categories: CategoryDef[]
+  onOpenPlugin: (plugin: LocalPlugin) => void
+}) {
+  // Sources without category defs (npm-scan) still carry ids on entries;
+  // a builtin map keeps the view readable instead of dumping raw ids.
+  const BUILTIN_CATEGORY_NAMES: Record<string, string> = {
+    infrastructure: '基础设施',
+    'agent-tool': '智能体工具',
+    ui: '界面 / UI',
+    extension: '扩展',
+    bundle: '组合包',
+    sdk: 'SDK',
+    adapter: '模型适配',
+    example: '示例',
+    pick: '精选',
+    community: '社区',
+    browser: '浏览器 / 搜索',
+    skill: '技能管理',
+    workflow: '工作流',
+    tools: '工具',
+    dev: '开发',
+    usage: '使用分析',
+    theme: '主题',
+    其他: '其他',
+  }
+  const nameOf = (id: string): string => {
+    const def = categories.find((entry) => entry.id === id)
+    return def?.name.zh ?? def?.name.en ?? BUILTIN_CATEGORY_NAMES[id] ?? id
+  }
+  const byCategory = new Map<string, LocalPlugin[]>()
+  for (const plugin of plugins) {
+    const list = plugin.categories.length > 0 ? plugin.categories : ['其他']
+    for (const category of list) {
+      const bucket = byCategory.get(category) ?? []
+      bucket.push(plugin)
+      byCategory.set(category, bucket)
+    }
+  }
+  return (
+    <Space direction="vertical" style={{ width: '100%' }} size="middle">
+      {[...byCategory.entries()]
+        .sort(([, a], [, b]) => b.length - a.length)
+        .map(([category, list]) => (
+          <Card
+            key={category}
+            size="small"
+            title={
+              <Space>
+                <Tag color="geekblue">{nameOf(category)}</Tag>
+                <Text type="secondary">{list.length} 个插件</Text>
+              </Space>
+            }
+          >
+            <Space wrap size={[6, 6]}>
+              {list.slice(0, 40).map((plugin) => (
+                <Tag
+                  key={`${category}-${plugin.qualifiedId}`}
+                  onClick={() => onOpenPlugin(plugin)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {plugin.verified && (
+                    <SafetyCertificateOutlined style={{ color: '#52c41a', marginRight: 4 }} />
+                  )}
+                  {plugin.name}
+                  {plugin.installed && (
+                    <span style={{ marginLeft: 4, opacity: 0.6 }}>✓</span>
+                  )}
+                </Tag>
+              ))}
+              {list.length > 40 && <Tag>+{list.length - 40} 更多…</Tag>}
             </Space>
           </Card>
         ))}
