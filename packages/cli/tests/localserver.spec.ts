@@ -23,6 +23,9 @@ function makeEnv(): { env: NodeJS.ProcessEnv; runner: FakeRunner } {
       DSH_HOME: join(base, '.dsh'),
       DSHM_HOME: join(base, '.dshm'),
       PATH: process.env['PATH'] ?? '',
+      // Network-dependent default sources stay off in unit tests.
+      DSHM_CURATED_URL: 'none',
+      DSHM_NPM_SCAN: 'none',
     },
     runner: new FakeRunner(),
   }

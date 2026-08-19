@@ -19,10 +19,11 @@ beforeAll(() => {
   // never touches the developer's real ~/.dshm). The curated git source is
   // disabled: its clone depends on network reachability and must not make
   // unit tests flaky.
-  for (const key of ['DSHM_HOME', 'DSH_HOME', 'PATH', 'DSHM_CURATED_URL']) {
+  for (const key of ['DSHM_HOME', 'DSH_HOME', 'PATH', 'DSHM_CURATED_URL', 'DSHM_NPM_SCAN']) {
     previousEnv[key] = process.env[key]
   }
   process.env['DSHM_CURATED_URL'] = 'none'
+  process.env['DSHM_NPM_SCAN'] = 'none'
   const base = mkdtempSync(join(tmpdir(), 'dshm-plugin-'))
   cleanups.push(() => rmSync(base, { recursive: true, force: true }))
   process.env['DSHM_HOME'] = join(base, '.dshm')

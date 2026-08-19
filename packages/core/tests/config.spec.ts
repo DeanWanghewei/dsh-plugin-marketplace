@@ -41,13 +41,40 @@ describe('curated default registry', () => {
     writeConfig(runner, dshmHome, {
       registries: [{ name: 'default', type: 'file', path: '/tmp/r.yaml' }],
     })
-    const { config, migrated } = loadConfig(runner, { ...env, ...CURATED_ENV })
+    const { config, migrated } = loadConfig(runner, {
+      ...env,
+      ...CURATED_ENV,
+      DSHM_NPM_SCAN: 'none',
+    })
     expect(migrated).toBe(true)
     expect(config.registries.map((ref) => ref.name)).toEqual(['default', CURATED_REGISTRY_NAME])
     // Migration is persisted — the next load does not append twice.
-    const again = loadConfig(runner, { ...env, ...CURATED_ENV })
+    const again = loadConfig(runner, { ...env, ...CURATED_ENV, DSHM_NPM_SCAN: 'none' })
     expect(again.migrated).toBe(false)
     expect(again.config.registries).toHaveLength(2)
+  })
+
+  it('fresh config ships the npm-scan official source', () => {
+    const { env } = makeTestEnv()
+    const runner = new FakeRunner()
+    const { config } = loadConfig(runner, { ...env, DSHM_CURATED_URL: 'none', DSHM_NPM_SCAN: 'yes' })
+    const official = config.registries.find((ref) => ref.name === 'official')
+    expect(official).toMatchObject({ type: 'npm-scan', scope: '@deepseek-ai/dsh' })
+  })
+
+  it('existing config migrates to gain official; removal sticks', () => {
+    const { env, dshmHome } = makeTestEnv()
+    const runner = new FakeRunner()
+    writeConfig(runner, dshmHome, { registries: [] })
+    const gained = loadConfig(runner, { ...env, DSHM_CURATED_URL: 'none', DSHM_NPM_SCAN: 'yes' })
+    expect(gained.config.registries.some((ref) => ref.name === 'official')).toBe(true)
+
+    writeConfig(runner, dshmHome, {
+      registries: [],
+      removedDefaults: ['official'],
+    })
+    const keptOut = loadConfig(runner, { ...env, DSHM_CURATED_URL: 'none', DSHM_NPM_SCAN: 'yes' })
+    expect(keptOut.config.registries.some((ref) => ref.name === 'official')).toBe(false)
   })
 
   it('never re-adds a curated source the user removed', () => {
@@ -57,7 +84,11 @@ describe('curated default registry', () => {
       registries: [{ name: 'default', type: 'file', path: join(dshmHome, 'r.yaml') }],
       removedDefaults: [CURATED_REGISTRY_NAME],
     })
-    const { config, migrated } = loadConfig(runner, { ...env, ...CURATED_ENV })
+    const { config, migrated } = loadConfig(runner, {
+      ...env,
+      ...CURATED_ENV,
+      DSHM_NPM_SCAN: 'none',
+    })
     expect(migrated).toBe(false)
     expect(config.registries.map((ref) => ref.name)).toEqual(['default'])
   })

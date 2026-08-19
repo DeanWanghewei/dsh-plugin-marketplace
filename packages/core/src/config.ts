@@ -38,10 +38,19 @@ export interface DshmConfig {
 export const CURATED_REGISTRY_URL = 'https://github.com/DeanWanghewei/dsh-plugin-registry.git'
 export const CURATED_REGISTRY_NAME = 'curated'
 
+/** Live npm scope scanned as the always-fresh official source. */
+export const NPM_SCAN_SCOPE = '@deepseek-ai/dsh'
+export const NPM_SCAN_NAME = 'official'
+
 export function curatedRegistryUrl(env: NodeJS.ProcessEnv): string {
   const override = env['DSHM_CURATED_URL']?.trim()
   if (override === 'none') return '' // explicit opt-out switch
   return override || CURATED_REGISTRY_URL
+}
+
+/** Test/offline switch: DSHM_NPM_SCAN=none drops the live official source. */
+export function npmScanEnabled(env: NodeJS.ProcessEnv): boolean {
+  return env['DSHM_NPM_SCAN']?.trim() !== 'none'
 }
 
 export function curatedRegistryRef(env: NodeJS.ProcessEnv): RegistryRef | undefined {
@@ -62,6 +71,9 @@ export function defaultRegistries(env: NodeJS.ProcessEnv = process.env): Registr
   if (builtin) registries.push({ name: 'default', type: 'file', path: builtin })
   const curated = curatedRegistryRef(env)
   if (curated) registries.push(curated)
+  if (npmScanEnabled(env)) {
+    registries.push({ name: NPM_SCAN_NAME, type: 'npm-scan', scope: NPM_SCAN_SCOPE })
+  }
   return registries
 }
 
@@ -107,16 +119,24 @@ export function loadConfig(runner: Runner, env: NodeJS.ProcessEnv): LoadedConfig
       ? (parsed?.removedDefaults as string[])
       : [],
   }
-  // Migration: existing installs gain the curated default once it is
-  // configured — unless the user removed it on purpose.
-  const curated = curatedRegistryRef(env)
+  // Migration: existing installs gain each default source once configured
+  // — unless the user removed it on purpose.
   let migrated = false
+  const curated = curatedRegistryRef(env)
   if (
     curated &&
     !config.registries.some((ref) => ref.name === curated.name) &&
     !(config.removedDefaults ?? []).includes(curated.name)
   ) {
     config.registries.push(curated)
+    migrated = true
+  }
+  if (
+    npmScanEnabled(env) &&
+    !config.registries.some((ref) => ref.name === NPM_SCAN_NAME) &&
+    !(config.removedDefaults ?? []).includes(NPM_SCAN_NAME)
+  ) {
+    config.registries.push({ name: NPM_SCAN_NAME, type: 'npm-scan', scope: NPM_SCAN_SCOPE })
     migrated = true
   }
   if (migrated) {

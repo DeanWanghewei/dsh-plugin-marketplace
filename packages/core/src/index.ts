@@ -18,6 +18,8 @@ export {
 export {
   CURATED_REGISTRY_NAME,
   CURATED_REGISTRY_URL,
+  NPM_SCAN_NAME,
+  NPM_SCAN_SCOPE,
   curatedRegistryRef,
   curatedRegistryUrl,
   defaultConfig,
