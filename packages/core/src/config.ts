@@ -4,7 +4,7 @@ import type { Runner } from './runner.js'
 
 export interface RegistryRef {
   name: string
-  type: 'file' | 'http' | 'git'
+  type: 'file' | 'http' | 'git' | 'npm-scan'
   /** file: absolute path to the registry document. */
   path?: string
   /** http: URL serving the document; git: repository URL. */
@@ -15,6 +15,8 @@ export interface RegistryRef {
   ref?: string
   /** git: path of the registry document inside the repository. */
   subpath?: string
+  /** npm-scan: scope prefix to scan live from the npm registry. */
+  scope?: string
   disabled?: boolean
 }
 

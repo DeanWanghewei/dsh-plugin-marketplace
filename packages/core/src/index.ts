@@ -47,6 +47,7 @@ export {
   uncatalogedPackages,
   type UncatalogedPackage,
 } from './installed.js'
+export { scanNpmScope, type NpmScanOptions } from './npm-scan.js'
 export {
   installedView,
   matchProfilePlugins,

@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import type { DshmConfig, RegistryRef } from './config.js'
 import { parseRegistry } from './schema.js'
 import type { Runner } from './runner.js'
@@ -108,6 +108,9 @@ async function loadOne(
   if (ref.type === 'git') {
     return loadGitRegistry(runner, ref, cacheDir, options, gitTokens)
   }
+  if (ref.type === 'npm-scan') {
+    return loadNpmScanRegistry(runner, ref, cacheDir, options)
+  }
   const url = ref.url ?? ''
   if (!url) throw new Error('http registry is missing url')
   const cacheFile = join(cacheDir, `${sanitize(ref.name)}.json`)
@@ -193,6 +196,47 @@ async function loadGitRegistry(
   }
   await sync()
   return loadDocument(ref.name, runner.readTextFile(document))
+}
+
+/**
+ * Live npm scope scan cached under the TTL model: metadata only, so the
+ * cache is a JSON snapshot of scanNpmScope's output. Longer default TTL —
+ * npm metadata changes rarely and each scan makes 200+ requests.
+ */
+async function loadNpmScanRegistry(
+  runner: Runner,
+  ref: RegistryRef,
+  cacheDir: string,
+  options: LoadRegistriesOptions,
+): Promise<RegistryData> {
+  const scope = ref.scope
+  if (!scope) throw new Error('npm-scan registry is missing scope')
+  const cacheFile = join(cacheDir, `npm-scan-${sanitize(ref.name)}.json`)
+  const ttl = options.cacheTtlMs ?? 60 * 60 * 1000
+  const now = options.nowMs?.() ?? Date.now()
+  const cached = runner.readTextFile(cacheFile)
+  if (!options.forceRefresh && cached) {
+    try {
+      const envelope = JSON.parse(cached) as CacheEnvelope
+      if (now - envelope.fetchedAt < ttl) {
+        return loadDocument(ref.name, envelope.raw)
+      }
+    } catch {
+      // Corrupt cache: fall through to a fresh scan.
+    }
+  }
+  const { scanNpmScope } = await import('./npm-scan.js')
+  const entries = await scanNpmScope({ scope })
+  // Serialize through the yaml library — npm descriptions freely contain
+  // colons, quotes, and newlines that break hand-built YAML.
+  const document = stringify({
+    schemaVersion: 1,
+    name: ref.name,
+    categories: [],
+    plugins: entries,
+  })
+  runner.writeTextFile(cacheFile, JSON.stringify({ fetchedAt: now, raw: document } satisfies CacheEnvelope))
+  return loadDocument(ref.name, document)
 }
 
 function loadDocument(registryName: string, raw: string | undefined): RegistryData {

@@ -38,6 +38,7 @@ export function registerRegistryCommand(program: Command): void {
     .option('--url <url>', 'HTTP(S) endpoint serving a registry document')
     .option('--token <token>', 'bearer token for HTTP registries')
     .option('--git <url>', 'git repository containing a registry document')
+    .option('--npm-scan <scope>', 'live npm scope to scan as metadata source (e.g. @deepseek-ai/dsh)')
     .option('--ref <ref>', 'git: branch, tag, or commit to pin')
     .option('--subpath <path>', 'git: document path inside the repository', 'registry.yaml')
     .action(
@@ -50,12 +51,13 @@ export function registerRegistryCommand(program: Command): void {
           git?: string
           ref?: string
           subpath?: string
+          npmScan?: string
         },
       ) => {
         const context = createContext()
-        const chosen = [flags.file, flags.url, flags.git].filter(Boolean)
+        const chosen = [flags.file, flags.url, flags.git, flags.npmScan].filter(Boolean)
         if (chosen.length !== 1) {
-          throw new Error('pass exactly one of --file, --url, or --git')
+          throw new Error('pass exactly one of --file, --url, --git, or --npm-scan')
         }
         if (context.config.registries.some((entry) => entry.name === name)) {
           throw new Error(`registry '${name}' already exists`)
@@ -64,7 +66,9 @@ export function registerRegistryCommand(program: Command): void {
           ? { name, type: 'file', path: flags.file }
           : flags.git
             ? { name, type: 'git', url: flags.git, ref: flags.ref, subpath: flags.subpath }
-            : { name, type: 'http', url: flags.url, token: flags.token }
+            : flags.npmScan
+              ? { name, type: 'npm-scan', scope: flags.npmScan }
+              : { name, type: 'http', url: flags.url, token: flags.token }
         context.config.registries.push(ref)
         saveConfig(context.runner, context.paths, context.config)
         const merged = await loadRegistries(
