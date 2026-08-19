@@ -6,6 +6,7 @@ import {
   Row,
   Tabs,
   Card,
+  Tooltip,
   Carousel,
   Descriptions,
   Drawer,
@@ -22,6 +23,9 @@ import {
 } from 'antd'
 import {
   AppstoreOutlined,
+  DesktopOutlined,
+  MoonOutlined,
+  SunOutlined,
   CloudDownloadOutlined,
   CloudServerOutlined,
   DeleteOutlined,
@@ -298,32 +302,48 @@ export default function LocalApp() {
               options={profiles.map((entry) => ({ value: entry, label: `profile: ${entry}` }))}
             />
             <Button icon={<ReloadOutlined />} onClick={load} loading={loading}>
-              刷新
+              {t('app.refresh')}
             </Button>
             <Button icon={<PlusOutlined />} onClick={() => setAddOpen(true)}>
               {t('app.manageSources')}
             </Button>
-            <Select
-              size="small"
-              style={{ width: 100 }}
-              value={lang}
-              onChange={(value) => setLang(value)}
-              options={[
-                { value: 'zh', label: t('lang.zh') },
-                { value: 'en', label: t('lang.en') },
-              ]}
-            />
-            <Select
-              size="small"
-              style={{ width: 110 }}
-              value={themeMode}
-              onChange={(value) => setThemeMode(value)}
-              options={[
-                { value: 'system', label: `🖥 ${t('theme.system')}` },
-                { value: 'light', label: `☀ ${t('theme.light')}` },
-                { value: 'dark', label: `🌙 ${t('theme.dark')}` },
-              ]}
-            />
+            {/* 语言：一键切换按钮（中/EN 字标，当前高亮） */}
+            <Button.Group size="small">
+              <Button
+                type={lang === 'zh' ? 'primary' : 'default'}
+                onClick={() => setLang('zh')}
+                style={{ minWidth: 44 }}
+              >
+                中
+              </Button>
+              <Button
+                type={lang === 'en' ? 'primary' : 'default'}
+                onClick={() => setLang('en')}
+                style={{ minWidth: 44 }}
+              >
+                EN
+              </Button>
+            </Button.Group>
+            {/* 主题：图标循环切换 系统🖥 → 浅色☀ → 深色🌙，tooltip 示当前档 */}
+            <Tooltip title={t(`theme.${themeMode}`)}>
+              <Button
+                size="small"
+                icon={
+                  themeMode === 'system' ? (
+                    <DesktopOutlined />
+                  ) : themeMode === 'light' ? (
+                    <SunOutlined />
+                  ) : (
+                    <MoonOutlined />
+                  )
+                }
+                onClick={() =>
+                  setThemeMode(
+                    themeMode === 'system' ? 'light' : themeMode === 'light' ? 'dark' : 'system',
+                  )
+                }
+              />
+            </Tooltip>
           </Space>
         </div>
 
