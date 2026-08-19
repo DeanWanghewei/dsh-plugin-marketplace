@@ -111,6 +111,38 @@ export default function LocalApp() {
   const [profiles, setProfiles] = useState<string[]>([])
   const [profile, setProfile] = useState('')
   const [registryFilter, setRegistryFilter] = useState<string | undefined>()
+  const [categoryFilter, setCategoryFilter] = useState<string | undefined>()
+
+  // Shared category label: defs first, builtin zh names, id fallback.
+  const categoryLabel = (id: string): string => {
+    const def = categories.find((entry) => entry.id === id)
+    if (def?.name.zh && lang === 'zh') return def.name.zh
+    if (def?.name.en) return def.name.en
+    const builtin: Record<string, string> =
+      lang === 'zh'
+        ? {
+            infrastructure: '基础设施',
+            'agent-tool': '智能体工具',
+            ui: '界面 / UI',
+            extension: '扩展',
+            bundle: '组合包',
+            sdk: 'SDK',
+            adapter: '模型适配',
+            example: '示例',
+            pick: '精选',
+            community: '社区',
+            browser: '浏览器 / 搜索',
+            skill: '技能管理',
+            workflow: '工作流',
+            tools: '工具',
+            dev: '开发',
+            usage: '使用分析',
+            theme: '主题',
+            其他: '其他',
+          }
+        : {}
+    return builtin[id] ?? id
+  }
   const [statusFilter, setStatusFilter] = useState<'all' | 'installed' | 'notInstalled'>('all')
   const [q, setQ] = useState('')
   const [loading, setLoading] = useState(false)
@@ -254,7 +286,7 @@ export default function LocalApp() {
 
   const [configTarget, setConfigTarget] = useState<LocalPlugin>()
   const [configYaml, setConfigYaml] = useState('')
-  const [viewMode, setViewMode] = useState<'detail' | 'groups' | 'market' | 'category'>('detail')
+  const [viewMode, setViewMode] = useState<'detail' | 'groups' | 'market' | 'category'>('category')
   const [groups, setGroups] = useState<GroupRow[]>([])
   const [categories, setCategories] = useState<CategoryDef[]>([])
   const [groupModal, setGroupModal] = useState<{
@@ -271,6 +303,7 @@ export default function LocalApp() {
 
   const filtered = plugins.filter((plugin) => {
     if (registryFilter && plugin.registry !== registryFilter) return false
+    if (categoryFilter && !plugin.categories.includes(categoryFilter)) return false
     if (statusFilter === 'installed' && !plugin.installed) return false
     if (statusFilter === 'notInstalled' && plugin.installed) return false
     if (!q.trim()) return true
@@ -520,8 +553,14 @@ export default function LocalApp() {
         {viewMode === 'category' && (
           <CategoryView
             plugins={plugins}
-            categories={categories}
+            labelOf={categoryLabel}
             onOpenPlugin={setDetail}
+            onViewAll={(categoryId) => {
+              setViewMode('detail')
+              setRegistryFilter(undefined)
+              setCategoryFilter(categoryId)
+              setQ('')
+            }}
           />
         )}
       </Space>
@@ -950,39 +989,15 @@ function MarketView({
 
 function CategoryView({
   plugins,
-  categories,
+  labelOf,
   onOpenPlugin,
+  onViewAll,
 }: {
   plugins: LocalPlugin[]
-  categories: CategoryDef[]
+  labelOf: (id: string) => string
   onOpenPlugin: (plugin: LocalPlugin) => void
+  onViewAll: (categoryId: string) => void
 }) {
-  // Sources without category defs (npm-scan) still carry ids on entries;
-  // a builtin map keeps the view readable instead of dumping raw ids.
-  const BUILTIN_CATEGORY_NAMES: Record<string, string> = {
-    infrastructure: '基础设施',
-    'agent-tool': '智能体工具',
-    ui: '界面 / UI',
-    extension: '扩展',
-    bundle: '组合包',
-    sdk: 'SDK',
-    adapter: '模型适配',
-    example: '示例',
-    pick: '精选',
-    community: '社区',
-    browser: '浏览器 / 搜索',
-    skill: '技能管理',
-    workflow: '工作流',
-    tools: '工具',
-    dev: '开发',
-    usage: '使用分析',
-    theme: '主题',
-    其他: '其他',
-  }
-  const nameOf = (id: string): string => {
-    const def = categories.find((entry) => entry.id === id)
-    return def?.name.zh ?? def?.name.en ?? BUILTIN_CATEGORY_NAMES[id] ?? id
-  }
   const byCategory = new Map<string, LocalPlugin[]>()
   for (const plugin of plugins) {
     const list = plugin.categories.length > 0 ? plugin.categories : ['其他']
@@ -1002,13 +1017,29 @@ function CategoryView({
             size="small"
             title={
               <Space>
-                <Tag color="geekblue">{nameOf(category)}</Tag>
-                <Text type="secondary">{list.length} 个插件</Text>
+                <Tag
+                  color="geekblue"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => onViewAll(category)}
+                >
+                  {labelOf(category)}
+                </Tag>
+                <Text type="secondary">{list.length}</Text>
               </Space>
+            }
+            extra={
+              <Button
+                size="small"
+                type="link"
+                onClick={() => onViewAll(category)}
+              >
+                {list.length > 20 ? `+${list.length - 20} ` : ''}
+                t('category.viewAll')
+              </Button>
             }
           >
             <Space wrap size={[6, 6]}>
-              {list.slice(0, 40).map((plugin) => (
+              {list.slice(0, 20).map((plugin) => (
                 <Tag
                   key={`${category}-${plugin.qualifiedId}`}
                   onClick={() => onOpenPlugin(plugin)}
@@ -1023,7 +1054,6 @@ function CategoryView({
                   )}
                 </Tag>
               ))}
-              {list.length > 40 && <Tag>+{list.length - 40} 更多…</Tag>}
             </Space>
           </Card>
         ))}
