@@ -7,6 +7,7 @@ import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono, type Handler } from 'hono'
 import {
+  installGroup,
   installPlugin,
   installedView,
   directProfilePackages,
@@ -20,6 +21,13 @@ import {
   uninstallPlugin,
   enablePlugin,
   disablePlugin,
+  exportGroupYaml,
+  findGroup,
+  importGroupYaml,
+  loadGroups,
+  removeGroup,
+  upsertGroup,
+  type PluginGroup,
   type InstallerDeps,
   type RegistryRef,
   type ResolvedPlugin,
@@ -218,6 +226,64 @@ export function createLocalApp(runner: NodeRunner, env: NodeJS.ProcessEnv) {
       body.configYaml,
     )
     return context.json(outcome)
+  })
+
+  app.get('/api/local/groups', async (context) => {
+    const groups = loadGroups(runner, paths).groups
+    return context.json({ items: groups })
+  })
+
+  app.post('/api/local/groups', async (context) => {
+    const body = (await context.req.json().catch(() => ({}))) as {
+      name?: string
+      description?: string
+      plugins?: string[]
+      profile?: string
+    }
+    if (!body.name || !Array.isArray(body.plugins)) {
+      return context.json({ error: 'name and plugins required' }, 400)
+    }
+    const group = {
+      name: body.name,
+      description: body.description ?? '',
+      plugins: body.plugins,
+      profile: body.profile ?? config.defaultProfile,
+      createdAt: new Date().toISOString(),
+    }
+    upsertGroup(runner, paths, group)
+    return context.json({ ok: true, group })
+  })
+
+  app.delete('/api/local/groups/:name', async (context) => {
+    const removed = removeGroup(runner, paths, context.req.param('name'))
+    return context.json({ ok: removed })
+  })
+
+  app.get('/api/local/groups/:name/export', async (context) => {
+    const group = findGroup(runner, paths, context.req.param('name'))
+    if (!group) return context.json({ error: 'not found' }, 404)
+    return context.body(`${exportGroupYaml(group)}\n`, 200, {
+      'content-type': 'application/yaml; charset=utf-8',
+    })
+  })
+
+  app.post('/api/local/groups/import', async (context) => {
+    const yaml = await context.req.text()
+    const imported = importGroupYaml(yaml)
+    if ('error' in imported) return context.json({ error: imported.error }, 400)
+    upsertGroup(runner, paths, imported)
+    return context.json({ ok: true, group: imported })
+  })
+
+  app.post('/api/local/groups/:name/install', async (context) => {
+    const profile = (await context.req.json().catch(() => ({}))).profile ?? config.defaultProfile
+    const merged = await loadRegistries(runner, config, paths.cacheDir)
+    try {
+      const reports = await installGroup(deps, merged.plugins, context.req.param('name'), profile)
+      return context.json({ ok: true, reports })
+    } catch (error) {
+      return context.json({ ok: false, error: String(error) }, 404)
+    }
   })
 
   app.post('/api/local/disable', async (context) => {

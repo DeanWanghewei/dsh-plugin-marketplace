@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react'
 import {
   Badge,
   Button,
+  Col,
+  Row,
   Card,
   Carousel,
   Descriptions,
@@ -58,6 +60,14 @@ interface LocalPlugin {
   rowState?: string
 }
 
+interface GroupRow {
+  name: string
+  description: string
+  plugins: string[]
+  profile: string
+  createdAt: string
+}
+
 interface RegistryRow {
   name: string
   type: string
@@ -96,14 +106,16 @@ export default function LocalApp() {
     try {
       const query = new URLSearchParams()
       if (profile) query.set('profile', profile)
-      const [list, regs, profs] = await Promise.all([
+      const [list, regs, profs, grps] = await Promise.all([
         api<{ items: LocalPlugin[] }>(`/api/local/plugins?${query.toString()}`),
         api<{ items: RegistryRow[] }>('/api/local/registries'),
         api<{ items: string[] }>('/api/local/profiles'),
+        api<{ items: GroupRow[] }>('/api/local/groups').catch(() => ({ items: [] })),
       ])
       setPlugins(list.items)
       setRegistries(regs.items)
       setProfiles(profs.items)
+      setGroups(grps.items)
     } catch (error) {
       void message.error(String(error))
     } finally {
@@ -224,6 +236,15 @@ export default function LocalApp() {
 
   const [configTarget, setConfigTarget] = useState<LocalPlugin>()
   const [configYaml, setConfigYaml] = useState('')
+  const [viewMode, setViewMode] = useState<'detail' | 'groups' | 'market'>('detail')
+  const [groups, setGroups] = useState<GroupRow[]>([])
+  const [groupModal, setGroupModal] = useState<{
+    mode: 'create' | 'import'
+  } | null>(null)
+  const [groupName, setGroupName] = useState('')
+  const [groupDesc, setGroupDesc] = useState('')
+  const [groupIds, setGroupIds] = useState('')
+  const [importYaml, setImportYaml] = useState('')
   const openConfig = (plugin: LocalPlugin) => {
     setConfigTarget(plugin)
     setConfigYaml('serverName: my-server\ntransport: stdio\ncommand: npx\nargs: []')
@@ -271,6 +292,17 @@ export default function LocalApp() {
         </div>
 
         <Space wrap size="middle">
+          <Select
+            value={viewMode}
+            onChange={setViewMode}
+            style={{ width: 150 }}
+            options={[
+              { value: 'detail', label: '插件明细' },
+              { value: 'groups', label: '插件分组' },
+              { value: 'market', label: '按市场浏览' },
+            ]}
+          />
+          {viewMode === 'detail' && (
           <Input
             allowClear
             prefix={<SearchOutlined />}
@@ -279,6 +311,8 @@ export default function LocalApp() {
             value={q}
             onChange={(event) => setQ(event.target.value)}
           />
+          )}
+          {viewMode === 'detail' && (
           <Select
             style={{ width: 130 }}
             value={statusFilter}
@@ -288,7 +322,8 @@ export default function LocalApp() {
               { value: 'installed', label: '已安装' },
               { value: 'notInstalled', label: '未安装' },
             ]}
-          />
+          />)}
+          {viewMode === 'detail' && (
           <Select
             allowClear
             placeholder="按 marketplace 筛选"
@@ -299,10 +334,11 @@ export default function LocalApp() {
               value: entry.name,
               label: `${entry.name}（${entry.type}，${entry.plugins}）`,
             }))}
-          />
-          <Text type="secondary">{filtered.length} 个插件</Text>
+          />)}
+          {viewMode === 'detail' && <Text type="secondary">{filtered.length} 个插件</Text>}
         </Space>
 
+        {viewMode === 'detail' && (
         <Table
           rowKey="qualifiedId"
           size="small"
@@ -414,6 +450,18 @@ export default function LocalApp() {
             },
           ]}
         />
+        )}
+
+        {viewMode === 'groups' && (
+          <GroupsView
+            groups={groups}
+            plugins={plugins}
+            profile={profile}
+            onChanged={load}
+          />
+        )}
+
+        {viewMode === 'market' && <MarketView plugins={plugins} onOpenPlugin={setDetail} />}
       </Space>
 
       <Drawer
@@ -622,5 +670,218 @@ function RegistriesModal({
         </Space.Compact>
       </Spin>
     </Modal>
+  )
+}
+
+function GroupsView({
+  groups,
+  plugins,
+  profile,
+  onChanged,
+}: {
+  groups: GroupRow[]
+  plugins: LocalPlugin[]
+  profile: string
+  onChanged: () => void
+}) {
+  const [creating, setCreating] = useState(false)
+  const [name, setName] = useState('')
+  const [desc, setDesc] = useState('')
+  const [ids, setIds] = useState('')
+  const [yamlText, setYamlText] = useState('')
+  const [importing, setImporting] = useState(false)
+  const [busyGroup, setBusyGroup] = useState('')
+
+  const saveGroup = async () => {
+    const pluginIds = ids
+      .split(/[\n,]/)
+      .map((entry) => entry.trim())
+      .filter(Boolean)
+    if (!name.trim() || pluginIds.length === 0) return
+    await api('/api/local/groups', {
+      method: 'POST',
+      body: JSON.stringify({ name: name.trim(), description: desc, plugins: pluginIds, profile }),
+    })
+    void message.success(`已保存组 ${name}`)
+    setCreating(false); setName(''); setDesc(''); setIds('')
+    onChanged()
+  }
+
+  const importGroup = async () => {
+    try {
+      await api('/api/local/groups/import', { method: 'POST', body: yamlText })
+      void message.success('已导入')
+      setImporting(false); setYamlText('')
+      onChanged()
+    } catch (error) {
+      void message.error(String(error))
+    }
+  }
+
+  const installGroup = async (groupName: string) => {
+    setBusyGroup(groupName)
+    try {
+      const result = await api<{
+        ok: boolean
+        reports?: Array<{ plugin: string; outcome: string }>
+      }>(`/api/local/groups/${groupName}/install`, {
+        method: 'POST',
+        body: JSON.stringify({ profile }),
+      })
+      const reports = result.reports ?? []
+      const ok = reports.filter((r) => r.outcome === 'installed' || r.outcome === 'already-installed')
+      void message.success(`组 ${groupName}: ${ok.length}/${reports.length} 应用成功`)
+      onChanged()
+    } catch (error) {
+      void message.error(String(error))
+    } finally {
+      setBusyGroup('')
+    }
+  }
+
+  const exportGroup = async (groupName: string) => {
+    const yaml = await (await fetch(`/api/local/groups/${groupName}/export`)).text()
+    await navigator.clipboard.writeText(yaml)
+    void message.success('组 YAML 已复制到剪贴板')
+  }
+
+  return (
+    <Space direction="vertical" style={{ width: '100%' }} size="middle">
+      <Space>
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => setCreating(true)}>
+          新建分组
+        </Button>
+        <Button onClick={() => setImporting(true)}>导入分组</Button>
+        <Text type="secondary">{groups.length} 个分组 · 同事可 export 分享后一键整套安装</Text>
+      </Space>
+      <Row gutter={[12, 12]}>
+        {groups.map((group) => (
+          <Col xs={24} sm={12} md={8} key={group.name}>
+            <Card
+              size="small"
+              title={group.name}
+              extra={<Text type="secondary">{group.plugins.length} 个插件</Text>}
+            >
+              <Paragraph type="secondary" ellipsis={{ rows: 2 }} style={{ minHeight: 40 }}>
+                {group.description || '（无描述）'}
+              </Paragraph>
+              <Space wrap size={[4, 4]}>
+                {group.plugins.slice(0, 6).map((id) => {
+                  const match = plugins.find((p) => p.id === id || p.qualifiedId === id)
+                  return <Tag key={id}>{match?.name ?? id}</Tag>
+                })}
+                {group.plugins.length > 6 && <Tag>+{group.plugins.length - 6}</Tag>}
+              </Space>
+              <div style={{ marginTop: 12 }}>
+                <Space>
+                  <Button
+                    size="small"
+                    type="primary"
+                    loading={busyGroup === group.name}
+                    onClick={() => installGroup(group.name)}
+                  >
+                    整组安装
+                  </Button>
+                  <Button size="small" onClick={() => exportGroup(group.name)}>
+                    复制分享
+                  </Button>
+                  <Popconfirm
+                    title={`删除分组 ${group.name}？`}
+                    onConfirm={async () => {
+                      await fetch(`/api/local/groups/${group.name}`, { method: 'DELETE' })
+                      onChanged()
+                    }}
+                  >
+                    <Button size="small" danger icon={<DeleteOutlined />} />
+                  </Popconfirm>
+                </Space>
+              </div>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+
+      <Modal
+        title="新建分组"
+        open={creating}
+        onCancel={() => setCreating(false)}
+        onOk={saveGroup}
+        okText="保存"
+      >
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Input placeholder="分组名（如 team-kit）" value={name} onChange={(e) => setName(e.target.value)} />
+          <Input placeholder="描述（这套是干什么用的）" value={desc} onChange={(e) => setDesc(e.target.value)} />
+          <Input.TextArea
+            rows={5}
+            placeholder={'插件 id，逗号或换行分隔：\ntool-cordis, skill\ntimer'}
+            value={ids}
+            onChange={(e) => setIds(e.target.value)}
+          />
+        </Space>
+      </Modal>
+
+      <Modal
+        title="导入分组（粘贴分享的 YAML）"
+        open={importing}
+        onCancel={() => setImporting(false)}
+        onOk={importGroup}
+        okText="导入"
+      >
+        <Input.TextArea
+          rows={10}
+          placeholder={'dshmGroup:\n  name: team-kit\n  plugins:\n    - tool-cordis'}
+          value={yamlText}
+          onChange={(e) => setYamlText(e.target.value)}
+          style={{ fontFamily: 'monospace' }}
+        />
+      </Modal>
+    </Space>
+  )
+}
+
+function MarketView({
+  plugins,
+  onOpenPlugin,
+}: {
+  plugins: LocalPlugin[]
+  onOpenPlugin: (plugin: LocalPlugin) => void
+}) {
+  const byRegistry = new Map<string, LocalPlugin[]>()
+  for (const plugin of plugins) {
+    const list = byRegistry.get(plugin.registry) ?? []
+    list.push(plugin)
+    byRegistry.set(plugin.registry, list)
+  }
+  return (
+    <Space direction="vertical" style={{ width: '100%' }} size="middle">
+      {[...byRegistry.entries()]
+        .sort(([a], [b]) => b.length - a.length || a.localeCompare(b))
+        .map(([registry, list]) => (
+          <Card
+            key={registry}
+            size="small"
+            title={
+              <Space>
+                <Tag color="geekblue">{registry}</Tag>
+                <Text type="secondary">{list.length} 个插件</Text>
+              </Space>
+            }
+          >
+            <Space wrap size={[6, 6]}>
+              {list.slice(0, 30).map((plugin) => (
+                <Tag
+                  key={plugin.qualifiedId}
+                  onClick={() => onOpenPlugin(plugin)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {plugin.verified && <SafetyCertificateOutlined style={{ color: '#52c41a', marginRight: 4 }} />}
+                  {plugin.name}
+                </Tag>
+              ))}
+              {list.length > 30 && <Tag>+{list.length - 30} 更多…</Tag>}
+            </Space>
+          </Card>
+        ))}
+    </Space>
   )
 }
