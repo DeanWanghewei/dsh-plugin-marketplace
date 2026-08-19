@@ -1,6 +1,7 @@
 import { Command } from 'commander'
 import { registerCategoriesCommand } from './commands/categories.js'
 import { registerDoctorCommand } from './commands/doctor.js'
+import { registerGroupCommand } from './commands/group.js'
 import { registerInfoCommand } from './commands/info.js'
 import { registerInstallCommand } from './commands/install.js'
 import { registerListCommand } from './commands/list.js'
@@ -29,6 +30,7 @@ registerListCommand(program)
 registerCategoriesCommand(program)
 registerRegistryCommand(program)
 registerDoctorCommand(program)
+registerGroupCommand(program)
 registerVersionCommand(program)
 registerUpdateCommand(program)
 registerToggleCommands(program)

@@ -51,6 +51,19 @@ export {
 } from './installed.js'
 export { scanNpmScope, type NpmScanOptions } from './npm-scan.js'
 export {
+  exportGroupYaml,
+  findGroup,
+  groupFilePath,
+  importGroupYaml,
+  installGroup,
+  loadGroups,
+  removeGroup,
+  saveGroups,
+  upsertGroup,
+  type GroupInstallReport,
+  type PluginGroup,
+} from './groups.js'
+export {
   installedView,
   matchProfilePlugins,
   profilePackages,
