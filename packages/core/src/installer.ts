@@ -175,6 +175,26 @@ async function installViaPnpm(
   const result = await dshPlugin(runner, options.profile, ['add', '-w', spec])
   if (result.ok) return commitPnpmInstall(deps, resolved, options, spec, packageNameHint, [])
 
+  // A pinned ref that the repo no longer carries (registry says `main`,
+  // default branch is `master`) fails resolution before anything runs.
+  // One retry without the ref — pnpm then resolves the default branch HEAD.
+  if (/Could not resolve/.test(`${result.stdout}\n${result.stderr}`)) {
+    const hint = packageNameHint
+    const retrySpec = buildPnpmSpecFromGit(
+      resolved.entry.source.type === 'git' ? resolved.entry.source.url : '',
+      undefined,
+      deps.config.gitTokens,
+    )
+    if (retrySpec && retrySpec !== spec) {
+      const retry = await dshPlugin(runner, options.profile, ['add', '-w', retrySpec])
+      if (retry.ok) {
+        return commitPnpmInstall(deps, resolved, options, retrySpec, hint, [
+          `pinned ref unavailable — installed from the default branch instead`,
+        ])
+      }
+    }
+  }
+
   const keys = parseAllowBuildsKeys(`${result.stdout}\n${result.stderr}`)
   if (keys.length === 0 || !options.allowBuild) {
     saveStore(runner, paths, clearPending(loadStore(runner, paths), options.profile))

@@ -146,9 +146,18 @@ export async function enableBlock(
   const body = lines.slice(existing.start + 1, existing.end)
   const cleaned = body.filter((line) => !/^\s*disabled:\s*true\s*$/.test(line))
   const nameIndex = cleaned.findIndex((line) => /^\s+name:/.test(line))
-  // Replace any pre-existing config block with the provided one.
-  const withoutConfig = cleaned.filter((line) => !/^\s{4}config:/.test(line))
-  const target = configLines && nameIndex >= 0 ? withoutConfig : cleaned
+  // Replace the WHOLE config block: the 'config:' line plus every deeper-
+  // indented line after it. Dropping only the header line left the old
+  // children in place and produced duplicated mapping keys on the next
+  // injection.
+  const stripConfigBlock = (input: string[]): string[] => {
+    const startIndex = input.findIndex((line) => /^\s{4}config:\s*$/.test(line))
+    if (startIndex === -1) return input
+    let endIndex = startIndex + 1
+    while (endIndex < input.length && !/^\s{0,4}\S/.test(input[endIndex] ?? '')) endIndex++
+    return [...input.slice(0, startIndex), ...input.slice(endIndex)]
+  }
+  const target = configLines && nameIndex >= 0 ? stripConfigBlock(cleaned) : cleaned
   const finalNameIndex = target.findIndex((line) => /^\s+name:/.test(line))
   const withConfig =
     configLines && finalNameIndex >= 0
