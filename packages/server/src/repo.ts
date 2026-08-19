@@ -259,3 +259,51 @@ export class RegistryRepo {
     return map
   }
 }
+
+export interface GroupRow {
+  name: string
+  description: string
+  plugins: string[]
+  profile: string
+  createdAt: string
+}
+
+export async function listGroups(driver: SqlDriver): Promise<GroupRow[]> {
+  const rows = await driver.all<{
+    name: string
+    description: string | null
+    plugins_json: string
+    profile: string | null
+    created_at: string
+  }>('SELECT * FROM plugin_groups ORDER BY name')
+  return rows.map((row) => ({
+    name: row.name,
+    description: row.description ?? '',
+    plugins: JSON.parse(row.plugins_json) as string[],
+    profile: row.profile ?? 'web',
+    createdAt: row.created_at,
+  }))
+}
+
+export async function upsertGroupRow(driver: SqlDriver, group: GroupRow): Promise<void> {
+  const existing = await driver.get<{ n: number }>(
+    'SELECT COUNT(*) AS n FROM plugin_groups WHERE name = ?',
+    [group.name],
+  )
+  if ((existing?.n ?? 0) > 0) {
+    await driver.run(
+      'UPDATE plugin_groups SET description = ?, plugins_json = ?, profile = ?, created_at = ? WHERE name = ?',
+      [group.description, JSON.stringify(group.plugins), group.profile, group.createdAt, group.name],
+    )
+    return
+  }
+  await driver.run(
+    'INSERT INTO plugin_groups(name, description, plugins_json, profile, created_at) VALUES(?, ?, ?, ?, ?)',
+    [group.name, group.description, JSON.stringify(group.plugins), group.profile, group.createdAt],
+  )
+}
+
+export async function deleteGroupRow(driver: SqlDriver, name: string): Promise<boolean> {
+  const result = await driver.run('DELETE FROM plugin_groups WHERE name = ?', [name])
+  return result.changes > 0
+}

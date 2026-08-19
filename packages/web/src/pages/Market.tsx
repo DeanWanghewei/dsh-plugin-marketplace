@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Col, Input, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
+import { Button, Card, Col, Input, message, Pagination, Row, Select, Space, Tag, Typography } from 'antd'
 import { SafetyCertificateOutlined, DownloadOutlined, SearchOutlined } from '@ant-design/icons'
-import { api, type CategoryView, type PluginView } from '../api.js'
+import { api, type CategoryView, type PluginView, type ServerGroup } from '../api.js'
 
 const { Title, Paragraph, Text } = Typography
 
@@ -14,6 +14,7 @@ export default function Market() {
   const [q, setQ] = useState('')
   const [category, setCategory] = useState<string | undefined>()
   const [categories, setCategories] = useState<CategoryView[]>([])
+  const [groups, setGroups] = useState<ServerGroup[]>([])
 
   const load = useCallback(async () => {
     const result = await api.listPlugins({
@@ -31,6 +32,7 @@ export default function Market() {
   }, [load])
   useEffect(() => {
     void api.categories().then(setCategories)
+    void api.groups().then((g) => setGroups(g.items)).catch(() => undefined)
   }, [])
 
   return (
@@ -72,6 +74,45 @@ export default function Market() {
             }))}
           />
         </Space>
+
+        {groups.length > 0 && (
+          <Card size="small" title="插件分组 · 一键整套安装">
+            <Row gutter={[8, 8]}>
+              {groups.map((group) => (
+                <Col xs={24} sm={12} md={8} key={group.name}>
+                  <Card
+                    size="small"
+                    title={group.name}
+                    extra={<Text type="secondary">{group.plugins.length} 个</Text>}
+                  >
+                    <Paragraph type="secondary" ellipsis={{ rows: 2 }} style={{ minHeight: 36 }}>
+                      {group.description || '（无描述）'}
+                    </Paragraph>
+                    <Space wrap size={[4, 4]}>
+                      {group.plugins.slice(0, 4).map((id) => (
+                        <Tag key={id}>{id}</Tag>
+                      ))}
+                      {group.plugins.length > 4 && <Tag>+{group.plugins.length - 4}</Tag>}
+                    </Space>
+                    <Button
+                      size="small"
+                      type="primary"
+                      style={{ marginTop: 8 }}
+                      onClick={() => {
+                        void navigator.clipboard.writeText(
+                          `# 逐个安装：\n${group.plugins.map((id) => `dshm install ${id}`).join('\n')}`,
+                        )
+                        void message.success('安装命令已复制（逐行执行）')
+                      }}
+                    >
+                      复制安装命令
+                    </Button>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </Card>
+        )}
 
         <Row gutter={[16, 16]}>
           {items.map((plugin) => (

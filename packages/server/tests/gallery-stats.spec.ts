@@ -26,7 +26,7 @@ async function makeSuite(location: string) {
   const repo = new RegistryRepo(driver)
   const tokens = new TokenStore(driver)
   const audit = new AuditLog(driver)
-  const app = createApp({ repo, tokens, audit, registryName: 'test' })
+  const app = createApp({ repo, driver, tokens, audit, registryName: 'test' })
   const adminToken = await tokens.create('gallery-admin', true)
   const auth = { authorization: `Bearer ${adminToken}` }
   return { driver, app, auth }

@@ -3,10 +3,12 @@ import { serveStatic } from '@hono/node-server/serve-static'
 import { parse as parseYaml, stringify as stringifyYaml } from 'yaml'
 import { categoryDefSchema, parseRegistry, pluginEntrySchema, type PluginEntry } from '@dshm/core'
 import type { RegistryRepo } from './repo.js'
+import { deleteGroupRow, listGroups, upsertGroupRow } from './repo.js'
 import type { AuditLog, TokenIdentity, TokenStore } from './tokens.js'
 
 export interface AppServices {
   repo: RegistryRepo
+  driver: import('./driver-types.js').SqlDriver
   tokens: TokenStore
   audit: AuditLog
   /** Name written into the exported registry document. */
@@ -78,6 +80,11 @@ export function createApp(services: AppServices): Hono<{ Variables: { actor: str
     )
     if (!recorded) return context.json({ error: 'not found' }, 404)
     return context.json({ ok: true, ...recorded })
+  })
+
+  // Plugin groups: public read (the market page shows shareable kits).
+  app.get('/api/v1/groups', async (context) => {
+    return context.json({ items: await listGroups(services.driver) })
   })
 
   app.get('/api/v1/stats/downloads', async (context) => {
@@ -180,6 +187,34 @@ export function createApp(services: AppServices): Hono<{ Variables: { actor: str
     const revoked = await services.tokens.revoke(name)
     await services.audit.record(context.get('actor'), 'token.revoke', name)
     return context.json({ ok: revoked })
+  })
+
+  admin.put('/groups/:name', async (context) => {
+    const body = (await context.req.json().catch(() => ({}))) as {
+      description?: string
+      plugins?: string[]
+      profile?: string
+    }
+    if (!Array.isArray(body.plugins)) {
+      return context.json({ error: 'plugins array required' }, 400)
+    }
+    const group = {
+      name: context.req.param('name'),
+      description: body.description ?? '',
+      plugins: body.plugins,
+      profile: body.profile ?? 'web',
+      createdAt: new Date().toISOString(),
+    }
+    await upsertGroupRow(services.driver, group)
+    await services.audit.record(context.get('actor'), 'group.upsert', group.name)
+    return context.json({ ok: true, group })
+  })
+
+  admin.delete('/groups/:name', async (context) => {
+    const name = context.req.param('name')
+    const removed = await deleteGroupRow(services.driver, name)
+    await services.audit.record(context.get('actor'), 'group.delete', name)
+    return context.json({ ok: removed })
   })
 
   admin.get('/audit', async (context) => {

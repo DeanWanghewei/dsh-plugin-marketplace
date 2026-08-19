@@ -57,6 +57,13 @@ const DDL = [
     version VARCHAR(64),
     INDEX idx_de_plugin (plugin_id, at)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
+  `CREATE TABLE IF NOT EXISTS plugin_groups (
+    name VARCHAR(255) PRIMARY KEY,
+    description TEXT,
+    plugins_json TEXT NOT NULL,
+    profile VARCHAR(255),
+    created_at VARCHAR(40) NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4`,
   `CREATE TABLE IF NOT EXISTS meta (
     \`key\` VARCHAR(255) PRIMARY KEY,
     value TEXT NOT NULL

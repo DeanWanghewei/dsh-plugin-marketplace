@@ -67,6 +67,12 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   return (await response.json()) as T
 }
 
+export interface ServerGroup {
+  name: string
+  description: string
+  plugins: string[]
+}
+
 export interface ListResult {
   total: number
   items: PluginView[]
@@ -88,6 +94,7 @@ export const api = {
   },
   getPlugin: (id: string) => request<PluginView>(`/api/v1/plugins/${id}`),
   categories: () => request<CategoryView[]>('/api/v1/categories'),
+  groups: () => request<{ items: ServerGroup[] }>('/api/v1/groups'),
   stats: () => request<DownloadStats>('/api/v1/stats/downloads'),
   reportInstall: (id: string, version?: string) =>
     request<{ ok: boolean }>(`/api/v1/plugins/${id}/report-install`, {

@@ -64,6 +64,13 @@ const DDL = [
     version TEXT
   )`,
   'CREATE INDEX IF NOT EXISTS idx_de_plugin ON download_events(plugin_id, at)',
+  `CREATE TABLE IF NOT EXISTS plugin_groups (
+    name VARCHAR(255) PRIMARY KEY,
+    description TEXT,
+    plugins_json TEXT NOT NULL,
+    profile VARCHAR(255),
+    created_at VARCHAR(40) NOT NULL
+  )`,
   `CREATE TABLE IF NOT EXISTS meta (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL

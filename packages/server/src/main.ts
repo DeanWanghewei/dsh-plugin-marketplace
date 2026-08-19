@@ -33,7 +33,7 @@ program
     if (bootstrap && (await tokens.bootstrapAdminToken(bootstrap))) {
       console.log('seeded admin token from DSHM_ADMIN_TOKEN')
     }
-    const app = createApp({ repo, tokens, audit, registryName: options.name })
+    const app = createApp({ repo, driver, tokens, audit, registryName: options.name })
     const port = Number(options.port)
     serve({ fetch: app.fetch, port }, (info) => {
       console.log(
