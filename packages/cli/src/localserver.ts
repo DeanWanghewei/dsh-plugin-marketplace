@@ -27,7 +27,6 @@ import {
   loadGroups,
   removeGroup,
   upsertGroup,
-  type PluginGroup,
   type InstallerDeps,
   type RegistryRef,
   type ResolvedPlugin,

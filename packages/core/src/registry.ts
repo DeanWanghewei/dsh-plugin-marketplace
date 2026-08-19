@@ -163,10 +163,23 @@ async function loadGitRegistry(
   const now = options.nowMs?.() ?? Date.now()
   const sync = async (): Promise<void> => {
     if (runner.exists(dir)) {
-      const fetchOk =
-        (await runner.run('git', ['fetch', 'origin'], { cwd: dir })).ok &&
-        (ref.ref ? (await runner.run('git', ['checkout', ref.ref], { cwd: dir })).ok : true)
-      if (!fetchOk) {
+      // fetch only updates origin/* refs: when the tracked ref is a branch
+      // that is already checked out, checkout is a no-op and the local ref
+      // stays at its old commit forever. Fast-forward the branch after
+      // fetch; pinned commits/tags keep resolving by checkout.
+      const fetched = (await runner.run('git', ['fetch', 'origin'], { cwd: dir })).ok
+      let ok = fetched
+      if (fetched && ref.ref) {
+        const target = `origin/${ref.ref}`
+        const probe = await runner.run('git', ['rev-parse', '--verify', target], { cwd: dir })
+        if (probe.ok) {
+          ok = (await runner.run('git', ['merge', '--ff-only', target], { cwd: dir })).ok
+        } else {
+          // Pinned commit or tag — resolve by checkout as before.
+          ok = (await runner.run('git', ['checkout', ref.ref], { cwd: dir })).ok
+        }
+      }
+      if (!ok) {
         if (runner.isFile(document)) return // stale local copy is still usable
         throw new Error(`git sync failed for ${ref.url}`)
       }
